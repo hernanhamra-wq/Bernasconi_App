@@ -6,7 +6,6 @@ from django import forms
 
 User = get_user_model()
 
-
 class CustomUserCreationForm(UserCreationForm):
     """Extiende el formulario de creación para incluir los campos extra del modelo."""
 
@@ -14,7 +13,6 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
         # Incluimos los campos extra aquí para que aparezcan en el formulario de creación
         fields = ('username', 'email', 'telefono', 'fecha_nacimiento', 'role')
-
 
 @admin.register(User)
 class UsuarioAdmin(UserAdmin):

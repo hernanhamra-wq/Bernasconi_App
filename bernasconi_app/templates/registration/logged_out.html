@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sesión Cerrada - Bernasconi App{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/styles_login.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="login-container">
+
+    <!-- LOGO SUPERIOR -->
+    <div class="login-header">
+        <img src="{% static 'img/logo_header.png' %}" alt="Logo Bernasconi" class="logo">
+    </div>
+
+    <!-- TARJETA CENTRAL -->
+    <div class="login-card">
+        <h1 class="title">Sesión Cerrada</h1>
+        <p class="subtitle">Has cerrado sesión exitosamente.</p>
+
+        <form method="get" action="{% url 'auth_login' %}">
+            <button type="submit" class="btn btn-full">Volver a Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <!-- LOGO INFERIOR -->
+    <div class="login-footer">
+        <img src="{% static 'img/login_footer.png' %}" alt="Pie Bernasconi" class="logo">
+    </div>
+
+</div>
+
+{% endblock %}

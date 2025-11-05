@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-DJNANGO_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +43,7 @@ LOCAL_APPS = ['apps.usuarios']
 
 THIRD_PARTY_APPS = ['django_extensions']
 
-INSTALLED_APPS = DJNANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 # Indicar a Django que use nuestro modelo de usuario
 AUTH_USER_MODEL = 'usuarios.Usuario'
@@ -63,7 +63,7 @@ ROOT_URLCONF = 'bernasconi_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+            'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,9 +132,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# Use a leading slash for STATIC_URL (recommended)
+STATIC_URL = '/static/'
+# Tell Django to also look for static files in the project-level "static/" folder
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Authentication URLs and redirects
+LOGIN_REDIRECT_URL = '/home/'        # After login, go to home
+LOGIN_URL = '/auth/login/'         # Login page URL
+

@@ -1,0 +1,128 @@
+:root {
+    --primary: #0066FF;
+    --primary-hover: #004ECC;
+    --bg: #F4F6F9;
+    --surface: #FFFFFF;
+    --text: #1C1C1E;
+    --text-muted: #6C6C6D;
+    --border: #E1E3E6;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+}
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--surface);
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    margin: auto;
+    min-height: 85vh;
+}
+
+.login-header,
+.login-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: .5rem;
+}
+
+.logo {
+    max-width: 200px;
+    height: auto;
+}
+
+/* TARJETA CENTRAL */
+.login-card {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+    padding: 0 1rem;
+}
+
+.title {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: .95rem;
+    color: var(--text-muted);
+}
+
+.error-msg {
+    background: #FFE5E5;
+    color: #B90000;
+    padding: .6rem;
+    border-radius: 8px;
+    margin-bottom: .7rem;
+}
+
+/* FORMULARIO */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.form-group label {
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.form-group input {
+    padding: .7rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: .95rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* BOTÓN */
+.btn {
+    background: var(--primary);
+    border: none;
+    color: white;
+    padding: .9rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+    width: 100%;
+}
+
+.btn:hover {
+    background: var(--primary-hover);
+}

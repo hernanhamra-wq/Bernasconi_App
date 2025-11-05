@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Bernasconi Museum{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/styles.main.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-container">
+
+    <header class="main-header">
+
+        <div class="header-left">
+            <img src="{% static 'img/logo_cuadros.png' %}" class="logo-header" alt="Logo Museo Bernasconi">
+            <img src="{% static 'img/login_footer.png' %}" class="logo-text" alt="Texto Museo Bernasconi">
+        </div>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Catálogo</a></li>
+                <li><a href="#">Actividades</a></li>
+                <li><a href="{% url 'auth_logout' %}">Salir</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <div class="hero">
+        <img src="{% static 'img/frente_museo.png' %}" alt="Frente Museo">
+    </div>
+
+    <footer class="main-footer">
+        &copy; 2025 Bernasconi Museum. Todos los derechos reservados.
+    </footer>
+</div>
+{% endblock %}
