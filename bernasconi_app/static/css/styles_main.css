@@ -1,87 +1,114 @@
+/* =========================
+   PALETA DE COLORES
+   ========================= */
 :root {
-    --bg-light: #fafafa;
-    --bg-dark: #1c1c1c;
-    --text-main: #333;
-    --text-light: #ffffff;
+   --bg-light: #f5f5f5;            /* Fondo general suave */
+    --text-dark: #1a1a1a;          /* Texto principal legible */
+    --primary: #4a6fa5;            /* Azul institucional */
+    --primary-hover: #274c77;      /* Azul más profundo para hover */
+    --header-bg: rgba(255, 255, 255, 0.72);  /* Vidrio claro */
+    --footer-bg: rgba(255, 255, 255, 0.45);  /* Vidrio más suave */
+}
 
-    --primary: #1e88e5;
-    --primary-hover: #1565c0;
+/* =========================
+   BASE
+   ========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
     height: 100%;
-    margin: 0;
-    padding: 0;
 }
 
 body {
-    font-family: "Inter", sans-serif;
-    background: var(--bg-light);
-    color: var(--text-main);
-
     display: flex;
     flex-direction: column;
+    background: transparent; /* ✅ cuerpo transparente */
+    color: var(--text-light);
 }
 
+/* Wrapper principal */
 .main-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* ✅ fuerza cubrir pantalla */
+    min-height: 100vh;
 }
 
-/* ---------------- HEADER ---------------- */
-
+/* =========================
+   HEADER
+   ========================= */
 .main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
+    padding: 1.2rem 2rem; /* es el espacio interno del header entre borde y contenido */
+    background: var(--header-bg);
+    backdrop-filter: blur(6px); /* Efecto vidrio en el header */
 }
 
 .header-left {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1rem; /* Espacio entre logo y texto */
 }
 
-.logo-header, .logo-text {
-    max-height: 60px;
+.logo-header,
+.logo-text {
+    max-height: 5vh;
 }
 
-/* ---------------- NAV ---------------- */
-
+/* =========================
+   NAV
+   ========================= */
 .main-nav ul {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.5rem; /* Espacio entre los elementos del menú */
     list-style: none;
-    margin: 0;
 }
 
 .main-nav a {
+    color: var(text-dark);
     text-decoration: none;
-    color: var(--text-main);
-    font-weight: 600;
-    transition: 0.2s;
+    font-weight: 500;
+    transition: color .2s;
+    font-size: 0.875rem; /* Cambiado a relativo */
 }
 
 .main-nav a:hover {
     color: var(--primary);
 }
 
-/* ---------------- HERO ---------------- */
-
-.hero img {
-    width: 100%;
-    display: block;
-    object-fit: cover;
+/* =========================
+   HERO (Fondo)
+   ========================= */
+.hero {
+    flex: 1;
+    background-image: url("/static/img/frente_museo.png"); /* ✅ RUTA CORRECTA */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
 }
 
-/* ---------------- FOOTER ---------------- */
+/* =========================
+   FOOTER
+   ========================= */
 
-.main-footer {
-    background: var(--bg-dark);
-    color: var(--text-light);
+.footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
     text-align: center;
-    padding: 1rem 0;
-    margin-top: auto; /* ✅ Hace que el footer quede abajo */
+    padding: 0.5rem 0;
+    color: white;
+    font-size: 0.75rem; /* Cambiado a relativo */
+    background: rgba(0,0,0,0.35); /* sombra transparente */
+    border-radius: 8px;
+    max-width: 30%; /* Cambiado a porcentaje */
+    margin: auto;
+    left: 50%;
+    transform: translateX(-50%);
 }

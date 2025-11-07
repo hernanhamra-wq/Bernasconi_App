@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base_main.html' %}
 {% load static %}
 
 {% block title %}Home - Bernasconi Museum{% endblock %}
 
 {% block extra_styles %}
-<link rel="stylesheet" href="{% static 'css/styles.main.css' %}">
+<link rel="stylesheet" href="{% static 'css/styles_main.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,21 +19,25 @@
 
         <nav class="main-nav">
             <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Catálogo</a></li>
-                <li><a href="#">Actividades</a></li>
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                <li><a href="#">Catálogos</a></li>
+                <li><a href="#">Administración</a></li>
+                <li><a href="#">Settings</a></li>
                 <li><a href="{% url 'auth_logout' %}">Salir</a></li>
             </ul>
         </nav>
 
     </header>
 
+    <!-- Hero con imagen de fondo -->
     <div class="hero">
-        <img src="{% static 'img/frente_museo.png' %}" alt="Frente Museo">
+
     </div>
 
-    <footer class="main-footer">
+    <!-- Footer pegado abajo -->
+    <footer class="footer">
         &copy; 2025 Bernasconi Museum. Todos los derechos reservados.
     </footer>
+
 </div>
 {% endblock %}
