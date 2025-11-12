@@ -10,11 +10,19 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-import os
-from pathlib import Path
+# settings.py
+
+import os # <--- Ya debe estar
+from pathlib import Path # <--- Ya debe estar
+import sys # <--- ¡ESTA ES LA LÍNEA QUE FALTA!
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Tu código de solución de ruta:
+# -----------------------------------------------------------
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+# -----------------------------------------------------------
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,7 +47,7 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-LOCAL_APPS = ['apps.usuarios']
+LOCAL_APPS = ['apps.usuarios', 'apps.catalogo_autores']
 
 THIRD_PARTY_APPS = ['django_extensions']
 
