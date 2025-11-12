@@ -47,7 +47,11 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-LOCAL_APPS = ['apps.usuarios', 'apps.catalogo_autores']
+LOCAL_APPS = [
+    'apps.usuarios',
+    'apps.catalogos',  # incluye Autor, Colaboracion, MaterialTipo, Obra, Organizacion, Prestamo, Multimedia, Ubicacion
+]
+
 
 THIRD_PARTY_APPS = ['django_extensions']
 
