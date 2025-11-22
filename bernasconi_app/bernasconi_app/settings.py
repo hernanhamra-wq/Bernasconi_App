@@ -49,7 +49,12 @@ DJANGO_APPS = [
 ]
 LOCAL_APPS = [
     'apps.usuarios',
-    'apps.catalogos',  # incluye Autor, Colaboracion, MaterialTipo, Obra, Organizacion, Prestamo, Multimedia, Ubicacion
+    'apps.ficha_tecnica',
+    'apps.autor',
+    'apps.material',
+    'apps.serie',
+    'apps.catalogo_multimedia',
+    'apps.estado_obra',
 ]
 
 
