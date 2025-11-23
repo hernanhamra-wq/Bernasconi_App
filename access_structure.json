@@ -1,0 +1,414 @@
+{
+  "ficha técnica": {
+    "columns": [
+      {
+        "name": "inventario",
+        "type": "Long"
+      },
+      {
+        "name": "n de ficha",
+        "type": "Long"
+      },
+      {
+        "name": "titulo",
+        "type": "Text"
+      },
+      {
+        "name": "SERIES",
+        "type": ""
+      },
+      {
+        "name": "clasificaci",
+        "type": "Text"
+      },
+      {
+        "name": "descripción",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "dimenciones",
+        "type": "Text"
+      },
+      {
+        "name": "materiales",
+        "type": "Text"
+      },
+      {
+        "name": "autor",
+        "type": "Text"
+      },
+      {
+        "name": "ubicación",
+        "type": "Text"
+      },
+      {
+        "name": "observación",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "año",
+        "type": "Text"
+      },
+      {
+        "name": "responsable de carga",
+        "type": "Text"
+      },
+      {
+        "name": "fotografia",
+        "type": ""
+      },
+      {
+        "name": "Fecha de carga",
+        "type": "DateTime"
+      },
+      {
+        "name": "Ancho",
+        "type": "Text"
+      },
+      {
+        "name": "Alto",
+        "type": "Text"
+      },
+      {
+        "name": "Profundo",
+        "type": "Text"
+      },
+      {
+        "name": "diámetro",
+        "type": "Text"
+      },
+      {
+        "name": "Estado de conservación",
+        "type": "Text"
+      },
+      {
+        "name": "n de inventario anterior",
+        "type": "Text"
+      },
+      {
+        "name": "seguimiento",
+        "type": "Boolean"
+      },
+      {
+        "name": "link-fotografias",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "sector",
+        "type": "Text"
+      },
+      {
+        "name": "sala",
+        "type": "Text"
+      },
+      {
+        "name": "caja",
+        "type": "Long"
+      },
+      {
+        "name": "sobre",
+        "type": "Long"
+      }
+    ],
+    "sql": "CREATE TABLE [ficha técnica]\n (\n\t[inventario]\t\t\tLong Integer NOT NULL, \n\t[n de ficha]\t\t\tLong Integer, \n\t[titulo]\t\t\tText (255) NOT NULL, \n\t[SERIES]\t\t\tUnknown_0012, \n\t[clasificaci]\t\t\tText (255), \n\t[descripción]\t\t\tMemo/Hyperlink (255), \n\t[dimenciones]\t\t\tText (255), \n\t[materiales]\t\t\tText (255), \n\t[autor]\t\t\tText (255), \n\t[ubicación]\t\t\tText (255), \n\t[observación]\t\t\tMemo/Hyperlink (255), \n\t[año]\t\t\tText (255), \n\t[responsable de carga]\t\t\tText (255), \n\t[fotografia]\t\t\tUnknown_0012, \n\t[Fecha de carga]\t\t\tDateTime, \n\t[Ancho]\t\t\tText (255), \n\t[Alto]\t\t\tText (255), \n\t[Profundo]\t\t\tText (255), \n\t[diámetro]\t\t\tText (255), \n\t[Estado de conservación]\t\t\tText (255), \n\t[n de inventario anterior]\t\t\tText (255), \n\t[seguimiento]\t\t\tBoolean NOT NULL, \n\t[link-fotografias]\t\t\tMemo/Hyperlink (255), \n\t[sector]\t\t\tText (255), \n\t[sala]\t\t\tText (255), \n\t[caja]\t\t\tLong Integer, \n\t[sobre]\t\t\tLong Integer\n);"
+  },
+  "informe de intervención": {
+    "columns": [
+      {
+        "name": "N de inventario",
+        "type": "Long"
+      },
+      {
+        "name": "N de intevención",
+        "type": "Long"
+      },
+      {
+        "name": "larvas",
+        "type": "Long"
+      },
+      {
+        "name": "esqueletos",
+        "type": "Long"
+      },
+      {
+        "name": "inciciones",
+        "type": "Long"
+      },
+      {
+        "name": "tapones",
+        "type": "Long"
+      },
+      {
+        "name": "link-fotografías",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "fecha finalizacion",
+        "type": "DateTime"
+      },
+      {
+        "name": "diagnosticos realizados",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "problematica",
+        "type": "Text"
+      },
+      {
+        "name": "procedimientos",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "fecha de inicio",
+        "type": "DateTime"
+      },
+      {
+        "name": "recomendaciones de conservacion",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "observaciones",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "materiales utilizados",
+        "type": "Text"
+      },
+      {
+        "name": "Responsable",
+        "type": "Text"
+      },
+      {
+        "name": "Personal afectado",
+        "type": "Text"
+      },
+      {
+        "name": "nombre",
+        "type": "Text"
+      }
+    ],
+    "sql": "CREATE TABLE [informe de intervención]\n (\n\t[N de inventario]\t\t\tLong Integer NOT NULL, \n\t[N de intevención]\t\t\tLong Integer, \n\t[larvas]\t\t\tLong Integer NOT NULL, \n\t[esqueletos]\t\t\tLong Integer NOT NULL, \n\t[inciciones]\t\t\tLong Integer NOT NULL, \n\t[tapones]\t\t\tLong Integer NOT NULL, \n\t[link-fotografías]\t\t\tMemo/Hyperlink (255), \n\t[fecha finalizacion]\t\t\tDateTime, \n\t[diagnosticos realizados]\t\t\tMemo/Hyperlink (255), \n\t[problematica]\t\t\tText (255), \n\t[procedimientos]\t\t\tMemo/Hyperlink (255), \n\t[fecha de inicio]\t\t\tDateTime, \n\t[recomendaciones de conservacion]\t\t\tMemo/Hyperlink (255), \n\t[observaciones]\t\t\tMemo/Hyperlink (255), \n\t[materiales utilizados]\t\t\tText (255), \n\t[Responsable]\t\t\tText (255), \n\t[Personal afectado]\t\t\tText (255), \n\t[nombre]\t\t\tText (255)\n);"
+  },
+  "investigacion": {
+    "columns": [
+      {
+        "name": "N de inventario",
+        "type": "Long"
+      },
+      {
+        "name": "Investigacion",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "num de investigación",
+        "type": "Long"
+      }
+    ],
+    "sql": "CREATE TABLE [investigacion]\n (\n\t[N de inventario]\t\t\tLong Integer NOT NULL, \n\t[Investigacion]\t\t\tMemo/Hyperlink (255), \n\t[num de investigación]\t\t\tLong Integer\n);"
+  },
+  "prestamos": {
+    "columns": [
+      {
+        "name": "N de prestamo",
+        "type": "Long"
+      },
+      {
+        "name": "N de inventario",
+        "type": "Long"
+      },
+      {
+        "name": "Institución prestadora",
+        "type": "Text"
+      },
+      {
+        "name": "Direccion",
+        "type": "Text"
+      },
+      {
+        "name": "Contacto",
+        "type": "Text"
+      },
+      {
+        "name": "Institución prestataria",
+        "type": "Text"
+      },
+      {
+        "name": "Direccion1",
+        "type": "Text"
+      },
+      {
+        "name": "Contacto1",
+        "type": "Text"
+      },
+      {
+        "name": "seguro solicitado",
+        "type": "Text"
+      },
+      {
+        "name": "archivos seguro",
+        "type": "Unknown_0012"
+      },
+      {
+        "name": "Duración del préstamo",
+        "type": "Text"
+      },
+      {
+        "name": "Fecha",
+        "type": "Text"
+      },
+      {
+        "name": "Fecha1",
+        "type": ""
+      },
+      {
+        "name": "Fecha2",
+        "type": "Text"
+      },
+      {
+        "name": "Fecha3",
+        "type": ""
+      },
+      {
+        "name": "Costo del traslado por",
+        "type": "Text"
+      },
+      {
+        "name": "Requisitos especiales",
+        "type": "Text"
+      },
+      {
+        "name": "Observaciones",
+        "type": "Text"
+      },
+      {
+        "name": "seguro",
+        "type": ""
+      },
+      {
+        "name": "responsable",
+        "type": "Text"
+      }
+    ],
+    "sql": "CREATE TABLE [prestamos]\n (\n\t[N de prestamo]\t\t\tLong Integer, \n\t[N de inventario]\t\t\tLong Integer NOT NULL, \n\t[Institución prestadora]\t\t\tText (255), \n\t[Direccion]\t\t\tText (255), \n\t[Contacto]\t\t\tText (255), \n\t[Institución prestataria]\t\t\tText (255), \n\t[Direccion1]\t\t\tText (255), \n\t[Contacto1]\t\t\tText (255), \n\t[seguro solicitado]\t\t\tText (255), \n\t[archivos seguro]\t\t\tUnknown_0012, \n\t[Duración del préstamo]\t\t\tText (255), \n\t[Fecha]\t\t\tText (255), \n\t[Fecha1]\t\t\tDateTime, \n\t[Fecha2]\t\t\tText (255), \n\t[Fecha3]\t\t\tDateTime, \n\t[Costo del traslado por]\t\t\tText (255), \n\t[Requisitos especiales]\t\t\tText (255), \n\t[Observaciones]\t\t\tText (255), \n\t[seguro]\t\t\tUnknown_0012, \n\t[responsable]\t\t\tText (255)\n);"
+  },
+  "readme": {
+    "columns": [
+      {
+        "name": "Id",
+        "type": "Long"
+      },
+      {
+        "name": "Campo1",
+        "type": "Text"
+      },
+      {
+        "name": "Campo2",
+        "type": "Text"
+      }
+    ],
+    "sql": "CREATE TABLE [readme]\n (\n\t[Id]\t\t\tLong Integer, \n\t[Campo1]\t\t\tText (255), \n\t[Campo2]\t\t\tText (255)\n);"
+  },
+  "resumen- xilofagos": {
+    "columns": [
+      {
+        "name": "N de inventario",
+        "type": "Long"
+      },
+      {
+        "name": "N de intevención",
+        "type": "Long"
+      },
+      {
+        "name": "larvas",
+        "type": "Long"
+      },
+      {
+        "name": "esqueletos",
+        "type": "Long"
+      },
+      {
+        "name": "inciciones",
+        "type": "Long"
+      },
+      {
+        "name": "tapones",
+        "type": "Long"
+      },
+      {
+        "name": "link-fotografías",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "fecha finalizacion",
+        "type": "DateTime"
+      }
+    ],
+    "sql": "CREATE TABLE [resumen- xilofagos]\n (\n\t[N de inventario]\t\t\tLong Integer, \n\t[N de intevención]\t\t\tLong Integer, \n\t[larvas]\t\t\tLong Integer, \n\t[esqueletos]\t\t\tLong Integer, \n\t[inciciones]\t\t\tLong Integer, \n\t[tapones]\t\t\tLong Integer, \n\t[link-fotografías]\t\t\tMemo/Hyperlink (255), \n\t[fecha finalizacion]\t\t\tDateTime\n);"
+  },
+  "usuarios": {
+    "columns": [
+      {
+        "name": "Id",
+        "type": "Long"
+      },
+      {
+        "name": "nombre de usuario",
+        "type": "Text"
+      },
+      {
+        "name": "mail",
+        "type": "Text"
+      },
+      {
+        "name": "fecha",
+        "type": ""
+      },
+      {
+        "name": "contraseña",
+        "type": "Long"
+      }
+    ],
+    "sql": "CREATE TABLE [usuarios]\n (\n\t[Id]\t\t\tLong Integer, \n\t[nombre de usuario]\t\t\tText (255) NOT NULL, \n\t[mail]\t\t\tText (255), \n\t[fecha]\t\t\tDateTime, \n\t[contraseña]\t\t\tLong Integer\n);"
+  },
+  "USysApplicationLog": {
+    "columns": [
+      {
+        "name": "ID",
+        "type": "Long"
+      },
+      {
+        "name": "SourceObject",
+        "type": "Text"
+      },
+      {
+        "name": "Data Macro Instance ID",
+        "type": "Text"
+      },
+      {
+        "name": "Error Number",
+        "type": "Long"
+      },
+      {
+        "name": "Category",
+        "type": "Text"
+      },
+      {
+        "name": "Object Type",
+        "type": "Text"
+      },
+      {
+        "name": "Description",
+        "type": "Memo/Hyperlink"
+      },
+      {
+        "name": "Context",
+        "type": "Text"
+      },
+      {
+        "name": "Created",
+        "type": ""
+      }
+    ],
+    "sql": "CREATE TABLE [USysApplicationLog]\n (\n\t[ID]\t\t\tLong Integer, \n\t[SourceObject]\t\t\tText (255), \n\t[Data Macro Instance ID]\t\t\tText (255), \n\t[Error Number]\t\t\tLong Integer, \n\t[Category]\t\t\tText (255), \n\t[Object Type]\t\t\tText (255), \n\t[Description]\t\t\tMemo/Hyperlink (255), \n\t[Context]\t\t\tText (255), \n\t[Created]\t\t\tDateTime\n);"
+  }
+}

@@ -55,6 +55,19 @@ LOCAL_APPS = [
     'apps.serie',
     'apps.catalogo_multimedia',
     'apps.estado_obra',
+    'apps.intervencion',
+    'apps.investigacion',
+
+    'apps_pres.institucion',
+    'apps_pres.prestamo',
+    'apps_pres.donacion',
+
+    'apps_plagas.tipo_plaga',
+    'apps_plagas.manejo_plagas',
+    'apps_plagas.registro_plaga',
+    'apps_plagas.seguimiento_xilofago',
+
+
 ]
 
 
