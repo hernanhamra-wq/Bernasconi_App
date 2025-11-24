@@ -67,7 +67,11 @@ LOCAL_APPS = [
     'apps_plagas.registro_plaga',
     'apps_plagas.seguimiento_xilofago',
 
-
+    'apps_ubicacion.ubicacion_lugar',
+    'apps_ubicacion.contenedor_ubicacion',
+    'apps_ubicacion.reg_ubicacion_actual',
+    'apps_ubicacion.reg_historial_mov',
+    
 ]
 
 
