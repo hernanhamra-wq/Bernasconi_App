@@ -44,5 +44,8 @@ urlpatterns = [
         path('home/', TemplateView.as_view(
             template_name='home.html'
         ), name='home'),
+    
     ])),
+    # Fichas URLs
+    path('ficha_tecnica/', include('apps.ficha_tecnica.urls')),
 ]
