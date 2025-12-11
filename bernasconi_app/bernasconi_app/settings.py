@@ -115,6 +115,9 @@ WSGI_APPLICATION = 'bernasconi_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+## HERNAN 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -129,7 +132,24 @@ DATABASES = {
         }
     }
 }
+"""
 
+# NURIA
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bernasconi_db_app',     # <-- Nombre de tu base de datos MySQL
+        'USER': 'root',  # <-- Tu nombre de usuario de MySQL
+        'PASSWORD': 'nur7', # <-- Tu contraseña
+        'HOST': '127.0.0.1',         # <-- Generalmente 'localhost' (o 127.0.0.1)
+        'PORT': '3306',              # <-- Puerto predeterminado de MySQL
+        # Otras configuraciones (opcional)
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
+    }
+}
 
 
 # Password validation
