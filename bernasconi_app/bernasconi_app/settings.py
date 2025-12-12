@@ -47,9 +47,9 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
 LOCAL_APPS = [
     'apps.usuarios',
-    'apps.ficha_tecnica',
     'apps.autor',
     'apps.material',
     'apps.serie',
@@ -57,10 +57,11 @@ LOCAL_APPS = [
     'apps.estado_obra',
     'apps.intervencion',
     'apps.investigacion',
-
+    'apps.ficha_tecnica',
     'apps_pres.institucion',
     'apps_pres.prestamo',
     'apps_pres.donacion',
+    'apps_ficha_tecnica',
 
     'apps_plagas.tipo_plaga',
     'apps_plagas.manejo_plagas',

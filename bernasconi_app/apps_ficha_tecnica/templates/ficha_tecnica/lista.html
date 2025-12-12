@@ -1,0 +1,11 @@
+<h1>Fichas Técnicas</h1>
+
+<a href="{% url 'ficha_tecnica' %}">Crear nueva ficha</a>
+
+<ul>
+    {% for f in fichas %}
+        <li>
+            <a href="{% url 'ver_ficha' f.id %}">{{ f.titulo }}</a>
+        </li>
+    {% endfor %}
+</ul>

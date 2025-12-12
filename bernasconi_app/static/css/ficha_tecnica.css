@@ -1,0 +1,186 @@
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* FONDO */
+.background {
+    position: fixed;
+    inset: 0;
+    background: url("../img/ninos12.jpg") no-repeat center center / cover;
+    filter: blur(6px);
+    z-index: -1;
+}
+
+/* CONTENEDOR */
+.page-container {
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+/* HEADER */
+.header-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: linear-gradient(90deg, #2aa6b3, #2f8f9d);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.header-bar h1 {
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+.logo {
+    height: 70px;
+}
+
+/* CARD */
+.card {
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 0 0 18px 18px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+}
+
+/* FOTO */
+.photo-box {
+    height: 360px;
+    border: 2px dashed #bbb;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.6);
+}
+
+.photo-placeholder {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+}
+
+/* CAMPOS */
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.field label {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+input, select, textarea {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+/* DIMENSIONES */
+.dimensions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+/* CHECK */
+.checkbox {
+    margin: 10px 0;
+}
+
+/* TEXT AREAS */
+.textarea-block {
+    margin-top: 15px;
+}
+
+/* BOTÓN */
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.actions button {
+    background: #f28c28;
+    color: white;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 22px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.actions button:hover {
+    background: #e27b18;
+}
+
+
+/* input/select/textarea full width */
+input, select, textarea {
+  width: 100%;
+}
+
+/* errores */
+.errors {
+  margin-top: 4px;
+  color: #b00020;
+  font-size: 12px;
+}
+
+/* iconito placeholder más parecido */
+.photo-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.header-bar {
+  position: relative;
+  height: 70px;
+  background: linear-gradient(90deg, #2fa4b5, #1b7f8a);
+  display: flex;
+  align-items: center;
+}
+
+/* logo a la izquierda */
+.header-left {
+  position: absolute;
+  left: 20px;
+}
+
+.logo {
+  height: 120px;
+  width: auto;
+}
+
+/* texto centrado REAL */
+.header-center {
+  width: 100%;
+  text-align: right;
+}
+
+.header-center h1 {
+  color: white;
+  font-size: 40px;
+  letter-spacing: 2px;
+  margin: 0;
+}
