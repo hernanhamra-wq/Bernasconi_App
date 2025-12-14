@@ -61,7 +61,6 @@ LOCAL_APPS = [
     'apps_pres.institucion',
     'apps_pres.prestamo',
     'apps_pres.donacion',
-    'apps_ficha_tecnica',
 
     'apps_plagas.tipo_plaga',
     'apps_plagas.manejo_plagas',
@@ -194,6 +193,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -203,3 +203,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/home/'        # After login, go to home
 LOGIN_URL = '/auth/login/'         # Login page URL
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

@@ -21,6 +21,8 @@ class FichaTecnica(models.Model):
     profundidad = models.FloatField(null=True, blank=True)
 
     seguimiento = models.BooleanField(default=False)
+    
+    imagen = models.ImageField(upload_to='fichas/', null=True, blank=True)
 
     # 🔹 cambio: ahora fk_estado es ForeignKey a EstadoObra
     fk_estado = models.ForeignKey(

@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ficha Técnica</title>
+    <link rel="stylesheet" href="{% static 'css/ficha_tecnica.css' %}">
+</head>
+<body>
+
+<!-- Fondo borroso -->
+<div class="background"></div>
+
+<div class="page-container">
+
+    <!-- HEADER -->
+    <div class="header-bar">
+        <div class="header-left">
+            <img src="{% static 'img/logo-bernasconi.jpg' %}" class="logo" alt="Museo Bernasconi">
+        </div>
+        <div class="header-center">
+            <h1>FICHA TÉCNICA</h1>
+        </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="card">
+
+        <div class="grid">
+
+            <!-- =========================
+                 COLUMNA IZQUIERDA: FOTO
+            ========================== -->
+            <div>
+
+                <div class="photo-box">
+                    {% if form.instance.imagen %}
+                        <img
+                            id="preview-img"
+                            src="{{ form.instance.imagen.url }}"
+                            alt="Imagen de ficha"
+                            class="photo-preview"
+                        >
+                    {% else %}
+                        <img
+                            id="preview-img"
+                            src=""
+                            alt="Previsualización"
+                            class="photo-preview"
+                            style="display:none;"
+                        >
+                        <div
+                            id="preview-placeholder"
+                            class="photo-placeholder"
+                        >
+                            <span class="photo-icon">🖼️</span>
+                            Foto de Ficha Técnica<br>(Rectangular)
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- INPUT FILE -->
+                <div class="field" style="margin-top:12px;">
+                    <label>Imagen</label>
+                    {{ form.imagen }}
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 COLUMNA DERECHA: FORMULARIO
+            ========================== -->
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                <!-- IDENTIFICACIÓN -->
+                <div class="field">
+                    <label>N° de Ficha</label>
+                    {{ form.n_de_ficha }}
+                </div>
+
+                <div class="field">
+                    <label>Inventario</label>
+                    {{ form.inventario }}
+                </div>
+
+                <div class="field">
+                    <label>N° Inventario Anterior</label>
+                    {{ form.n_de_inventario_anterior }}
+                </div>
+
+                <div class="field">
+                    <label>Título</label>
+                    {{ form.titulo }}
+                </div>
+
+                <div class="field">
+                    <label>Año</label>
+                    {{ form.anio }}
+                </div>
+
+                <!-- DESCRIPCIÓN -->
+                <div class="field textarea-block">
+                    <label>Descripción</label>
+                    {{ form.descripcion }}
+                </div>
+
+                <div class="field textarea-block">
+                    <label>Observación</label>
+                    {{ form.observacion }}
+                </div>
+
+                <!-- DIMENSIONES -->
+                <div class="dimensions">
+                    <div class="field">
+                        <label>Ancho</label>
+                        {{ form.ancho }}
+                    </div>
+                    <div class="field">
+                        <label>Alto</label>
+                        {{ form.alto }}
+                    </div>
+                    <div class="field">
+                        <label>Diámetro</label>
+                        {{ form.diametro }}
+                    </div>
+                    <div class="field">
+                        <label>Profundidad</label>
+                        {{ form.profundidad }}
+                    </div>
+                </div>
+
+                <div class="field textarea-block">
+                    <label>Dimensiones (texto)</label>
+                    {{ form.dimensiones }}
+                </div>
+
+                <!-- ESTADO Y SEGUIMIENTO -->
+                <div class="field">
+                    <label>Estado de la Obra</label>
+                    {{ form.fk_estado }}
+                </div>
+
+                <div class="field checkbox">
+                    <label>
+                        {{ form.seguimiento }}
+                        Seguimiento
+                    </label>
+                </div>
+
+                <!-- RELACIONES -->
+                <div class="field">
+                    <label>Responsable de Carga</label>
+                    {{ form.fk_responsable_carga }}
+                </div>
+
+                <div class="field">
+                    <label>Serie</label>
+                    {{ form.fk_serie }}
+                </div>
+
+                <div class="field">
+                    <label>Multimedia Principal</label>
+                    {{ form.fk_multimedia_principal }}
+                </div>
+
+                <!-- MATERIALES -->
+                <div class="field materials-grid">
+                    <label>Materiales</label>
+                    {{ form.materiales }}
+                </div>
+
+                <!-- ACCIONES -->
+                <div class="actions">
+                    <button type="submit">Guardar Ficha</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     JS: PREVIEW DE IMAGEN
+========================== -->
+<script>
+(function () {
+    const input = document.querySelector('input[type="file"][name="imagen"]');
+    const img = document.getElementById('preview-img');
+    const placeholder = document.getElementById('preview-placeholder');
+
+    if (!input || !img) return;
+
+    input.addEventListener('change', function () {
+        const file = this.files && this.files[0];
+        if (!file) return;
+
+        const url = URL.createObjectURL(file);
+        img.src = url;
+        img.style.display = 'block';
+
+        if (placeholder) {
+            placeholder.style.display = 'none';
+        }
+    });
+})();
+</script>
+
+</body>
+</html>
