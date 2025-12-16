@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Búsqueda - Ficha Técnica</title>
+  <link rel="stylesheet" href="{% static 'css/buscar_ficha_tecnica.css' %}">
+</head>
+
+<body class="bg-busqueda">
+
+
+<header class="topbar">
+  <div class="topbar-left">
+    <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo">
+  </div>
+  <div class="topbar-right">
+    <h1>Búsqueda de Ficha Técnica</h1>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="search-card">
+    <form method="get" class="search-form">
+      {{ form.q }}
+      <button class="btn primary" type="submit">Buscar</button>
+      <a class="btn ghost" href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}">Limpiar</a>
+    </form>
+
+    {% if query %}
+      <p class="hint">Buscando: <strong>{{ query }}</strong> — resultados: <strong>{{ page_obj.paginator.count }}</strong></p>
+    {% else %}
+      <p class="hint">Busca por cualquier campo: inventario, título, descripción, observación, año, medidas, estado, responsable, materiales, etc.</p>
+    {% endif %}
+  </section>
+
+  <section class="results-card">
+    {% if results %}
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Imagen</th>
+              <th>Inventario</th>
+              <th>Título</th>
+              <th>Año</th>
+              <th>Estado</th>
+              <th>Seguimiento</th>
+              <th>Fecha carga</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for f in results %}
+              <tr>
+                <td>{{ f.id }}</td>
+
+                <td>
+                  {% if f.imagen %}
+                    <img class="thumb" src="{{ f.imagen.url }}" alt="miniatura">
+                  {% else %}
+                    <span class="muted">—</span>
+                  {% endif %}
+                </td>
+
+                <td class="truncate">{{ f.inventario|default:"—" }}</td>
+                <td class="truncate">{{ f.titulo|default:"—" }}</td>
+                <td>{{ f.anio|default:"—" }}</td>
+                <td class="truncate">{{ f.fk_estado|default:"—" }}</td>
+
+                <td>
+                  {% if f.seguimiento %} ✅ {% else %} — {% endif %}
+                </td>
+
+                <td>{{ f.fecha_de_carga|date:"d/m/Y H:i" }}</td>
+
+                <td class="actions">
+                  <a class="btn small" href="{% url 'ficha_tecnica:detalle_ficha_tecnica' f.pk %}">Ver</a>
+                  <a class="btn small secondary" href="{% url 'ficha_tecnica:editar_ficha_tecnica' f.pk %}">Editar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination">
+        {% if page_obj.has_previous %}
+          <a class="page-link" href="?q={{ query|urlencode }}&page=1">«</a>
+          <a class="page-link" href="?q={{ query|urlencode }}&page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+
+        <span class="page-current">
+          Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+          <a class="page-link" href="?q={{ query|urlencode }}&page={{ page_obj.next_page_number }}">Siguiente</a>
+          <a class="page-link" href="?q={{ query|urlencode }}&page={{ page_obj.paginator.num_pages }}">»</a>
+        {% endif %}
+      </div>
+
+    {% else %}
+      <div class="empty">
+        <p>No hay resultados{% if query %} para <strong>{{ query }}</strong>{% endif %}.</p>
+      </div>
+    {% endif %}
+  </section>
+
+</main>
+</body>
+</html>

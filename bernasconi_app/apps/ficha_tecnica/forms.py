@@ -39,3 +39,16 @@ class FichaTecnicaForm(forms.ModelForm):
             'observacion': forms.Textarea(attrs={'rows': 3}),
             'dimensiones': forms.Textarea(attrs={'rows': 2}),
         }
+
+
+
+class FichaTecnicaSearchForm(forms.Form):
+    q = forms.CharField(
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={
+            "placeholder": "Buscar por cualquier campo (inventario, título, año, descripción, medidas, responsable, estado...)",
+            "class": "search-input",
+            "autocomplete": "off",
+        })
+    )

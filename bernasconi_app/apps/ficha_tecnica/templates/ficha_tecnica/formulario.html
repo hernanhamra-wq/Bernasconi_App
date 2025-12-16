@@ -10,6 +10,15 @@
 
 <div class="background"></div>
 
+{% if messages %}
+  <div style="margin: 12px 0;">
+    {% for message in messages %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
 <div class="page-container">
 
   <div class="header-bar">
@@ -160,7 +169,8 @@
         </div>
 
         <div class="actions">
-          <button type="submit">Guardar Ficha</button>
+          <button type="submit" class="btn primary" onclick="return confirm('¿Querés guardar esta ficha técnica? Verificá que los datos estén correctos antes de continuar.');"> Guardar </button>
+
         </div>
       </div>
 
