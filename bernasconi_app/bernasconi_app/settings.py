@@ -15,9 +15,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os # <--- Ya debe estar
 from pathlib import Path # <--- Ya debe estar
 import sys # <--- ¡ESTA ES LA LÍNEA QUE FALTA!
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / '.env')
+
 
 # Tu código de solución de ruta:
 # -----------------------------------------------------------
@@ -117,40 +119,23 @@ WSGI_APPLICATION = 'bernasconi_app.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 
-## HERNAN 
-"""
+## configuración de la base de datos MySQL usando variables de entorno
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bernasconi_db_app',     # <-- Nombre de tu base de datos MySQL
-        'USER': 'root',  # <-- Tu nombre de usuario de MySQL
-        'PASSWORD': 'admin', # <-- Tu contraseña
-        'HOST': 'localhost',         # <-- Generalmente 'localhost' (o 127.0.0.1)
-        'PORT': '3306',              # <-- Puerto predeterminado de MySQL
-        # Otras configuraciones (opcional)
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '3306'),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         }
     }
 }
-"""
 
-# NURIA
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bernasconi_db_app',     # <-- Nombre de tu base de datos MySQL
-        'USER': 'root',  # <-- Tu nombre de usuario de MySQL
-        'PASSWORD': 'nur7', # <-- Tu contraseña
-        'HOST': '127.0.0.1',         # <-- Generalmente 'localhost' (o 127.0.0.1)
-        'PORT': '3306',              # <-- Puerto predeterminado de MySQL
-        # Otras configuraciones (opcional)
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        }
-    }
-}
 
 
 # Password validation
@@ -202,4 +187,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Authentication URLs and redirects
 LOGIN_REDIRECT_URL = '/home/'        # After login, go to home
 LOGIN_URL = '/auth/login/'         # Login page URL
+
 
