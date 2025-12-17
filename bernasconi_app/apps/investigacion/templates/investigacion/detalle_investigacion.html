@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle Investigación</title>
+  <link rel="stylesheet" href="{% static 'css/investigacion_form.css' %}">
+</head>
+<body class="bg-investigacion">
+
+  <div class="glass">
+    <header class="head">
+      <div class="logo-box">
+        <img src="{% static 'img/logo-bernasoni.jpg' %}" alt="Museo Bernasconi">
+      </div>
+      <h1>INVESTIGACIÓN GUARDADA</h1>
+    </header>
+
+    {% if messages %}
+      <div style="margin-top:12px;">
+        {% for message in messages %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div style="margin-top:14px;">
+      <p><b>ID:</b> {{ inv.investigacion_id }}</p>
+      <p><b>Ficha:</b> {{ inv.ficha }}</p>
+      <p><b>Investigador:</b> {{ inv.investigador }}</p>
+      <p><b>Número:</b> {{ inv.num_investigacion }}</p>
+      <p><b>Título:</b> {{ inv.titulo_investigacion }}</p>
+      <p><b>Detalle:</b> {{ inv.detalle_investigacion }}</p>
+      <p><b>Año:</b> {{ inv.anio_realizacion }}</p>
+    </div>
+
+    <div class="actions">
+      <a class="btn" style="text-decoration:none;" href="{% url 'investigacion:cargar_investigacion' %}">
+        Cargar otra investigación
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>

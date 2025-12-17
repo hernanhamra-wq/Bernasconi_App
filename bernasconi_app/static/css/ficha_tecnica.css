@@ -8,7 +8,9 @@ body { margin: 0; padding: 0; }
   background: url("../img/ninos12.jpg") no-repeat center center / cover;
   filter: blur(6px);
   z-index: -1;
+  filter: blur(3px);
 }
+
 
 /* Contenedor */
 .page-container{ max-width: 1200px; margin: 30px auto; }
@@ -35,11 +37,14 @@ body { margin: 0; padding: 0; }
 
 /* Card */
 .card{
-  background: rgba(255,255,255,0.82);
+  background: rgba(255,255,255,0.20);   /* ⬅️ antes 0.35 */
+  backdrop-filter: blur(12px);
   border-radius: 0 0 18px 18px;
   padding: 22px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
+
+
 
 /* TOP layout (foto + campos) */
 .top-grid{
@@ -51,14 +56,15 @@ body { margin: 0; padding: 0; }
 /* Caja de foto grande */
 .photo-box{
   height: 520px;              /* más grande como Gemini */
-  border: 2px solid rgba(200,200,200,0.9);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: 12px;
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.12);
   overflow: hidden;           /* clave para que NO se desborde */
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 
 /* placeholder centrado */
 .photo-placeholder{
@@ -121,10 +127,11 @@ body { margin: 0; padding: 0; }
 .control textarea{
   width: 100%;
   border-radius: 8px;
-  border: 1px solid #c8c8c8;
+  border: 1px solid rgba(255,255,255,0.45);
   padding: 8px 10px;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.18);
 }
+
 
 /* en los campos compactos achicamos margenes */
 .line-field.compact{ margin-bottom: 8px; }
@@ -201,9 +208,17 @@ body { margin: 0; padding: 0; }
   border-radius: 10px;
   border: 1px solid #c8c8c8;
   padding: 10px 12px;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.18);
   resize: vertical;
 }
+
+.line-field label,
+.wide-field label{
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+
 
 /* Botón */
 .actions{
