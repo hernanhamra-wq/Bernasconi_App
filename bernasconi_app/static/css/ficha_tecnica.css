@@ -6,11 +6,8 @@ body { margin: 0; padding: 0; }
   position: fixed;
   inset: 0;
   background: url("../img/ninos12.jpg") no-repeat center center / cover;
-  filter: blur(6px);
   z-index: -1;
-  filter: blur(3px);
 }
-
 
 /* Contenedor */
 .page-container{ max-width: 1200px; margin: 30px auto; }
@@ -37,13 +34,12 @@ body { margin: 0; padding: 0; }
 
 /* Card */
 .card{
-  background: rgba(255,255,255,0.20);   /* ⬅️ antes 0.35 */
-  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(5px);
   border-radius: 0 0 18px 18px;
   padding: 22px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
-
 
 
 /* TOP layout (foto + campos) */
@@ -122,14 +118,16 @@ body { margin: 0; padding: 0; }
   font-weight: 600;
   color: #2b2b2b;
 }
+
+
 .control input,
 .control select,
 .control textarea{
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.35);
   width: 100%;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.45);
   padding: 8px 10px;
-  background: rgba(255,255,255,0.18);
 }
 
 
@@ -208,7 +206,7 @@ body { margin: 0; padding: 0; }
   border-radius: 10px;
   border: 1px solid #c8c8c8;
   padding: 10px 12px;
-  background: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.15);
   resize: vertical;
 }
 
@@ -217,7 +215,6 @@ body { margin: 0; padding: 0; }
   color: rgba(255,255,255,0.9);
   text-shadow: 0 1px 2px rgba(0,0,0,0.4);
 }
-
 
 
 /* Botón */
@@ -262,14 +259,15 @@ body { margin: 0; padding: 0; }
 /* Caja foto: grande y contenida */
 .photo-box{
   height: 520px;
-  border: 2px solid rgba(200,200,200,0.9);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: 12px;
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.10);
   overflow: hidden;              /* evita que se desborde */
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 
 .photo-preview{
   width: 100%;

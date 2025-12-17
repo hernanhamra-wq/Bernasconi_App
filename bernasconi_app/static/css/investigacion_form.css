@@ -135,3 +135,30 @@ body{
 }
 
 
+
+.search-bar{
+  display:flex;
+  gap:10px;
+  margin:14px 0;
+}
+
+.search-input{
+  flex:1;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.25);
+  font-size: 1.05rem;
+}
+
+.results-table{
+  width:100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.results-table th,
+.results-table td{
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.25);
+}

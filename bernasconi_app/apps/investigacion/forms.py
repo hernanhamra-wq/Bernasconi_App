@@ -21,3 +21,16 @@ class InvestigacionForm(forms.ModelForm):
                 self.fields["investigacion_id"].widget.attrs["placeholder"] = "auto"
 
             self.fields["investigacion_id"].widget.attrs["class"] = "input"
+
+
+class InvestigacionSearchForm(forms.Form):
+    q = forms.CharField(
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Buscar por número, título, detalle, año, ficha, investigador…",
+                "class": "search-input"
+            }
+        )
+    )
