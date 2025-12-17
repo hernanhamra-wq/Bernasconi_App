@@ -63,7 +63,6 @@ LOCAL_APPS = [
     'apps_pres.institucion',
     'apps_pres.prestamo',
     'apps_pres.donacion',
-    'apps_ficha_tecnica',
 
     'apps_plagas.tipo_plaga',
     'apps_plagas.manejo_plagas',
