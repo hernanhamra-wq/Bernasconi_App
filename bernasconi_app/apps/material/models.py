@@ -2,6 +2,7 @@ from django.db import models
 
 class Material(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
+    tipo = models.TextField(blank=True, null=True)
     descripcion = models.TextField(blank=True, null=True)
 
     class Meta:

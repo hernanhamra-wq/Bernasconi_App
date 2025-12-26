@@ -47,6 +47,6 @@ urlpatterns = [
     
     ])),
     # Fichas URLs
-    path('', include('apps_ficha_tecnica.urls')),
+    # path('', include('apps_ficha_tecnica.urls')),
 
 ]

@@ -1,20 +1,14 @@
 from django.contrib import admin
-from django.apps import apps
-from .models import Material  # ✅ correcto
+from .models import Material, FichaTecnicaMaterial
 
 class FichaTecnicaMaterialInline(admin.TabularInline):
-    model = apps.get_model('material', 'FichaTecnicaMaterial')  # ✅ correcto, el modelo vive en la app 'material'
+    model = FichaTecnicaMaterial
     extra = 1
-    autocomplete_fields = ['ficha']
-    verbose_name = "Uso en ficha técnica"
-    verbose_name_plural = "Usos en fichas técnicas"
+    # Verifica en tu models.py si el campo se llama 'ficha' o 'fk_ficha'
+    # Si sigue fallando, intenta cambiarlo aquí:
+    autocomplete_fields = ['fk_ficha'] 
 
+@admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre', 'descripcion')
-    search_fields = ('nombre',)
-    inlines = [FichaTecnicaMaterialInline]
-
-try:
-    admin.site.register(Material, MaterialAdmin)  # ✅ evita el AlreadyRegistered si otro módulo ya lo registró
-except admin.sites.AlreadyRegistered:
-    pass  # ✅ si ya estaba registrado, no falla
+    search_fields = ('nombre',) # Esto permite que otros lo busquen

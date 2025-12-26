@@ -1,0 +1,1297 @@
+[
+  {
+    "nombre": "Acero",
+    "tipo": "Metal",
+    "descripcion": "Aleación de hierro y carbono de alta resistencia."
+  },
+  {
+    "nombre": "Aluminio",
+    "tipo": "Metal",
+    "descripcion": "Metal ligero no ferroso con alta resistencia a la corrosión."
+  },
+  {
+    "nombre": "Alpaca",
+    "tipo": "Metal",
+    "descripcion": "Aleación de cobre, níquel y zinc, de aspecto similar a la plata."
+  },
+  {
+    "nombre": "Bronce",
+    "tipo": "Metal",
+    "descripcion": "Aleación metálica de cobre y estaño."
+  },
+  {
+    "nombre": "Cobre",
+    "tipo": "Metal",
+    "descripcion": "Metal de transición rojizo, excelente conductor."
+  },
+  {
+    "nombre": "Hierro",
+    "tipo": "Metal",
+    "descripcion": "Metal maleable de color gris plateado, ferromagnético."
+  },
+  {
+    "nombre": "Niquel",
+    "tipo": "Metal",
+    "descripcion": "Metal de transición usado a menudo en galvanoplastia."
+  },
+  {
+    "nombre": "Plata",
+    "tipo": "Metal",
+    "descripcion": "Metal noble de color blanco brillante."
+  },
+  {
+    "nombre": "Plomo",
+    "tipo": "Metal",
+    "descripcion": "Metal pesado, denso y de baja fusión."
+  },
+  {
+    "nombre": "Zinc",
+    "tipo": "Metal",
+    "descripcion": "Metal usado principalmente para el galvanizado del acero."
+  },
+  {
+    "nombre": "Estaño",
+    "tipo": "Metal",
+    "descripcion": "Metal plateado maleable usado en soldaduras y aleaciones."
+  },
+  {
+    "nombre": "Ceramica",
+    "tipo": "Ceramico",
+    "descripcion": "Material inorgánico procesado mediante calor."
+  },
+  {
+    "nombre": "Porcelana",
+    "tipo": "Ceramico",
+    "descripcion": "Material cerámico fino, traslúcido y compacto."
+  },
+  {
+    "nombre": "Loza",
+    "tipo": "Ceramico",
+    "descripcion": "Técnica cerámica de barro cocido y esmaltado."
+  },
+  {
+    "nombre": "Madera",
+    "tipo": "Organico",
+    "descripcion": "Materia prima vegetal de la zona interna de los árboles."
+  },
+  {
+    "nombre": "Papel",
+    "tipo": "Organico",
+    "descripcion": "Lámina delgada hecha con pastas de fibras vegetales."
+  },
+  {
+    "nombre": "Carton",
+    "tipo": "Organico",
+    "descripcion": "Material formado por varias capas de papel superpuestas."
+  },
+  {
+    "nombre": "Textil",
+    "tipo": "Organico",
+    "descripcion": "Material flexible hecho de hilos o fibras tejidas."
+  },
+  {
+    "nombre": "Cuero",
+    "tipo": "Organico",
+    "descripcion": "Piel animal tratada mediante curtido."
+  },
+  {
+    "nombre": "Hueso",
+    "tipo": "Biologico",
+    "descripcion": "Tejido óseo rígido de origen animal."
+  },
+  {
+    "nombre": "Vidrio",
+    "tipo": "Inorganico",
+    "descripcion": "Material duro, frágil y transparente de estructura amorfa."
+  },
+  {
+    "nombre": "Cuarzo",
+    "tipo": "Mineral",
+    "descripcion": "Mineral compuesto de sílice, muy común en la corteza terrestre."
+  },
+  {
+    "nombre": "Calcita",
+    "tipo": "Mineral",
+    "descripcion": "Mineral de carbonato de calcio, muy común en rocas sedimentarias."
+  },
+  {
+    "nombre": "Malaquita",
+    "tipo": "Mineral",
+    "descripcion": "Mineral de carbonato de cobre de color verde."
+  },
+  {
+    "nombre": "Azurita",
+    "tipo": "Mineral",
+    "descripcion": "Mineral de carbonato de cobre de color azul intenso."
+  },
+  {
+    "nombre": "Pirita",
+    "tipo": "Mineral",
+    "descripcion": "Sulfuro de hierro, conocido por su brillo metálico amarillento."
+  },
+  {
+    "nombre": "Galena",
+    "tipo": "Mineral",
+    "descripcion": "Mineral de sulfuro de plomo, principal mena de este metal."
+  },
+  {
+    "nombre": "Feldespato",
+    "tipo": "Mineral",
+    "descripcion": "Grupo de minerales esenciales en la composición de rocas ígneas."
+  },
+  {
+    "nombre": "Muscovita",
+    "tipo": "Mineral",
+    "descripcion": "Mineral del grupo de las micas, incoloro o plateado."
+  },
+  {
+    "nombre": "Basalto",
+    "tipo": "Mineral",
+    "descripcion": "Roca volcánica de grano fino y color oscuro."
+  },
+  {
+    "nombre": "Granito",
+    "tipo": "Mineral",
+    "descripcion": "Roca ígnea plutónica formada por cuarzo, feldespato y mica."
+  },
+  {
+    "nombre": "Marmol",
+    "tipo": "Mineral",
+    "descripcion": "Roca metamórfica compacta formada a partir de rocas calizas."
+  },
+  {
+    "nombre": "Hematita",
+    "tipo": "Mineral",
+    "descripcion": "Óxido de hierro de color gris plateado o rojo."
+  },
+  {
+    "nombre": "Magnetita",
+    "tipo": "Mineral",
+    "descripcion": "Mineral de hierro que presenta propiedades magnéticas."
+  },
+  {
+    "nombre": "Fluorita",
+    "tipo": "Mineral",
+    "descripcion": "Mineral formado por la combinación de calcio y flúor."
+  },
+  {
+    "nombre": "Amatista",
+    "tipo": "Mineral",
+    "descripcion": "Variedad macrocristalina del cuarzo de color violeta."
+  },
+  {
+    "nombre": "Turmalina",
+    "tipo": "Mineral",
+    "descripcion": "Silicato complejo de boro con gran variedad de colores."
+  },
+  {
+    "nombre": "Yeso",
+    "tipo": "Mineral",
+    "descripcion": "Mineral de sulfato de calcio hidratado."
+  },
+  {
+    "nombre": "Plastico",
+    "tipo": "Sintetico",
+    "descripcion": "Material polímero sintético moldeable."
+  },
+  {
+    "nombre": "Baquelita",
+    "tipo": "Sintetico",
+    "descripcion": "Resina sintética termoestable, precursora de los plásticos."
+  },
+  {
+    "nombre": "Alcohol",
+    "tipo": "Liquido",
+    "descripcion": "Líquido orgánico usado como solvente o conservante."
+  },
+  {
+    "nombre": "Kerosene",
+    "tipo": "Liquido",
+    "descripcion": "Mezcla de hidrocarburos inflamables derivada del petróleo."
+  },
+  {
+    "nombre": "Aceite",
+    "tipo": "Liquido",
+    "descripcion": "Sustancia grasa líquida de origen mineral, vegetal o animal."
+  },
+  {
+    "nombre": "Resina",
+    "tipo": "Sintetico",
+    "descripcion": "Sustancia orgánica sólida o semisólida, natural o sintética."
+  },
+  {
+    "nombre": "Acrilico",
+    "tipo": "Sintetico",
+    "descripcion": "Polímero plástico transparente y resistente."
+  },
+  {
+    "nombre": "Andesita",
+    "tipo": "Mineral",
+    "descripcion": "Roca volcánica de composición intermedia."
+  },
+  {
+    "nombre": "Aragonita",
+    "tipo": "Mineral",
+    "descripcion": "Una de las formas cristalinas del carbonato de calcio."
+  },
+  {
+    "nombre": "Arcilla",
+    "tipo": "Mineral",
+    "descripcion": "Tierra compuesta por silicato de aluminio hidratado."
+  },
+  {
+    "nombre": "Arenisca",
+    "tipo": "Mineral",
+    "descripcion": "Roca sedimentaria de tipo detrítico formada por arena."
+  },
+  {
+    "nombre": "Asbestos",
+    "tipo": "Mineral",
+    "descripcion": "Grupo de minerales de silicato de estructura fibrosa."
+  },
+  {
+    "nombre": "Azufre",
+    "tipo": "Mineral",
+    "descripcion": "Elemento químico no metal de color amarillo pálido."
+  },
+  {
+    "nombre": "Bambu",
+    "tipo": "Organico",
+    "descripcion": "Planta de tallo leñoso y resistente."
+  },
+  {
+    "nombre": "Baritina",
+    "tipo": "Mineral",
+    "descripcion": "Mineral de la clase de los sulfatos (sulfato de bario)."
+  },
+  {
+    "nombre": "Barniz",
+    "tipo": "Sintetico",
+    "descripcion": "Disolución de resinas para proteger superficies."
+  },
+  {
+    "nombre": "Berilo",
+    "tipo": "Mineral",
+    "descripcion": "Ciclosilicato de berilio y aluminio."
+  },
+  {
+    "nombre": "Caliza",
+    "tipo": "Mineral",
+    "descripcion": "Roca sedimentaria compuesta mayoritariamente por carbonato de calcio."
+  },
+  {
+    "nombre": "Caucho",
+    "tipo": "Sintetico",
+    "descripcion": "Polímero elástico, natural o sintético."
+  },
+  {
+    "nombre": "Lutita",
+    "tipo": "Mineral",
+    "descripcion": "Roca sedimentaria clástica de grano muy fino."
+  },
+  {
+    "nombre": "SinIdentificar",
+    "tipo": "Control",
+    "descripcion": "Material bajo estudio o no determinado."
+  },
+  {
+    "nombre": "Abano",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Agua",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Alambre",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Alemana",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Algodon",
+    "tipo": "Orgánico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Amuninio",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Angel",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Anhidrita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Arena",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Asfaltita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Aventurina",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Bakila",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Barro",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Biologico",
+    "tipo": "Biológico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Boronatrocalcita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Calcantita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Calcedonia",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Calcopirita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Calcosina",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Capillitita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Carbon",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Carbonática",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Carbón",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Carei",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Caremica",
+    "tipo": "Mineral",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cartapesta",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cartom",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cartulina",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cartón",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Caña",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cemento",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Ceniza",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cera",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Chapa",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Coke",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Conchillas",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Concresión",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Conservación",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Conservante",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Corcho",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Corton",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Covelina",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Crisocola",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cristal",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cromita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cuarcita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cuarso",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cuerda",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cuerina",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Cuprita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Detalle",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Dolomia",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Entelado",
+    "tipo": "Orgánico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Enteladocon",
+    "tipo": "Orgánico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Epidoto",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Esmalte",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Esparto",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Espodumeno",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Esquisto",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Estampas",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Estilbita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Estrada",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Etiqurta",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Exhibe",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Fibra",
+    "tipo": "Orgánico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Fieltro",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Filita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Filmica",
+    "tipo": "Mineral",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Foam",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Foamboar",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Fotografico",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Geometria",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Goma",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Grafiti",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Granate",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Granodiorita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Grapa",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Gráfito",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Halita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Hardboard",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Hidrocarburo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Hilo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Hornfels",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Hule",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Hulla",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Indefinido",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Inoxidable",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Juego",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Junco",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Ladrillo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Lana",
+    "tipo": "Orgánico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Laton",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Lengua",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Lienzo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Lija",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Limo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Limonita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Linoleo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Linoleum",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Liquido",
+    "tipo": "Líquido",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Llamado",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Luitta",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Lámpara",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Made",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Marfil",
+    "tipo": "Biológico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Material",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Medera",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Mediano",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Meral",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Mercurio",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Meta",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Metales",
+    "tipo": "Metal",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Metalica",
+    "tipo": "Metal",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Metall",
+    "tipo": "Metal",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Mimbre",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Minerales",
+    "tipo": "Mineral",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Mostacilla",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Mtinta",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Mármol",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Nacar",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Nafta",
+    "tipo": "Líquido",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Niquelado",
+    "tipo": "Metal",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Ojalata",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Oleo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Organico",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Originales",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Oxidos",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Paja",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Paple",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Paprl",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Parafina",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Parece",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pasto",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pegada",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pegamento",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pelo",
+    "tipo": "Biológico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Peltre",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pepel",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Piedra",
+    "tipo": "Mineral",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Piel",
+    "tipo": "Biológico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pintura",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pirofilita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pirrotina",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Plagioclasa",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pluma",
+    "tipo": "Biológico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Plástica",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Plático",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Policromia",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Poliester",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Ppale",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Prasio",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Pratico",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Raso",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Rayon",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Recina",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Recubrimiento",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Revestimiento",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Revetido",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Riolita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Roca",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Rodocrosita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Seda",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Semillas",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Semipreciosa",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Serpentina",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Simil",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Similar",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Sintético",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Skarn",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Soga",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Super",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Sílice",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Tabaco",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Talco",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Tejido",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Tela",
+    "tipo": "Orgánico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Telgopol",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Terciopelo",
+    "tipo": "Biológico",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Terracota",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Tienta",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Tierra",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Tiza",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Toba",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Tonalita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Traquiandesita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Travertino",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Turba",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Tyuyamunita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Téxtil",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Ulexita",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Uranio",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Varillas",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Vegetal",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Vinilo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Volcánica",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Zeolitas",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Zink",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Óleo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Ópalo",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  },
+  {
+    "nombre": "Óxidos",
+    "tipo": "Sin clasificar",
+    "descripcion": "Material detectado durante la migración"
+  }
+]

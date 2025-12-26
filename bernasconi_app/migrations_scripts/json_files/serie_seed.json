@@ -1,0 +1,26 @@
+[
+  {
+    "nombre": "Original",
+    "original": "si",
+    "anio_impresion": null,
+    "taller_reimpresion": null
+  },
+  {
+    "nombre": "Serie 1",
+    "original": "no",
+    "anio_impresion": "1950-01-01",
+    "taller_reimpresion": null
+  },
+  {
+    "nombre": "Serie 2",
+    "original": "no",
+    "anio_impresion": "1965-01-01",
+    "taller_reimpresion": "Taller Mónica Cassini"
+  },
+  {
+    "nombre": "Serie 3",
+    "original": "no",
+    "anio_impresion": null,
+    "taller_reimpresion": "Taller desconocido"
+  }
+]

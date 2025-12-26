@@ -54,7 +54,7 @@ LOCAL_APPS = [
     'apps.usuarios',
     'apps.autor',
     'apps.material',
-    'apps.serie',
+    'apps.taller',
     'apps.catalogo_multimedia',
     'apps.estado_obra',
     'apps.intervencion',

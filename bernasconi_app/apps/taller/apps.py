@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SerieConfig(AppConfig):
+class TallerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.serie'
+    name = 'apps.taller'
