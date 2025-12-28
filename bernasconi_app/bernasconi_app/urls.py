@@ -41,7 +41,7 @@ urlpatterns = [
     path("investigacion/", include("apps.investigacion.urls")),
 
     # 👇 INCLUIR LA APP DE FICHA TÉCNICA (esto habilita /ficha-tecnica/)
-    path('', include('apps.ficha_tecnica.urls')),
+    path('ficha/', include('apps.ficha_tecnica.urls')),
 
     # Root al final, así no “tapa” otras rutas
     path('', lambda request: redirect('auth_login'), name='root'),
