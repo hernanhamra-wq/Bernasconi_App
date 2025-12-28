@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ficha Técnica</title>
+  <link rel="stylesheet" href="{% static 'css/ficha_tecnica.css' %}">
+</head>
+<body>
+
+<div class="background"></div>
+
+{% if messages %}
+  <div style="margin: 12px 0;">
+    {% for message in messages %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+<div class="page-container">
+
+  <div class="header-bar">
+    <div class="header-left">
+      <img src="{% static 'img/logo-bernasconi.jpg' %}" class="logo" alt="Museo Bernasconi">
+    </div>
+    <div class="header-center">
+      <h1>FICHA TÉCNICA</h1>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <form method="post" enctype="multipart/form-data" class="ft-form">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <!-- TOP: foto (izq) + campos (der) -->
+      <div class="ft-top">
+
+        <!-- IZQUIERDA -->
+        <div class="ft-left">
+          <div class="photo-box">
+            {% if form.instance.imagen %}
+              <img id="preview-img" src="{{ form.instance.imagen.url }}" class="photo-preview" alt="Imagen ficha">
+              <div id="preview-placeholder" class="photo-placeholder" style="display:none;">
+                <span class="photo-icon">🖼️</span>
+                Foto de Ficha Técnica<br>
+              </div>
+            {% else %}
+              <img id="preview-img" src="" class="photo-preview" alt="Previsualización" style="display:none;">
+              <div id="preview-placeholder" class="photo-placeholder">
+                <span class="photo-icon">🖼️</span>
+                Foto de Ficha Técnica<br>(Rectangular)
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Subida / quitar -->
+          <div class="upload-row">
+            <div class="upload-field">
+              <label>Imagen</label>
+              {{ form.imagen }}
+            </div>
+            <button type="button" class="btn-secondary" id="clear-image-btn">Quitar</button>
+          </div>
+        </div>
+
+        <!-- DERECHA -->
+        <div class="ft-right">
+
+          <div class="line-field">
+            <label>N° de Ficha</label>
+            <div class="control">{{ form.n_de_ficha }}</div>
+          </div>
+
+          <div class="line-field">
+            <label>Inventario</label>
+            <div class="control">{{ form.inventario }}</div>
+          </div>
+
+          <div class="line-field">
+            <label>N° Inventario Anterior</label>
+            <div class="control">{{ form.n_de_inventario_anterior }}</div>
+          </div>
+
+          <div class="line-field">
+            <label>Título</label>
+            <div class="control">{{ form.titulo }}</div>
+          </div>
+
+          <div class="line-field">
+            <label>Año</label>
+            <div class="control">{{ form.anio }}</div>
+          </div>
+
+          <div class="line-field">
+            <label>Dimensiones (texto)</label>
+            <div class="control">{{ form.dimensiones }}</div>
+          </div>
+
+          <div class="dims-grid">
+            <div class="line-field compact">
+              <label>Ancho</label>
+              <div class="control">{{ form.ancho }}</div>
+            </div>
+            <div class="line-field compact">
+              <label>Alto</label>
+              <div class="control">{{ form.alto }}</div>
+            </div>
+            <div class="line-field compact">
+              <label>Diámetro</label>
+              <div class="control">{{ form.diametro }}</div>
+            </div>
+            <div class="line-field compact">
+              <label>Profundidad</label>
+              <div class="control">{{ form.profundidad }}</div>
+            </div>
+          </div>
+
+          <div class="line-field">
+            <label>Seguimiento</label>
+            <div class="control checkbox-control">{{ form.seguimiento }}</div>
+          </div>
+
+          <div class="line-field">
+            <label>Responsable</label>
+            <div class="control">{{ form.fk_responsable_carga }}</div>
+          </div>
+
+          <div class="line-field">
+            <label>Estado</label>
+            <div class="control">{{ form.fk_estado }}</div>
+          </div>
+
+          <div class="line-field">
+            <label>Serie</label>
+            <div class="control">{{ form.fk_serie }}</div>
+          </div>
+
+          <div class="line-field">
+            <label>Imagen principal</label>
+            <div class="control">{{ form.fk_multimedia_principal }}</div>
+          </div>
+
+          
+          <div class="materials-block">
+            <div class="materials-title">Materiales</div>
+            <div class="materials-grid">
+              {{ form.materiales }}
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- BOTTOM: a lo ancho -->
+      <div class="ft-bottom">
+        <div class="wide-field">
+          <label>Descripción</label>
+          {{ form.descripcion }}
+        </div>
+
+        <div class="wide-field">
+          <label>Observación</label>
+          {{ form.observacion }}
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" onclick="return confirm('¿Querés guardar esta ficha técnica? Verificá que los datos estén correctos antes de continuar.');"> Guardar </button>
+
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const input = document.querySelector('input[type="file"][name="imagen"]');
+  const img = document.getElementById('preview-img');
+  const placeholder = document.getElementById('preview-placeholder');
+  const clearBtn = document.getElementById('clear-image-btn');
+
+  function showPlaceholder() {
+    if (img) { img.src = ''; img.style.display = 'none'; }
+    if (placeholder) placeholder.style.display = 'flex';
+  }
+  function showImage(url) {
+    if (!img) return;
+    img.src = url;
+    img.style.display = 'block';
+    if (placeholder) placeholder.style.display = 'none';
+  }
+
+  if (input) {
+    input.addEventListener('change', function () {
+      const file = this.files && this.files[0];
+      if (!file) return showPlaceholder();
+      showImage(URL.createObjectURL(file));
+    });
+  }
+
+  if (clearBtn && input) {
+    clearBtn.addEventListener('click', function () {
+      input.value = '';
+      showPlaceholder();
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

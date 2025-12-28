@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carga de Investigación</title>
+  <link rel="stylesheet" href="{% static 'css/investigacion_form.css' %}">
+</head>
+
+<body class="bg-investigacion">
+  <div class="glass">
+
+    <header class="head">
+      <div class="logo-box">
+        <img src="{% static 'img/logo-bernasconi.jpg' %}" alt="Museo Bernasconi">
+      </div>
+      <h1>CARGA DE INVESTIGACIÓN</h1>
+    </header>
+
+    {% if messages %}
+      <div style="margin-top:12px;">
+        {% for message in messages %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" class="grid-form">
+      {% csrf_token %}
+
+      <!-- ID (solo lectura / auto) -->
+      <div class="row">
+        <div class="field">
+          <label>investigacion_id</label>
+          {{ form.investigacion_id }}
+        </div>
+        
+        <div class="field inline">
+          <label>disabled: auto</label>
+          <input type="checkbox" checked disabled>
+        </div>
+      </div>
+
+
+      <!-- FK ficha -->
+      <div class="row">
+        <div class="field">
+          <label>Ficha ID</label>
+          {{ form.ficha }}
+        </div>
+       
+      <!-- FK investigador -->
+      <div class="row">
+        <div class="field">
+          <label>Investigador ID</label>
+          {{ form.investigador }}
+        </div>
+       
+
+      <div class="row">
+        <div class="field">
+          <label>Num. Investigación</label>
+          {{ form.num_investigacion }}
+        </div>
+        
+
+      <div class="row">
+        <div class="field">
+          <label>Título Investigación</label>
+          {{ form.titulo_investigacion }}
+        </div>
+        
+      <div class="row tall">
+        <div class="field">
+          <label>Detalle Investigación</label>
+          {{ form.detalle_investigacion }}
+        </div>
+       
+
+      <div class="row">
+        <div class="field">
+          <label>Año Realización</label>
+          {{ form.anio_realizacion }}
+        </div>
+        
+
+      <div class="actions">
+        <button class="btn" type="submit"
+          onclick="return confirm('¿Querés guardar esta investigación? Revisá los datos antes de confirmar.');">
+          Guardar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</body>
+</html>
+

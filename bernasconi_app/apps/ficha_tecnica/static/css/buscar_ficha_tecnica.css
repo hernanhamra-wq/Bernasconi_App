@@ -1,0 +1,173 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #0f1216;
+  color: #e9eef5;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: #0b0e12;
+}
+.logo{ height: 56px; width:auto; object-fit: contain; }
+.topbar-right h1{ margin:0; font-size:20px; font-weight:700; }
+
+.container{
+  max-width: 1600px;
+  width: 95%; 
+  margin: 0 auto;
+  padding: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+@media (min-width: 1800px) {
+  .container {
+    max-width: 1800px;
+  }
+}
+
+
+.search-card, .results-card{
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.search-form{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  flex-wrap: wrap;
+}
+.search-input{
+  flex: 1 1 360px;
+  padding: 12px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.25);
+  color: #e9eef5;
+  outline: none;
+}
+.search-input:focus{ border-color: rgba(255,255,255,.22); }
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  text-decoration:none;
+  color:#e9eef5;
+  background: rgba(255,255,255,.06);
+  cursor:pointer;
+}
+.btn.primary{ background: rgba(70,160,255,.18); border-color: rgba(70,160,255,.35); }
+.btn.ghost{ background: transparent; }
+.btn.secondary{ background: rgba(255,255,255,.03); }
+.btn.small{ padding: 8px 10px; border-radius: 9px; font-size: 13px; }
+
+.hint{ margin: 10px 0 0; color: rgba(233,238,245,.75); font-size: 13px; }
+
+.table-wrap{ width:100%; overflow:auto; }
+
+.results-table{
+  width:100%;
+  border-collapse: collapse;
+  min-width: 980px;
+}
+.results-table th, .results-table td{
+  padding: 10px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  text-align:left;
+  vertical-align: middle;
+}
+.results-table th{
+  font-size: 12px;
+  letter-spacing: .02em;
+  color: rgba(233,238,245,.8);
+  text-transform: uppercase;
+}
+
+.truncate{
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions{ display:flex; gap: 8px; flex-wrap: wrap; }
+
+.pagination{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  justify-content:flex-end;
+  margin-top: 12px;
+}
+.page-link{
+  color:#e9eef5;
+  text-decoration:none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+}
+.page-current{ color: rgba(233,238,245,.75); font-size: 13px; }
+
+.empty{ padding: 18px; color: rgba(233,238,245,.8); }
+
+
+.thumb{
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.25);
+}
+.muted{ color: rgba(233,238,245,.55); }
+
+.flash{
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(70,160,255,.35);
+  background: rgba(70,160,255,.15);
+  color: #e9eef5;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   FONDO BÚSQUEDA FICHA
+   ========================= */
+
+
+.bg-busqueda {
+  background-image:
+    linear-gradient(
+      rgba(15, 18, 22, 0.55)  
+      /*rgba(15, 18, 22, 0.85),
+      rgba(15, 18, 22, 0.85) */
+    ),
+    url("/static/img/mesa3.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+
+.search-card,
+.results-card {
+  background: rgba(15, 18, 22, 0.85);
+  backdrop-filter: blur(4px);
+}

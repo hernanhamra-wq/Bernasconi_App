@@ -120,6 +120,7 @@ WSGI_APPLICATION = 'bernasconi_app.wsgi.application'
 
 ## configuración de la base de datos MySQL usando variables de entorno
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -186,5 +187,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Authentication URLs and redirects
 LOGIN_REDIRECT_URL = '/home/'        # After login, go to home
 LOGIN_URL = '/auth/login/'         # Login page URL
-
-

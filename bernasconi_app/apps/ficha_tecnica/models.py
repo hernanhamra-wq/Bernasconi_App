@@ -82,6 +82,8 @@ class FichaTecnica(models.Model):
     # CONTROL / SEGUIMIENTO
     # ============================================================
     seguimiento = models.BooleanField(default=False)
+    
+    imagen = models.ImageField(upload_to='fichas/', null=True, blank=True)
 
     fk_estado_funcional = models.ForeignKey(
         EstadoObra,

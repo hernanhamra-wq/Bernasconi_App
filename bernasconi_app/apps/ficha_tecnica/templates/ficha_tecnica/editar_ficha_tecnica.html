@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Ficha Técnica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/buscar_ficha_tecnica.css' %}">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="topbar-left">
+        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
+    </div>
+    <div class="topbar-right">
+        <h1>Editar Ficha Técnica</h1>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="search-card">
+        <h2>{{ ficha.titulo|default:"Ficha sin título" }}</h2>
+        <p class="muted">ID {{ ficha.id }}</p>
+    </section>
+
+    <section class="results-card">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div style="margin-top:20px; display:flex; gap:10px;">
+                <button type="submit" class="btn primary">Guardar cambios</button>
+                <a class="btn ghost" href="{% url 'ficha_tecnica:detalle_ficha_tecnica' ficha.pk %}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+
+</main>
+</body>
+</html>

@@ -1,186 +1,391 @@
-* {
-    box-sizing: border-box;
-    font-family: "Segoe UI", sans-serif;
+* { box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+body { margin: 0; padding: 0; }
+
+/* Fondo borroso */
+.background{
+  position: fixed;
+  inset: 0;
+  background: url("../img/ninos12.jpg") no-repeat center center / cover;
+  z-index: -1;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-}
+/* Contenedor */
+.page-container{ max-width: 1200px; margin: 30px auto; }
 
-/* FONDO */
-.background {
-    position: fixed;
-    inset: 0;
-    background: url("../img/ninos12.jpg") no-repeat center center / cover;
-    filter: blur(6px);
-    z-index: -1;
-}
-
-/* CONTENEDOR */
-.page-container {
-    max-width: 1200px;
-    margin: 30px auto;
-}
-
-/* HEADER */
-.header-bar {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    background: linear-gradient(90deg, #2aa6b3, #2f8f9d);
-    color: white;
-    border-radius: 12px 12px 0 0;
-}
-
-.header-bar h1 {
-    margin: 0;
-    font-size: 28px;
-    letter-spacing: 1px;
-}
-
-.logo {
-    height: 70px;
-}
-
-/* CARD */
-.card {
-    background: rgba(255, 255, 255, 0.82);
-    border-radius: 0 0 18px 18px;
-    padding: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
-
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 30px;
-}
-
-/* FOTO */
-.photo-box {
-    height: 360px;
-    border: 2px dashed #bbb;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.6);
-}
-
-.photo-placeholder {
-    text-align: center;
-    color: #666;
-    font-size: 16px;
-}
-
-/* CAMPOS */
-.field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 12px;
-}
-
-.field label {
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-
-input, select, textarea {
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    padding: 8px;
-}
-
-/* DIMENSIONES */
-.dimensions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 12px;
-}
-
-/* CHECK */
-.checkbox {
-    margin: 10px 0;
-}
-
-/* TEXT AREAS */
-.textarea-block {
-    margin-top: 15px;
-}
-
-/* BOTÓN */
-.actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.actions button {
-    background: #f28c28;
-    color: white;
-    border: none;
-    padding: 12px 26px;
-    border-radius: 22px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.actions button:hover {
-    background: #e27b18;
-}
-
-
-/* input/select/textarea full width */
-input, select, textarea {
-  width: 100%;
-}
-
-/* errores */
-.errors {
-  margin-top: 4px;
-  color: #b00020;
-  font-size: 12px;
-}
-
-/* iconito placeholder más parecido */
-.photo-icon {
-  font-size: 48px;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.header-bar {
+/* Header */
+.header-bar{
   position: relative;
-  height: 70px;
+  height: 80px;
   background: linear-gradient(90deg, #2fa4b5, #1b7f8a);
+  border-radius: 12px 12px 0 0;
   display: flex;
   align-items: center;
+  padding: 0 20px;
 }
-
-/* logo a la izquierda */
-.header-left {
-  position: absolute;
-  left: 20px;
-}
-
-.logo {
-  height: 120px;
-  width: auto;
-}
-
-/* texto centrado REAL */
-.header-center {
-  width: 100%;
-  text-align: right;
-}
-
-.header-center h1 {
-  color: white;
+.header-left{ position: absolute; left: 20px; top: 10px; }
+.logo{ height: 70px; width: auto; }
+.header-center{ width: 100%; text-align: left; padding-left: 140px; }
+.header-center h1{
+  margin: 0;
+  color: #fff;
   font-size: 40px;
   letter-spacing: 2px;
+}
+
+/* Card */
+.card{
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 18px 18px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+
+/* TOP layout (foto + campos) */
+.top-grid{
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 22px;
+}
+
+/* Caja de foto grande */
+.photo-box{
+  height: 520px;              /* más grande como Gemini */
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.12);
+  overflow: hidden;           /* clave para que NO se desborde */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* placeholder centrado */
+.photo-placeholder{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+  gap: 8px;
+}
+
+/* preview: SIEMPRE dentro del recuadro */
+.photo-preview{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* probá contain (como maqueta). Si querés recorte: cover */
+  display: block;
+}
+
+.photo-icon{ font-size: 52px; }
+
+/* Upload row */
+.upload-row{
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+.upload-field{ flex: 1; }
+.btn-secondary{
+  border: 1px solid #999;
+  background: rgba(255,255,255,0.75);
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-secondary:hover{ background: rgba(255,255,255,0.95); }
+
+/* Form right */
+.form-right{ width: 100%; }
+
+/* Campos “en línea” como Gemini: label izquierda + input derecha */
+.line-field{
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.line-field label{
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+
+.control input,
+.control select,
+.control textarea{
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.35);
+  width: 100%;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+
+/* en los campos compactos achicamos margenes */
+.line-field.compact{ margin-bottom: 8px; }
+
+/* checkbox alineado */
+.checkbox-control input{ width: auto; transform: scale(1.1); }
+
+/* Grilla dimensiones 2x2 */
+.dims-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+  margin: 6px 0 12px;
+}
+
+/* ==========================
+   MATERIALES – CHECKLIST
+========================== */
+
+.materials-block{
+  margin-top: 14px;
+}
+
+.materials-title{
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.materials-grid ul{
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 16px;
+}
+
+.materials-grid li{
+  margin: 0;
+}
+
+.materials-grid label{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.materials-grid input[type="checkbox"]{
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+
+
+/* Bloque inferior a lo ancho (Descripción / Observación) */
+.bottom-wide{
+  grid-column: 1 / -1;
+  margin-top: 14px;
+}
+
+.wide-field{
+  margin-top: 12px;
+}
+.wide-field label{
+  font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
+}
+.wide-field textarea{
+  width: 100%;
+  min-height: 90px;
+  border-radius: 10px;
+  border: 1px solid #c8c8c8;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.15);
+  resize: vertical;
+}
+
+.line-field label,
+.wide-field label{
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+
+/* Botón */
+.actions{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.actions button{
+  background: #f28c28;
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 22px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.actions button:hover{ background: #e27b18; }
+
+/* Responsive: en pantallas chicas baja todo */
+@media (max-width: 980px){
+  .top-grid{ grid-template-columns: 1fr; }
+  .header-center{ padding-left: 0; text-align: center; }
+  .header-left{ position: static; }
+  .header-bar{ justify-content: center; gap: 12px; }
+  .line-field{ grid-template-columns: 1fr; }
+}
+
+
+
+/* ===== Layout fijo: foto izquierda / campos derecha ===== */
+.ft-top{
+  display: grid;
+  grid-template-columns: 420px 1fr;  /* foto fija + campos */
+  gap: 22px;
+  align-items: start;
+}
+
+.ft-left{ min-width: 0; }
+.ft-right{ min-width: 0; }
+
+/* Caja foto: grande y contenida */
+.photo-box{
+  height: 520px;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.10);
+  overflow: hidden;              /* evita que se desborde */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.photo-preview{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;          /* no se sale y no recorta */
+  display: block;
+}
+
+.photo-placeholder{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: #666;
+  gap: 8px;
+}
+
+/* Upload: que el input no ocupe toda la pantalla */
+.upload-row{
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.upload-field{ flex: 1; }
+.upload-field input[type="file"]{
+  width: 100%;
+  max-width: 260px;           /* clave: lo hace cortito */
+}
+
+/* Campos en una línea: label izquierda, input derecha */
+.line-field{
+  display: grid;
+  grid-template-columns: 210px 1fr;  /* label fijo */
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 9px;
+}
+
+.line-field label{
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+/* Inputs más “cortos” de alto */
+.control input,
+.control select,
+.control textarea{
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #c8c8c8;
+  padding: 6px 10px;          /* menor alto */
+  background: rgba(255,255,255,0.95);
+  height: 34px;               /* fuerza “un renglón” */
+}
+
+/* Textareas del lado derecho no: las usamos abajo */
+.control textarea{ height: auto; }
+
+/* Dimensiones 2x2 */
+.dims-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+  margin: 6px 0 10px;
+}
+.line-field.compact{ margin-bottom: 0; }
+
+/* Checkbox */
+.checkbox-control input{ width: auto; height: auto; transform: scale(1.1); }
+
+/* Materiales en columnas */
+.materials-grid ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 14px;
+}
+.materials-grid label{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+}
+.materials-grid input[type="checkbox"]{ width: auto; height: auto; }
+
+/* Bloque inferior ancho total */
+.ft-bottom{
+  margin-top: 18px;
+}
+
+.wide-field{
+  margin-top: 12px;
+}
+.wide-field label{
+  font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
+}
+.wide-field textarea{
+  width: 100%;
+  min-height: 100px;
+  border-radius: 10px;
+  border: 1px solid #c8c8c8;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.95);
+  resize: vertical;
+}
+
+/* Responsive: recién abajo de 980px baja a 1 columna */
+@media (max-width: 980px){
+  .ft-top{ grid-template-columns: 1fr; }
+  .upload-field input[type="file"]{ max-width: 100%; }
+  .line-field{ grid-template-columns: 1fr; }
 }
