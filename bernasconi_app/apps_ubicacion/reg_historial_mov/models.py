@@ -18,8 +18,16 @@ class RegHistorialMov(models.Model):
         ('FOTOGRAFIA', 'Fotografía/Documentación'),
         ('MANTENIMIENTO', 'Mantenimiento'),
         ('REUBICACION', 'Reubicación'),
+        ('CUARENTENA', 'Cuarentena'),
         ('EMERGENCIA', 'Emergencia'),
         ('OTRO', 'Otro'),
+    ]
+
+    ESTADO_MOVIMIENTO_CHOICES = [
+        ('PENDIENTE', 'Pendiente'),
+        ('EN_TRANSITO', 'En tránsito'),
+        ('COMPLETADO', 'Completado'),
+        ('CANCELADO', 'Cancelado'),
     ]
     fk_ficha = models.ForeignKey(
         FichaTecnica,
@@ -34,11 +42,36 @@ class RegHistorialMov(models.Model):
         related_name="historial_movimientos"
     )
 
+    # ============================================================
+    # ORIGEN del movimiento
+    # ============================================================
+    fk_lugar_origen = models.ForeignKey(
+        UbicacionLugar,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="historial_movimientos_origen",
+        verbose_name="Lugar de origen"
+    )
+
+    fk_contenedor_origen = models.ForeignKey(
+        ContenedorUbicacion,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="historial_movimientos_origen",
+        verbose_name="Contenedor de origen"
+    )
+
+    # ============================================================
+    # DESTINO del movimiento
+    # ============================================================
     fk_lugar_destino = models.ForeignKey(
         UbicacionLugar,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="historial_movimientos_destino"
+        related_name="historial_movimientos_destino",
+        verbose_name="Lugar de destino"
     )
 
     fk_contenedor_destino = models.ForeignKey(
@@ -46,16 +79,21 @@ class RegHistorialMov(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="historial_movimientos_destino"
+        related_name="historial_movimientos_destino",
+        verbose_name="Contenedor de destino"
     )
 
+    # ============================================================
+    # DATOS del movimiento
+    # ============================================================
     fecha_movimiento = models.DateTimeField(auto_now_add=True)
 
     fk_responsable_mov = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         null=True,
-        related_name="movimientos_realizados"
+        related_name="movimientos_realizados",
+        verbose_name="Responsable del movimiento"
     )
 
     motivo = models.CharField(
@@ -63,6 +101,19 @@ class RegHistorialMov(models.Model):
         choices=MOTIVO_CHOICES,
         default='OTRO',
         verbose_name="Motivo del movimiento"
+    )
+
+    estado = models.CharField(
+        max_length=20,
+        choices=ESTADO_MOVIMIENTO_CHOICES,
+        default='COMPLETADO',
+        verbose_name="Estado del movimiento"
+    )
+
+    observaciones = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Observaciones"
     )
 
     def __str__(self):

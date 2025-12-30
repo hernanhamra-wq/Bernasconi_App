@@ -1,3 +1,11 @@
+"""
+MODELO DEPRECADO - Mantener solo por compatibilidad con datos existentes.
+
+La ubicación actual ahora se calcula dinámicamente desde RegHistorialMov
+usando FichaTecnica.ubicacion_actual()
+
+Este modelo será eliminado en una versión futura.
+"""
 from django.db import models
 from django.conf import settings
 from apps.ficha_tecnica.models import FichaTecnica
@@ -7,6 +15,10 @@ from apps_ubicacion.contenedor_ubicacion.models import ContenedorUbicacion
 
 
 class RegUbicacionActual(models.Model):
+    """
+    DEPRECADO: Usar FichaTecnica.ubicacion_actual() en su lugar.
+    Este modelo se mantiene temporalmente por compatibilidad.
+    """
     fk_ficha = models.ForeignKey(
         FichaTecnica,
         on_delete=models.CASCADE,

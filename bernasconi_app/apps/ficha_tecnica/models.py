@@ -329,10 +329,46 @@ class FichaTecnica(models.Model):
     # ============================================================
     # META
     # ============================================================
- 
+
     class Meta:
         verbose_name = "Ficha técnica"
         verbose_name_plural = "Fichas técnicas"
 
     def __str__(self):
         return f"Ficha {self.id} - {self.titulo}"
+
+    # ============================================================
+    # MÉTODOS DE UBICACIÓN
+    # ============================================================
+    def ubicacion_actual(self):
+        """
+        Retorna la ubicación actual de la obra basándose en el último
+        movimiento COMPLETADO registrado en el historial.
+
+        Returns:
+            dict con lugar, contenedor y fecha, o None si no hay historial
+        """
+        ultimo_movimiento = self.historial_movimientos.filter(
+            estado='COMPLETADO'
+        ).order_by('-fecha_movimiento').first()
+
+        if ultimo_movimiento:
+            return {
+                'lugar': ultimo_movimiento.fk_lugar_destino,
+                'contenedor': ultimo_movimiento.fk_contenedor_destino,
+                'fecha': ultimo_movimiento.fecha_movimiento,
+                'motivo': ultimo_movimiento.motivo,
+            }
+        return None
+
+    def en_cuarentena(self):
+        """
+        Verifica si la obra está actualmente en cuarentena.
+
+        Returns:
+            bool: True si el último movimiento completado fue a cuarentena
+        """
+        ubicacion = self.ubicacion_actual()
+        if ubicacion and ubicacion['lugar']:
+            return ubicacion['lugar'].tipo_lugar == 'CUARENTENA'
+        return False

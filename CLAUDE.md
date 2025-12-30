@@ -163,7 +163,32 @@ DB_PORT=3306
   - `propietario_legal`, `tipo_propiedad` (PROPIEDAD_MUSEO, COMODATO, etc.)
   - `derechos_reproduccion`, `nivel_confidencialidad`
 
-### FASE 4 - Pendiente (Ubicación)
-- Rediseño arquitectura de ubicación
-- Workflow de estados de movimiento
-- Validaciones de negocio
+### FASE 4 - Completada (Ubicación)
+
+#### Lugares (ubicacion_lugar)
+- TIPO_LUGAR_CHOICES: SALA, DEPOSITO, TALLER, ARCHIVO, LABORATORIO, **CUARENTENA**, EXTERNO
+- Campo `permite_contenedores` para habilitar/deshabilitar contenedores
+
+#### Movimientos (reg_historial_mov)
+- Campos de origen: `fk_lugar_origen`, `fk_contenedor_origen`
+- Campos de destino: `fk_lugar_destino`, `fk_contenedor_destino`
+- MOTIVO_CHOICES: EXPOSICION, RESTAURACION, PRESTAMO, ALMACENAMIENTO, INVESTIGACION, FOTOGRAFIA, MANTENIMIENTO, REUBICACION, **CUARENTENA**, EMERGENCIA, OTRO
+- ESTADO_MOVIMIENTO_CHOICES: PENDIENTE, EN_TRANSITO, COMPLETADO, CANCELADO
+- Campo `observaciones`
+- FK `fk_responsable_mov` con PROTECT
+
+#### Contenedores (contenedor_ubicacion)
+- TIPO_CONTENEDOR: CAJON, CAJA, VITRINA, RACK, ESTANTE, SOBRE, CARPETA, **PLANERO**, **PESEBRE**, **TUBO**, OTRO
+- MODO_ALMACENAMIENTO: DIRECTO (sin contenedor), EN_CONTENEDOR
+- ESTADO_CONTENEDOR: DISPONIBLE, PARCIAL, LLENO, EN_REPARACION, BAJA
+- Campo `capacidad_maxima` (opcional)
+- Constraint único: `(nombre_contenedor, fk_lugar_general)`
+- Métodos: `obras_actuales()`, `espacio_disponible()`, `porcentaje_ocupacion()`, `ruta_completa()`
+
+#### FichaTecnica - Métodos de ubicación
+- `ubicacion_actual()`: Retorna dict con lugar, contenedor, fecha, motivo del último movimiento COMPLETADO
+- `en_cuarentena()`: Retorna True si la obra está en área de cuarentena
+
+#### Modelo deprecado
+- `RegUbicacionActual`: Marcado como DEPRECADO. Usar `FichaTecnica.ubicacion_actual()` en su lugar.
+- Se mantiene temporalmente por compatibilidad con datos legacy

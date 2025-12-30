@@ -10,7 +10,9 @@ class ContenedorUbicacionAdmin(admin.ModelAdmin):
         "tipo_contenedor",
         "fk_lugar_general",
         "fk_padre",
+        "estado",
+        "capacidad_maxima",
     )
-    list_filter = ("tipo_contenedor", "tipo_almacen", "fk_lugar_general")
+    list_filter = ("tipo_contenedor", "modo_almacenamiento", "estado", "fk_lugar_general")
     search_fields = ("nombre_contenedor", "observacion")
     autocomplete_fields = ("fk_padre", "fk_lugar_general")

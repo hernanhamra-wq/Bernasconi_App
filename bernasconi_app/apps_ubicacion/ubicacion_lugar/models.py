@@ -9,6 +9,7 @@ class UbicacionLugar(models.Model):
         ('TALLER', 'Taller de restauración'),
         ('ARCHIVO', 'Archivo'),
         ('LABORATORIO', 'Laboratorio'),
+        ('CUARENTENA', 'Área de cuarentena'),
         ('EXTERNO', 'Ubicación externa'),
     ]
 

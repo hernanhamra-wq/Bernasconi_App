@@ -110,7 +110,25 @@ bernasconi_app/
 - Préstamos y donaciones (modelos con workflow listos)
 - Intervenciones (restauraciones)
 - Control de plagas
-- Gestión de ubicación
+
+## Sistema de Ubicación
+
+### Lugares Físicos
+Tipos: SALA, DEPOSITO, TALLER, ARCHIVO, LABORATORIO, CUARENTENA, EXTERNO
+
+### Movimientos
+Registro completo de origen y destino con estados:
+- PENDIENTE → EN_TRANSITO → COMPLETADO / CANCELADO
+
+Motivos: EXPOSICION, RESTAURACION, PRESTAMO, CUARENTENA, INVESTIGACION, etc.
+
+### Contenedores
+Tipos: CAJON, CAJA, VITRINA, RACK, ESTANTE, PLANERO, PESEBRE, TUBO, etc.
+
+Funcionalidades:
+- Jerarquía de contenedores (contenedor dentro de contenedor)
+- Control de capacidad y estado (DISPONIBLE, PARCIAL, LLENO)
+- Cálculo automático de ocupación
 
 ## Campos de Ficha Técnica
 
