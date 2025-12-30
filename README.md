@@ -8,10 +8,13 @@ Sistema de gestión de inventario patrimonial para el **Museo Bernasconi**. Desa
 - Gestión de autores, materiales y técnicas
 - Control de intervenciones (restauraciones)
 - Registro de investigaciones académicas
-- Sistema de préstamos y donaciones
+- Sistema de préstamos y donaciones con workflow de estados
 - Control integrado de plagas (MIT)
 - Trazabilidad de ubicación física
-- Auditoría automática de cambios
+- Auditoría automática de cambios (created_by, updated_by)
+- Campos Dublin Core para interoperabilidad museística
+- Gestión de condiciones de conservación
+- Control de propiedad legal y derechos
 
 ## Requisitos
 
@@ -66,15 +69,22 @@ python bernasconi_app/manage.py runserver
 ```
 bernasconi_app/
 ├── apps/                   # Apps principales
-│   ├── core/               # Auditoría (AuditableModel)
-│   ├── procedencia/        # Origen de obras
+│   ├── core/               # Auditoría (AuditableModel + middleware)
+│   ├── procedencia/        # Origen de obras (reutilizable)
 │   ├── usuarios/           # Usuarios y roles
 │   ├── ficha_tecnica/      # Catálogo de obras (CORE)
-│   ├── autor/              # Autores
-│   ├── material/           # Materiales
-│   └── ...
+│   ├── autor/              # Autores (M2M con fichas)
+│   ├── material/           # Materiales (M2M con fichas)
+│   ├── taller/             # Talleres de restauración
+│   ├── catalogo_multimedia/# Archivos multimedia (FileField)
+│   ├── estado_obra/        # Estados de conservación
+│   ├── intervencion/       # Restauraciones
+│   └── investigacion/      # Estudios académicos
 ├── apps_pres/              # Préstamos y donaciones
-├── apps_plagas/            # Control de plagas
+│   ├── institucion/        # Instituciones colaboradoras
+│   ├── prestamo/           # Préstamos con workflow de estados
+│   └── donacion/           # Donaciones recibidas
+├── apps_plagas/            # Control de plagas (MIT)
 ├── apps_ubicacion/         # Ubicación física
 ├── templates/              # Templates HTML
 └── static/                 # CSS, JS, imágenes
@@ -91,38 +101,69 @@ bernasconi_app/
 ## Módulos
 
 ### Funcionales
-- **Fichas Técnicas:** Catálogo completo de obras
+- **Fichas Técnicas:** Catálogo completo de obras con campos Dublin Core
 - **Investigaciones:** Estudios académicos asociados
 - **Búsqueda avanzada:** Multicampo con paginación
+- **Procedencia:** Registro de origen de obras (donación, compra, legado, etc.)
 
 ### En desarrollo
-- Préstamos y donaciones
+- Préstamos y donaciones (modelos con workflow listos)
 - Intervenciones (restauraciones)
 - Control de plagas
 - Gestión de ubicación
 
+## Campos de Ficha Técnica
+
+### Dublin Core (Interoperabilidad)
+| Campo | Descripción |
+|-------|-------------|
+| `categoria_objeto` | Tipo de pieza (PINTURA, ESCULTURA, GRABADO, etc.) |
+| `periodo_historico` | Época de la obra |
+| `datacion` | Fecha estimada |
+| `origen_geografico` | Lugar de creación |
+| `tematica` | Tema principal |
+| `palabras_clave` | Tags para búsqueda |
+
+### Conservación
+| Campo | Descripción |
+|-------|-------------|
+| `temperatura_requerida_min/max` | Rango de temperatura (°C) |
+| `humedad_requerida_min/max` | Rango de humedad (%) |
+| `nivel_iluminacion` | BAJA, MEDIA, ALTA, SIN_RESTRICCION |
+| `requiere_vitrina` | Si necesita exhibirse en vitrina |
+| `condiciones_especiales` | Requisitos adicionales |
+
+### Propiedad Legal
+| Campo | Descripción |
+|-------|-------------|
+| `propietario_legal` | Dueño de la obra |
+| `tipo_propiedad` | PROPIEDAD_MUSEO, COMODATO, DEPOSITO, etc. |
+| `derechos_reproduccion` | Restricciones de uso |
+| `nivel_confidencialidad` | PUBLICO, RESTRINGIDO, CONFIDENCIAL |
+
 ## Auditoría
 
-El sistema registra automáticamente:
-- Quién creó cada registro
-- Cuándo se creó
-- Quién lo modificó
-- Cuándo se modificó
+El sistema registra automáticamente mediante `AuditableModel` y middleware:
+- `created_by` / `created_at` — Quién y cuándo creó
+- `updated_by` / `updated_at` — Quién y cuándo modificó
 
-Esta información es invisible al usuario y se gestiona mediante middleware.
+Esta información es invisible al usuario y se gestiona automáticamente.
+
+## Workflow de Préstamos
+
+```
+SOLICITADO → EN_EVALUACION → APROBADO → EN_PREPARACION → EN_TRANSITO_IDA
+→ EN_DESTINO → EN_TRANSITO_VUELTA → DEVUELTO
+                    ↓
+               RECHAZADO / CANCELADO
+```
 
 ---
 
-## Documentación de Migración
+## Documentación Técnica
 
-Ver carpeta `BASE_DE_DATOS_Y_MIGRACIONES.md`:
-- `00_criterio_migracion.md` — Criterios generales y orden
-- `01_catalogos.md` — Catálogos base
-- `02_entidades_base.md` — Autor, multimedia, etc.
-- `03_ficha_tecnica.md` — Tabla madre
-- `04_serie.md` — Uso especial estampas
-- `decisiones_modelado.md` — Decisiones importantes
-- `problemas_legacy.md` — Datos confusos del sistema anterior
+- **CLAUDE.md** — Contexto técnico para desarrolladores
+- **BASE_DE_DATOS_Y_MIGRACIONES.md/** — Documentación de migración desde Access
 
 ---
 
