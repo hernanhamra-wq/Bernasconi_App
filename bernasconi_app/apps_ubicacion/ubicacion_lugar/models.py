@@ -1,6 +1,17 @@
 from django.db import models
 
+
 class UbicacionLugar(models.Model):
+
+    TIPO_LUGAR_CHOICES = [
+        ('SALA', 'Sala de exposición'),
+        ('DEPOSITO', 'Depósito'),
+        ('TALLER', 'Taller de restauración'),
+        ('ARCHIVO', 'Archivo'),
+        ('LABORATORIO', 'Laboratorio'),
+        ('EXTERNO', 'Ubicación externa'),
+    ]
+
     nombre_lugar = models.CharField(
         max_length=150,
         unique=True,
@@ -9,8 +20,8 @@ class UbicacionLugar(models.Model):
 
     tipo_lugar = models.CharField(
         max_length=50,
-        verbose_name="Tipo de lugar",
-        help_text="Ej: SALA, DEPOSITO, TALLER, ARCHIVO, EXTERNO"
+        choices=TIPO_LUGAR_CHOICES,
+        verbose_name="Tipo de lugar"
     )
 
     permite_contenedores = models.BooleanField(

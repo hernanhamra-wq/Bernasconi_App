@@ -141,12 +141,21 @@ DB_PORT=3306
 - usuario_registro en modelos
 - FileField para multimedia
 
-### FASE 2 - Pendiente
-- Choices en campos de texto libre
-- Estado en préstamos
-- Separar campo contacto en Taller
+### FASE 2 - Completada
+- Choices en campos de texto libre:
+  - `tipo_lugar` en UbicacionLugar (SALA, DEPOSITO, TALLER, ARCHIVO, LABORATORIO, EXTERNO)
+  - `tipo_institucion` en Institucion (MUSEO, UNIVERSIDAD, FUNDACION, GALERIA, etc.)
+  - `condicion_legal` en Donacion (PLENA_PROPIEDAD, COMODATO, DEPOSITO, LEGADO, etc.)
+  - `motivo` en RegHistorialMov (EXPOSICION, RESTAURACION, PRESTAMO, ALMACENAMIENTO, etc.)
+- Campo `estado` en Prestamo con workflow completo (SOLICITADO→EN_EVALUACION→APROBADO→EN_DESTINO→DEVUELTO)
+- Campo `contacto` en Taller separado en: `persona_contacto`, `email`, `telefono`
 
 ### FASE 3 - Pendiente
 - Campos Dublin Core
 - Campos de conservación
 - Campos de propiedad legal
+
+### FASE 4 - Pendiente (Ubicación)
+- Rediseño arquitectura de ubicación
+- Workflow de estados de movimiento
+- Validaciones de negocio

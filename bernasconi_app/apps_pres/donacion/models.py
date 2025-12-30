@@ -1,7 +1,20 @@
 from django.db import models
 from django.conf import settings
 
+
 class Donacion(models.Model):
+
+    CONDICION_LEGAL_CHOICES = [
+        ('PLENA_PROPIEDAD', 'Plena propiedad'),
+        ('COMODATO', 'Comodato'),
+        ('DEPOSITO', 'Depósito'),
+        ('LEGADO', 'Legado testamentario'),
+        ('CESION_TEMPORAL', 'Cesión temporal'),
+        ('USUFRUCTO', 'Usufructo'),
+        ('EN_TRAMITE', 'En trámite'),
+        ('OTRO', 'Otro'),
+    ]
+
     ficha = models.ForeignKey(
         'ficha_tecnica.FichaTecnica',
         on_delete=models.CASCADE,
@@ -11,7 +24,7 @@ class Donacion(models.Model):
 
     institucion_donante = models.ForeignKey(
         'institucion.Institucion',
-        on_delete=models.PROTECT,  # PROTECT: no permite eliminar institución con donaciones
+        on_delete=models.PROTECT,
         null=True,
         blank=True,
         related_name='donaciones_realizadas',
@@ -22,7 +35,10 @@ class Donacion(models.Model):
         verbose_name='Fecha de la donación'
     )
 
-    condicion_legal = models.TextField(
+    condicion_legal = models.CharField(
+        max_length=50,
+        choices=CONDICION_LEGAL_CHOICES,
+        default='PLENA_PROPIEDAD',
         verbose_name='Condición legal'
     )
 

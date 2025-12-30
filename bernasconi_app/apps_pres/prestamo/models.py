@@ -3,7 +3,22 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class Prestamo(models.Model):
+
+    ESTADO_CHOICES = [
+        ('SOLICITADO', 'Solicitado'),
+        ('EN_EVALUACION', 'En evaluación'),
+        ('APROBADO', 'Aprobado'),
+        ('RECHAZADO', 'Rechazado'),
+        ('EN_PREPARACION', 'En preparación'),
+        ('EN_TRANSITO_IDA', 'En tránsito (ida)'),
+        ('EN_DESTINO', 'En destino'),
+        ('EN_TRANSITO_VUELTA', 'En tránsito (vuelta)'),
+        ('DEVUELTO', 'Devuelto'),
+        ('CANCELADO', 'Cancelado'),
+    ]
+
     ficha = models.ForeignKey(
         'ficha_tecnica.FichaTecnica',
         on_delete=models.CASCADE,
@@ -36,6 +51,13 @@ class Prestamo(models.Model):
 
     requisitos_especiales = models.TextField(blank=True, null=True)
     observaciones = models.TextField(blank=True, null=True)
+
+    estado = models.CharField(
+        max_length=50,
+        choices=ESTADO_CHOICES,
+        default='SOLICITADO',
+        verbose_name='Estado del préstamo'
+    )
 
     responsable = models.ForeignKey(
         User,

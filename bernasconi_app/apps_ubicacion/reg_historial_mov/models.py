@@ -8,6 +8,19 @@ from apps_ubicacion.contenedor_ubicacion.models import ContenedorUbicacion
 
 
 class RegHistorialMov(models.Model):
+
+    MOTIVO_CHOICES = [
+        ('EXPOSICION', 'Exposición'),
+        ('RESTAURACION', 'Restauración'),
+        ('PRESTAMO', 'Préstamo'),
+        ('ALMACENAMIENTO', 'Almacenamiento'),
+        ('INVESTIGACION', 'Investigación'),
+        ('FOTOGRAFIA', 'Fotografía/Documentación'),
+        ('MANTENIMIENTO', 'Mantenimiento'),
+        ('REUBICACION', 'Reubicación'),
+        ('EMERGENCIA', 'Emergencia'),
+        ('OTRO', 'Otro'),
+    ]
     fk_ficha = models.ForeignKey(
         FichaTecnica,
         on_delete=models.CASCADE,
@@ -45,7 +58,12 @@ class RegHistorialMov(models.Model):
         related_name="movimientos_realizados"
     )
 
-    motivo = models.CharField(max_length=255, null=True, blank=True)
+    motivo = models.CharField(
+        max_length=50,
+        choices=MOTIVO_CHOICES,
+        default='OTRO',
+        verbose_name="Motivo del movimiento"
+    )
 
     def __str__(self):
         return f"Movimiento de {self.fk_ficha} → {self.fk_lugar_destino} ({self.fecha_movimiento})"
