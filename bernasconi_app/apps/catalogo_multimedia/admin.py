@@ -3,7 +3,7 @@ from .models import CatalogoMultimedia
 
 @admin.register(CatalogoMultimedia)
 class CatalogoMultimediaAdmin(admin.ModelAdmin):
-    list_display = ("id", "ficha", "tipo", "url_archivo", "descripcion")
+    list_display = ("id", "ficha", "tipo", "archivo", "descripcion")
     list_filter = ("tipo",)
-    search_fields = ("url_archivo", "descripcion")
+    search_fields = ("archivo", "descripcion")
     ordering = ("ficha", "tipo")

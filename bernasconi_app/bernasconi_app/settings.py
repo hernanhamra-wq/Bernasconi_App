@@ -51,6 +51,8 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
+    'apps.core',  # Debe ir primero - modelo base de auditoría
+    'apps.procedencia',  # Procedencia de obras
     'apps.usuarios',
     'apps.autor',
     'apps.material',
@@ -92,6 +94,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.core.middleware.CurrentUserMiddleware',  # Auditoría automática
 ]
 
 ROOT_URLCONF = 'bernasconi_app.urls'
@@ -187,3 +190,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Authentication URLs and redirects
 LOGIN_REDIRECT_URL = '/home/'        # After login, go to home
 LOGIN_URL = '/auth/login/'         # Login page URL
+
+# Media files (uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

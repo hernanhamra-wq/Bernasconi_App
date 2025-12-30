@@ -15,7 +15,7 @@ class Investigacion(models.Model):
 
     investigador = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,  # PROTECT: no permite eliminar usuario con investigaciones
         null=True,
         related_name='investigaciones_realizadas',
         verbose_name='Investigador'

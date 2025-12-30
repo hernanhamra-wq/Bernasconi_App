@@ -15,7 +15,7 @@ class Intervencion(models.Model):
 
     responsable = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,  # PROTECT: no permite eliminar usuario con intervenciones
         null=True,
         related_name='intervenciones_realizadas',
         verbose_name='Responsable'

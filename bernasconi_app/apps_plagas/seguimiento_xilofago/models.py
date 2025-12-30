@@ -1,5 +1,5 @@
 from django.db import models
-# 💡 Importación necesaria para la ForeignKey
+from django.conf import settings
 from apps_plagas.registro_plaga.models import RegistroPlaga 
 
 class SeguimientoXilofago(models.Model):
@@ -21,6 +21,15 @@ class SeguimientoXilofago(models.Model):
         blank=True,
         null=True,
         help_text="Opcional: baja, alta, nula"
+    )
+
+    usuario_registro = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name='seguimientos_xilofago_creados',
+        verbose_name='Usuario que registró'
     )
 
     class Meta:

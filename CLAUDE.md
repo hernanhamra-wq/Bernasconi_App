@@ -1,0 +1,152 @@
+# BernasconiApp - Contexto del Proyecto
+
+## Descripción
+Sistema de gestión de inventario patrimonial para el **Museo Bernasconi**. Centraliza el catálogo de obras, colecciones históricas y artefactos. Migrado desde bases de datos Access a MySQL.
+
+## Stack Tecnológico
+- **Backend:** Django 5.0.3 (Python 3)
+- **Base de datos:** MySQL
+- **ORM:** Django ORM
+- **Frontend:** Templates Django (HTML/CSS/JS)
+- **Entorno virtual:** `.venv/`
+
+## Estructura del Proyecto
+
+```
+BernasconiApp/
+├── .venv/                      # Entorno virtual Python
+├── bernasconi_app/             # Proyecto Django principal
+│   ├── bernasconi_app/         # Configuración (settings, urls, wsgi)
+│   ├── apps/                   # Apps principales
+│   │   ├── core/               # Modelo base AuditableModel + middleware
+│   │   ├── procedencia/        # Origen de obras (reutilizable)
+│   │   ├── usuarios/           # Modelo de usuario personalizado
+│   │   ├── ficha_tecnica/      # CORE - Catálogo de obras
+│   │   ├── autor/              # Autores (M2M con fichas)
+│   │   ├── material/           # Materiales (M2M con fichas)
+│   │   ├── taller/             # Talleres de restauración
+│   │   ├── catalogo_multimedia/# Archivos multimedia
+│   │   ├── estado_obra/        # Estados de conservación
+│   │   ├── intervencion/       # Restauraciones
+│   │   └── investigacion/      # Estudios académicos
+│   ├── apps_pres/              # Apps de préstamos
+│   │   ├── institucion/        # Instituciones colaboradoras
+│   │   ├── prestamo/           # Préstamos de obras
+│   │   └── donacion/           # Donaciones recibidas
+│   ├── apps_plagas/            # Control de plagas (MIT)
+│   │   ├── tipo_plaga/         # Catálogo de plagas
+│   │   ├── manejo_plagas/      # Planes de manejo
+│   │   ├── registro_plaga/     # Registros de avistamiento
+│   │   └── seguimiento_xilofago/ # Seguimiento de xilófagos
+│   ├── apps_ubicacion/         # Ubicación física
+│   │   ├── ubicacion_lugar/    # Lugares (salas, depósitos)
+│   │   ├── contenedor_ubicacion/ # Contenedores jerárquicos
+│   │   ├── reg_ubicacion_actual/ # Ubicación actual de obras
+│   │   └── reg_historial_mov/  # Historial de movimientos
+│   ├── templates/              # Templates globales
+│   ├── static/                 # CSS, JS, imágenes
+│   └── media/                  # Archivos subidos (multimedia)
+└── README.md
+```
+
+## Comandos Importantes
+
+```bash
+# Activar entorno virtual (Windows)
+.venv\Scripts\activate
+
+# Ejecutar servidor de desarrollo
+python bernasconi_app/manage.py runserver
+
+# Crear migraciones
+python bernasconi_app/manage.py makemigrations
+
+# Aplicar migraciones
+python bernasconi_app/manage.py migrate
+
+# Crear superusuario
+python bernasconi_app/manage.py createsuperuser
+
+# Verificar configuración
+python bernasconi_app/manage.py check
+```
+
+## Roles de Usuario
+- **SUPERADMIN:** Control total + gestión de usuarios
+- **ADMIN:** CRUD de fichas, intervenciones, investigaciones
+- **GUEST:** Solo lectura/consulta
+
+## Decisiones de Arquitectura
+
+### Auditoría (apps.core)
+- Modelo abstracto `AuditableModel` con campos: `created_at`, `updated_at`, `created_by`, `updated_by`
+- Middleware `CurrentUserMiddleware` captura usuario automáticamente
+- Los campos de auditoría son **invisibles al usuario** y se llenan automáticamente
+
+### Integridad Referencial
+- FKs de auditoría usan `on_delete=PROTECT` para no perder trazabilidad
+- Si se intenta eliminar un usuario con registros asociados, Django lo impide
+
+### Procedencia (apps.procedencia)
+- Tabla reutilizable para registrar origen de obras
+- Permite asociar múltiples obras a la misma procedencia
+- Tipos: DONACION, COMPRA, LEGADO, TRANSFERENCIA, EXCAVACION, COMODATO, DEPOSITO
+
+### Inventario
+- Campo `inventario` en FichaTecnica tiene constraint `unique=True`
+- Garantiza unicidad a nivel de base de datos
+
+### Multimedia
+- `CatalogoMultimedia.archivo` es `FileField` (no CharField)
+- Los archivos se guardan en `media/multimedia/{tipo}/{año}/{mes}/`
+
+## Convenciones de Código
+- Nombres de apps en español
+- Modelos en singular (Autor, Material, Ficha)
+- ForeignKeys con prefijo `fk_` (fk_procedencia, fk_estado)
+- Verbose_name en español para el admin
+
+## Variables de Entorno (.env)
+```
+DB_NAME=bernasconi_db
+DB_USER=root
+DB_PASSWORD=****
+DB_HOST=localhost
+DB_PORT=3306
+```
+
+## Estado del Proyecto
+
+### Funcional
+- Gestión de Fichas Técnicas (CRUD)
+- Búsqueda avanzada
+- Gestión de Investigaciones
+- Autenticación por roles
+- Admin de Django
+
+### En desarrollo (modelos listos, sin vistas)
+- Préstamos
+- Donaciones
+- Intervenciones
+- Sistema de Plagas
+- Sistema de Ubicación
+
+## Fases de Desarrollo
+
+### FASE 1 - Completada
+- App core (auditoría)
+- App procedencia
+- Inventario único
+- PROTECT en FKs de auditoría
+- usuario_registro en modelos
+- FileField para multimedia
+
+### FASE 2 - Pendiente
+- Choices en campos de texto libre
+- Estado en préstamos
+- Separar campo contacto en Taller
+
+### FASE 3 - Pendiente
+- Campos Dublin Core
+- Campos de conservación
+- Campos de propiedad legal

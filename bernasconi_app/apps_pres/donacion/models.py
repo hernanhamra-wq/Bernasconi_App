@@ -11,7 +11,7 @@ class Donacion(models.Model):
 
     institucion_donante = models.ForeignKey(
         'institucion.Institucion',
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,  # PROTECT: no permite eliminar institución con donaciones
         null=True,
         blank=True,
         related_name='donaciones_realizadas',

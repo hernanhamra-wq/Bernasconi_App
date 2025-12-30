@@ -8,7 +8,13 @@ class FichaTecnica(models.Model):
     # IDENTIFICACIÓN / INVENTARIO
     # ============================================================
     n_de_ficha = models.BigIntegerField(null=True, blank=True)
-    inventario = models.CharField(max_length=255, null=True, blank=True)
+    inventario = models.CharField(
+        max_length=255,
+        unique=True,  # Garantiza unicidad a nivel de base de datos
+        null=True,
+        blank=True,
+        verbose_name="Número de inventario"
+    )
     n_de_inventario_anterior = models.TextField(null=True, blank=True)
 
     # ============================================================
@@ -116,6 +122,15 @@ class FichaTecnica(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True
+    )
+
+    fk_procedencia = models.ForeignKey(
+        'procedencia.Procedencia',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='fichas',
+        verbose_name='Procedencia'
     )
 
     autores = models.ManyToManyField(

@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from apps.ficha_tecnica.models import FichaTecnica
 from apps.estado_obra.models import EstadoObra
 from apps_ubicacion.ubicacion_lugar.models import UbicacionLugar
@@ -35,6 +36,15 @@ class RegUbicacionActual(models.Model):
     )
 
     fecha_desde = models.DateTimeField(auto_now_add=True)
+
+    usuario_registro = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name='ubicaciones_registradas',
+        verbose_name='Usuario que registró'
+    )
 
     def __str__(self):
         return f"{self.fk_ficha} en {self.fk_lugar} desde {self.fecha_desde}"

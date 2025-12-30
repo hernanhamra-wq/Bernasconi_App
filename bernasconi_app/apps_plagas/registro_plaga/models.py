@@ -21,6 +21,15 @@ class RegistroPlaga(models.Model):
     tipologia_plaga = models.ForeignKey(TipoPlaga, on_delete=models.CASCADE)
     observaciones = models.TextField(blank=True)
 
+    usuario_registro = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name='registros_plaga_creados',
+        verbose_name='Usuario que registró'
+    )
+
     class Meta:
         app_label = 'registro_plaga'
         verbose_name = "Registro de Plaga"
