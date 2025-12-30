@@ -133,6 +133,186 @@ class FichaTecnica(models.Model):
         verbose_name='Procedencia'
     )
 
+    # ============================================================
+    # DUBLIN CORE - Campos para interoperabilidad museística
+    # ============================================================
+    CATEGORIA_OBJETO_CHOICES = [
+        ('PINTURA', 'Pintura'),
+        ('ESCULTURA', 'Escultura'),
+        ('GRABADO', 'Grabado'),
+        ('DIBUJO', 'Dibujo'),
+        ('FOTOGRAFIA', 'Fotografía'),
+        ('CERAMICA', 'Cerámica'),
+        ('TEXTIL', 'Textil'),
+        ('MOBILIARIO', 'Mobiliario'),
+        ('DOCUMENTO', 'Documento'),
+        ('NUMISMATICA', 'Numismática'),
+        ('ARQUEOLOGIA', 'Arqueología'),
+        ('ETNOGRAFIA', 'Etnografía'),
+        ('CIENCIAS_NATURALES', 'Ciencias naturales'),
+        ('INSTRUMENTO', 'Instrumento'),
+        ('INDUMENTARIA', 'Indumentaria'),
+        ('OTRO', 'Otro'),
+    ]
+
+    categoria_objeto = models.CharField(
+        max_length=50,
+        choices=CATEGORIA_OBJETO_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name="Categoría del objeto",
+        help_text="Dublin Core: dc.type"
+    )
+
+    periodo_historico = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name="Período histórico",
+        help_text="Ej: Colonial, Siglo XIX, Art Nouveau"
+    )
+
+    datacion = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name="Datación",
+        help_text="Dublin Core: dc.date. Ej: ca. 1850, 1920-1930"
+    )
+
+    origen_geografico = models.CharField(
+        max_length=150,
+        null=True,
+        blank=True,
+        verbose_name="Origen geográfico",
+        help_text="Dublin Core: dc.coverage. País/región de creación"
+    )
+
+    tematica = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name="Temática",
+        help_text="Dublin Core: dc.subject. Tema principal de la obra"
+    )
+
+    palabras_clave = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Palabras clave",
+        help_text="Separadas por coma. Facilita búsquedas"
+    )
+
+    # ============================================================
+    # CONSERVACIÓN - Condiciones ambientales requeridas
+    # ============================================================
+    NIVEL_ILUMINACION_CHOICES = [
+        ('BAJA', 'Baja (< 50 lux)'),
+        ('MEDIA', 'Media (50-150 lux)'),
+        ('ALTA', 'Alta (150-300 lux)'),
+        ('SIN_RESTRICCION', 'Sin restricción'),
+    ]
+
+    temperatura_requerida_min = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        null=True,
+        blank=True,
+        verbose_name="Temperatura mínima (°C)"
+    )
+
+    temperatura_requerida_max = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        null=True,
+        blank=True,
+        verbose_name="Temperatura máxima (°C)"
+    )
+
+    humedad_requerida_min = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        null=True,
+        blank=True,
+        verbose_name="Humedad relativa mínima (%)"
+    )
+
+    humedad_requerida_max = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        null=True,
+        blank=True,
+        verbose_name="Humedad relativa máxima (%)"
+    )
+
+    nivel_iluminacion = models.CharField(
+        max_length=20,
+        choices=NIVEL_ILUMINACION_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name="Nivel de iluminación permitido"
+    )
+
+    requiere_vitrina = models.BooleanField(
+        default=False,
+        verbose_name="Requiere exhibición en vitrina"
+    )
+
+    condiciones_especiales = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Condiciones especiales de conservación",
+        help_text="Requisitos adicionales de manejo o almacenamiento"
+    )
+
+    # ============================================================
+    # PROPIEDAD LEGAL
+    # ============================================================
+    TIPO_PROPIEDAD_CHOICES = [
+        ('PROPIEDAD_MUSEO', 'Propiedad del museo'),
+        ('COMODATO', 'Comodato'),
+        ('DEPOSITO', 'Depósito'),
+        ('PRESTAMO_LARGO', 'Préstamo a largo plazo'),
+        ('EN_TRAMITE', 'En trámite'),
+        ('OTRO', 'Otro'),
+    ]
+
+    NIVEL_CONFIDENCIALIDAD_CHOICES = [
+        ('PUBLICO', 'Público'),
+        ('RESTRINGIDO', 'Restringido'),
+        ('CONFIDENCIAL', 'Confidencial'),
+    ]
+
+    propietario_legal = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name="Propietario legal",
+        help_text="Dublin Core: dc.rights"
+    )
+
+    tipo_propiedad = models.CharField(
+        max_length=50,
+        choices=TIPO_PROPIEDAD_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name="Tipo de propiedad"
+    )
+
+    derechos_reproduccion = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Derechos de reproducción",
+        help_text="Restricciones para fotografía, publicación, etc."
+    )
+
+    nivel_confidencialidad = models.CharField(
+        max_length=20,
+        choices=NIVEL_CONFIDENCIALIDAD_CHOICES,
+        default='PUBLICO',
+        verbose_name="Nivel de confidencialidad"
+    )
+
     autores = models.ManyToManyField(
         'autor.Autor',
         through='autor.FichaAutor',

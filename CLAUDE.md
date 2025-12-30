@@ -150,10 +150,18 @@ DB_PORT=3306
 - Campo `estado` en Prestamo con workflow completo (SOLICITADO→EN_EVALUACION→APROBADO→EN_DESTINO→DEVUELTO)
 - Campo `contacto` en Taller separado en: `persona_contacto`, `email`, `telefono`
 
-### FASE 3 - Pendiente
-- Campos Dublin Core
-- Campos de conservación
-- Campos de propiedad legal
+### FASE 3 - Completada
+- Campos Dublin Core en FichaTecnica:
+  - `categoria_objeto` (PINTURA, ESCULTURA, GRABADO, etc.)
+  - `periodo_historico`, `datacion`, `origen_geografico`
+  - `tematica`, `palabras_clave`
+- Campos de conservación en FichaTecnica:
+  - `temperatura_requerida_min/max`, `humedad_requerida_min/max`
+  - `nivel_iluminacion` (BAJA, MEDIA, ALTA, SIN_RESTRICCION)
+  - `requiere_vitrina`, `condiciones_especiales`
+- Campos de propiedad legal en FichaTecnica:
+  - `propietario_legal`, `tipo_propiedad` (PROPIEDAD_MUSEO, COMODATO, etc.)
+  - `derechos_reproduccion`, `nivel_confidencialidad`
 
 ### FASE 4 - Pendiente (Ubicación)
 - Rediseño arquitectura de ubicación
