@@ -384,6 +384,8 @@ textarea.form-control {
    ============================================================ */
 .table-container {
   overflow-x: auto;
+  max-height: calc(100vh - 250px);
+  overflow-y: auto;
 }
 
 .table {
@@ -404,6 +406,11 @@ textarea.form-control {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  background: var(--bg-card);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 0 var(--border-color);
 }
 
 .table tbody tr:hover {
@@ -536,7 +543,7 @@ textarea.form-control {
   z-index: -1;
 }
 
-/* Overlay para legibilidad */
+/* Overlay para legibilidad - más oscuro en modo claro para mejor contraste */
 .page-bg::after {
   content: '';
   position: absolute;
@@ -544,13 +551,13 @@ textarea.form-control {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(245, 247, 250, 0.85);
+  background: rgba(20, 25, 35, 0.80);
   z-index: -1;
 }
 
-/* Dark mode: overlay más oscuro */
+/* Dark mode: overlay más transparente para ver mejor la imagen */
 [data-theme="dark"] .page-bg::after {
-  background: rgba(18, 18, 18, 0.88);
+  background: rgba(0, 0, 0, 0.60);
 }
 
 /* Fondos específicos */

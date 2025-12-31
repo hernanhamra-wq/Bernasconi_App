@@ -234,7 +234,57 @@ def detalle_ficha_tecnica(request, pk):
         .prefetch_related("materiales", "materiales_relacion"),
         pk=pk
     )
-    return render(request, "ficha_tecnica/detalle_ficha_tecnica.html", {"ficha": ficha})
+
+    # Obtener ubicación actual desde RegUbicacionActual (tabla legacy con 6912 registros)
+    # Fallback si no hay movimientos en historial_movimientos
+    ubicacion_legacy = ficha.ubicacion_actual.select_related(
+        'fk_lugar', 'fk_contenedor', 'fk_estado'
+    ).first()
+
+    # Calcular si está en exposición, cuarentena, etc basado en tipo de lugar
+    # (fk_estado no está migrado, usamos tipo_lugar del fk_lugar)
+    estado_actual = None
+    if ubicacion_legacy and ubicacion_legacy.fk_lugar:
+        tipo = ubicacion_legacy.fk_lugar.tipo_lugar
+        tipo_display = {
+            'SALA': 'Exposición',
+            'DEPOSITO': 'Depósito',
+            'TALLER': 'Taller',
+            'ARCHIVO': 'En Archivo',
+            'LABORATORIO': 'Laboratorio',
+            'CUARENTENA': 'Cuarentena',
+            'EXTERNO': 'Préstamo Externo',
+        }
+        estado_actual = tipo_display.get(tipo, tipo)
+
+    # Historial general - contadores
+    historial = {
+        'prestamos_count': ficha.prestamos.count(),
+        'prestamos': ficha.prestamos.all()[:5],  # Últimos 5
+        'intervenciones_count': ficha.intervenciones.count(),
+        'intervenciones': ficha.intervenciones.all()[:5],
+        'investigaciones_count': ficha.investigaciones.count(),
+        'investigaciones': ficha.investigaciones.all()[:5],
+        'donaciones_count': ficha.donaciones.count(),
+        'donaciones': ficha.donaciones.all()[:5],
+        'movimientos_count': ficha.historial_movimientos.count(),
+        'movimientos': ficha.historial_movimientos.all().order_by('-fecha_movimiento')[:5],
+    }
+
+    # Determinar forma de adquisición
+    forma_adquisicion = "No registrada"
+    if historial['donaciones_count'] > 0:
+        forma_adquisicion = "Donación"
+    elif ficha.fk_procedencia:
+        forma_adquisicion = f"Procedencia: {ficha.fk_procedencia.nombre}"
+
+    return render(request, "ficha_tecnica/detalle_ficha_tecnica.html", {
+        "ficha": ficha,
+        "ubicacion_legacy": ubicacion_legacy,
+        "estado_actual": estado_actual,
+        "historial": historial,
+        "forma_adquisicion": forma_adquisicion,
+    })
 
 
 # =========================

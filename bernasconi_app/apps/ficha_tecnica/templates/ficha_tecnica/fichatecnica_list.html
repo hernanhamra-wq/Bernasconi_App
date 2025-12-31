@@ -3,6 +3,10 @@
 
 {% block title %}Listado de Fichas - Museo Bernasconi{% endblock %}
 
+{% block page_bg %}
+<div class="page-bg bg-fichas"></div>
+{% endblock %}
+
 {% block extra_css %}
 <style>
   .thumb {
@@ -21,6 +25,11 @@
     display: flex;
     gap: var(--spacing-md);
   }
+
+  /* Badges de estado conservación */
+  .estado-bueno { background: rgba(16, 185, 129, 0.15); color: var(--color-success); }
+  .estado-regular { background: rgba(245, 158, 11, 0.15); color: var(--color-warning); }
+  .estado-malo { background: rgba(239, 68, 68, 0.15); color: var(--color-error); }
 </style>
 {% endblock %}
 
@@ -36,23 +45,23 @@
 
   {% if fichas %}
     <div class="table-container">
-      <table class="table">
+      <table class="table" id="tabla-fichas">
         <thead>
           <tr>
-            <th>ID</th>
+            <th class="sortable" data-col="id">ID</th>
             <th>Imagen</th>
-            <th>Inventario</th>
-            <th>Título</th>
-            <th>Año</th>
-            <th>Estado</th>
-            <th>Fecha carga</th>
+            <th class="sortable" data-col="inventario">Inventario</th>
+            <th class="sortable" data-col="titulo">Título</th>
+            <th class="sortable" data-col="anio">Año</th>
+            <th class="sortable" data-col="estado">Estado</th>
+            <th class="sortable" data-col="fecha">Fecha carga</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {% for f in fichas %}
             <tr>
-              <td>{{ f.id }}</td>
+              <td data-sort="{{ f.id }}">{{ f.id }}</td>
               <td>
                 {% if f.imagen %}
                   <img class="thumb" src="{{ f.imagen.url }}" alt="miniatura">
@@ -60,11 +69,21 @@
                   <span class="text-muted">—</span>
                 {% endif %}
               </td>
-              <td class="truncate">{{ f.inventario|default:"—" }}</td>
-              <td class="truncate">{{ f.titulo|default:"—" }}</td>
-              <td>{{ f.anio|default:"—" }}</td>
-              <td class="truncate">{{ f.fk_estado_funcional|default:"—" }}</td>
-              <td>{{ f.fecha_de_carga|date:"d/m/Y H:i" }}</td>
+              <td class="truncate" data-sort="{{ f.inventario|default:'' }}">{{ f.inventario|default:"—" }}</td>
+              <td class="truncate" data-sort="{{ f.titulo|default:'' }}">{{ f.titulo|default:"—" }}</td>
+              <td data-sort="{{ f.anio|default:'' }}">{{ f.anio|default:"—" }}</td>
+              <td data-sort="{{ f.estado_conservacion|default:'' }}">
+                {% if f.estado_conservacion == 'BUENO' %}
+                  <span class="badge estado-bueno">Bueno</span>
+                {% elif f.estado_conservacion == 'REGULAR' %}
+                  <span class="badge estado-regular">Regular</span>
+                {% elif f.estado_conservacion == 'MALO' %}
+                  <span class="badge estado-malo">Malo</span>
+                {% else %}
+                  <span class="text-muted">—</span>
+                {% endif %}
+              </td>
+              <td data-sort="{{ f.fecha_de_carga|date:'Y-m-d H:i' }}">{{ f.fecha_de_carga|date:"d/m/Y H:i" }}</td>
               <td class="actions">
                 <a class="btn btn-sm btn-primary" href="{% url 'ficha_tecnica:detalle_ficha_tecnica' f.pk %}">Ver</a>
                 <a class="btn btn-sm btn-secondary" href="{% url 'ficha_tecnica:editar_ficha_tecnica' f.pk %}">Editar</a>
@@ -81,4 +100,59 @@
     </div>
   {% endif %}
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+  const table = document.getElementById('tabla-fichas');
+  if (!table) return;
+
+  const headers = table.querySelectorAll('th.sortable');
+  const tbody = table.querySelector('tbody');
+  let currentSort = { col: null, dir: 'asc' };
+
+  headers.forEach((th, idx) => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.col;
+
+      // Cambiar dirección si es la misma columna
+      if (currentSort.col === col) {
+        currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.col = col;
+        currentSort.dir = 'asc';
+      }
+
+      // Actualizar clases visuales
+      headers.forEach(h => h.classList.remove('asc', 'desc'));
+      th.classList.add(currentSort.dir);
+
+      // Ordenar filas
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      const colIdx = Array.from(th.parentNode.children).indexOf(th);
+
+      rows.sort((a, b) => {
+        const aVal = a.children[colIdx].dataset.sort || a.children[colIdx].textContent.trim();
+        const bVal = b.children[colIdx].dataset.sort || b.children[colIdx].textContent.trim();
+
+        // Intentar ordenar numéricamente
+        const aNum = parseFloat(aVal);
+        const bNum = parseFloat(bVal);
+
+        let cmp;
+        if (!isNaN(aNum) && !isNaN(bNum)) {
+          cmp = aNum - bNum;
+        } else {
+          cmp = aVal.localeCompare(bVal, 'es', { numeric: true });
+        }
+
+        return currentSort.dir === 'asc' ? cmp : -cmp;
+      });
+
+      rows.forEach(row => tbody.appendChild(row));
+    });
+  });
+})();
+</script>
 {% endblock %}

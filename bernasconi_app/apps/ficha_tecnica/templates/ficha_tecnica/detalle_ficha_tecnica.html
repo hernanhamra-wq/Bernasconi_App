@@ -84,6 +84,46 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
+
+  /* Historial General */
+  .historial-resumen {
+    background: var(--bg-hover);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+  }
+
+  .historial-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .historial-stats .stat-item {
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .historial-stats .stat-number {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .historial-stats .stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .historial-adquisicion {
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+  }
 </style>
 {% endblock %}
 
@@ -99,6 +139,24 @@
         {% endif %}
         {% if ficha.seguimiento %}
           <span class="badge badge-warning">En seguimiento</span>
+        {% endif %}
+        {# Estado funcional prominente (Exposición, Cuarentena, etc.) #}
+        {% if estado_actual %}
+          {% if estado_actual == "Cuarentena" %}
+            <span class="badge badge-cuarentena">&#9888; {{ estado_actual }}</span>
+          {% elif estado_actual == "Exposición" %}
+            <span class="badge badge-exhibido">&#9733; {{ estado_actual }}</span>
+          {% elif estado_actual == "Préstamo Externo" %}
+            <span class="badge badge-transito">&#128230; {{ estado_actual }}</span>
+          {% elif estado_actual == "Taller" %}
+            <span class="badge badge-warning">&#128295; {{ estado_actual }}</span>
+          {% else %}
+            <span class="badge badge-almacenado">{{ estado_actual }}</span>
+          {% endif %}
+        {% endif %}
+        {# Indicador de obra donada (adquirida por donación) #}
+        {% if historial.donaciones_count > 0 %}
+          <span class="badge badge-primary">&#127873; Donación</span>
         {% endif %}
       </div>
     </div>
@@ -120,18 +178,22 @@
       <!-- Ubicación actual -->
       <div class="ubicacion-box">
         <h4>Ubicación Actual</h4>
-        {% with ubicacion=ficha.ubicacion_actual %}
-          {% if ubicacion %}
-            <p style="margin: 0;">
-              <strong>&#128205;</strong> {{ ubicacion.lugar }}
-              {% if ubicacion.contenedor %}
-                <br><small class="text-muted">Contenedor: {{ ubicacion.contenedor }}</small>
-              {% endif %}
-            </p>
-          {% else %}
-            <p class="text-muted" style="margin: 0;">Sin ubicación registrada</p>
-          {% endif %}
-        {% endwith %}
+        {% if ubicacion_legacy %}
+          <p style="margin: 0;">
+            <strong>&#128205;</strong>
+            {% if ubicacion_legacy.fk_lugar %}
+              {{ ubicacion_legacy.fk_lugar.nombre_lugar }}
+              <br><small class="text-muted">Tipo: {{ ubicacion_legacy.fk_lugar.get_tipo_lugar_display }}</small>
+            {% else %}
+              Sin lugar específico
+            {% endif %}
+            {% if ubicacion_legacy.fk_contenedor %}
+              <br><small class="text-muted">Contenedor: {{ ubicacion_legacy.fk_contenedor }}</small>
+            {% endif %}
+          </p>
+        {% else %}
+          <p class="text-muted" style="margin: 0;">Sin ubicación registrada</p>
+        {% endif %}
       </div>
     </div>
 
@@ -349,6 +411,38 @@
     {% endif %}
   </div>
 
+  <!-- Historial General -->
+  <div class="detail-section">
+    <h3>Historial General</h3>
+    <div class="historial-resumen">
+      <div class="historial-stats">
+        <div class="stat-item">
+          <span class="stat-number">{{ historial.prestamos_count }}</span>
+          <span class="stat-label">Préstamos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ historial.intervenciones_count }}</span>
+          <span class="stat-label">Intervenciones</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ historial.investigaciones_count }}</span>
+          <span class="stat-label">Investigaciones</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ historial.movimientos_count }}</span>
+          <span class="stat-label">Movimientos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ historial.donaciones_count }}</span>
+          <span class="stat-label">Donaciones</span>
+        </div>
+      </div>
+      <div class="historial-adquisicion">
+        <strong>Forma de adquisición:</strong> {{ forma_adquisicion }}
+      </div>
+    </div>
+  </div>
+
   <!-- Acciones rápidas -->
   <div class="detail-section">
     <h3>Acciones</h3>
@@ -423,6 +517,25 @@
           </ul>
         {% else %}
           <p class="text-muted" style="margin: 0; font-size: 0.9rem;">Sin préstamos</p>
+        {% endif %}
+      </div>
+
+      <!-- Donaciones -->
+      <div style="padding: var(--spacing-md); background: var(--bg-hover); border-radius: var(--border-radius-lg);">
+        <h4 style="margin: 0 0 var(--spacing-sm) 0; font-size: 0.9rem;">&#127873; Donaciones</h4>
+        {% if ficha.donaciones.all %}
+          <ul style="margin: 0; padding-left: var(--spacing-md);">
+            {% for don in ficha.donaciones.all %}
+              <li>
+                {{ don.fecha_donacion|date:"d/m/Y" }} - {{ don.get_condicion_legal_display }}
+                {% if don.institucion_donante %}
+                  <br><small class="text-muted">De: {{ don.institucion_donante }}</small>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted" style="margin: 0; font-size: 0.9rem;">Sin donaciones registradas</p>
         {% endif %}
       </div>
     </div>
