@@ -20,6 +20,7 @@ Orden de ejecución:
     08. Ubicación inicial [pendiente - requiere historial]
     09. Xilófagos (RegistroPlaga)
     10. Investigaciones
+    11. Catálogo Multimedia
 """
 
 import _00_usuarios
@@ -33,6 +34,7 @@ import _07_ficha_material
 # import _08_ubicacion_inicial  # pendiente
 import _09_xilofagos
 import _10_investigaciones
+import _11_catalogo_multimedia
 
 
 def main():
@@ -82,6 +84,12 @@ def main():
     # _08_ubicacion_inicial.run()  # pendiente
     _09_xilofagos.run()
     _10_investigaciones.run()
+
+    # FASE 7: Multimedia
+    print("\n" + "─" * 60)
+    print("FASE 7: MULTIMEDIA")
+    print("─" * 60)
+    _11_catalogo_multimedia.run()
 
     print("\n" + "=" * 60)
     print("✅ MIGRACIÓN COMPLETA FINALIZADA")
