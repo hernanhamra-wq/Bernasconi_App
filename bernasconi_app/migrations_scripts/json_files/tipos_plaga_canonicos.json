@@ -1,0 +1,42 @@
+[
+  {
+    "nombre": "Carcoma común",
+    "descripcion": "Anobium punctatum. Coleóptero xilófago. Larvas perforan madera dejando orificios de 1-2mm y serrín fino ('quera'). Muy común en muebles y marcos.",
+    "recomendaciones_tratamiento": "Fumigación con gases inertes (anoxia). Tratamiento térmico. Inyección de insecticidas en orificios."
+  },
+  {
+    "nombre": "Carcoma grande (Polilla de la madera)",
+    "descripcion": "Hylotrupes bajulus. También llamada 'bicho taladro'. Orificios más grandes (6-10mm). Ataca madera de coníferas. Daño severo.",
+    "recomendaciones_tratamiento": "Tratamiento profesional obligatorio. Fumigación o tratamiento térmico controlado."
+  },
+  {
+    "nombre": "Polilla del parquet",
+    "descripcion": "Lyctus brunneus. Ataca maderas duras (roble, fresno). Produce polvo muy fino como talco.",
+    "recomendaciones_tratamiento": "Tratamiento con permetrina. Control de humedad (<18%)."
+  },
+  {
+    "nombre": "Termita",
+    "descripcion": "Reticulitermes spp. / Kalotermes spp. Hormiga blanca. Daño interno severo, exterior aparentemente intacto. Colonias organizadas.",
+    "recomendaciones_tratamiento": "Tratamiento de suelo y estructura. Cebos. Aislamiento. Requiere intervención profesional."
+  },
+  {
+    "nombre": "Xilófago sin identificar",
+    "descripcion": "Insecto xilófago no identificado. Registrar indicadores: orificios, serrín, larvas, esqueletos, tapones.",
+    "recomendaciones_tratamiento": "Aislamiento preventivo. Evaluación entomológica recomendada."
+  },
+  {
+    "nombre": "Pececillo de plata",
+    "descripcion": "Lepisma saccharina. NO es xilófago (no come madera). Come papel, almidón, adhesivos, gelatina de fotos. Plateado, forma de gota, antenas largas. Vive en lugares húmedos y oscuros.",
+    "recomendaciones_tratamiento": "Control de humedad. Trampas adhesivas. Limpieza de polvo y residuos orgánicos."
+  },
+  {
+    "nombre": "Cucaracha",
+    "descripcion": "Blattodea spp. Come papel superficialmente (almidón). Indicador de humedad y falta de higiene.",
+    "recomendaciones_tratamiento": "Control de humedad. Sellado de grietas. Trampas y cebos."
+  },
+  {
+    "nombre": "Polilla de la ropa",
+    "descripcion": "Tineola bisselliella. Ataca textiles (lana, seda, plumas). No ataca madera ni papel.",
+    "recomendaciones_tratamiento": "Limpieza. Congelación de textiles. Trampas de feromonas."
+  }
+]

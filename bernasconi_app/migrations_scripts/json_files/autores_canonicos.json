@@ -1,0 +1,112 @@
+{
+  "autores": [
+    {
+      "nombre": "Karl Noisternigg",
+      "biografia": "Grabador austríaco. Colaboró con Rosario Vera Peñaloza en la creación de tablas grabadas didácticas para el Instituto Bernasconi.",
+      "variantes": [
+        "KARL NOISTERNIGG", "Karl noisternigg", "karl Noisternigg",
+        "Karl Noisterning", "Karl noisterning", "karl Noisterning",
+        "Karl Noisterningg", "karl Noisterningg", "Karl Nosternigg",
+        "Karl Nosterning", "Karls Noisterning", "Karl Noistering",
+        "karl noistering", "Karl noistering", "Karl nonisterning",
+        "Karl Noisternig", "Kal Noisterning", "k. Noisternigg",
+        "k noisternigg", "k. noiternigg", "Noisternigg", "Noisternigg. K",
+        "Noistertnigg . K", "K. Noisternigg", "K. NOISTERNIGG"
+      ]
+    },
+    {
+      "nombre": "Rosario Vera Peñaloza",
+      "biografia": "Educadora argentina (1873-1950). Creadora de las tablas didácticas del museo. Pionera de la educación inicial en Argentina.",
+      "variantes": [
+        "ROSARIO VERA PEÑALOZA", "Rosario Vera Penaloza", "rosario vera peñaloza"
+      ]
+    },
+    {
+      "nombre": "Mónica Casini",
+      "biografia": "Colaboradora en proyectos de tablas grabadas.",
+      "variantes": ["Monica Casini", "MONICA CASINI"]
+    },
+    {
+      "nombre": "E. Marenco",
+      "biografia": null,
+      "variantes": ["E. MARENCO", "MARENCO", "e Marenco, productos el Gaita", "e marenco"]
+    },
+    {
+      "nombre": "Carlos Moreno",
+      "biografia": null,
+      "variantes": ["CARLOS MORENO", "carlos moreno"]
+    },
+    {
+      "nombre": "Aurelio Víctor Cincioni",
+      "biografia": null,
+      "variantes": ["Aurelio Victor Cincioni", "aurelio Victor Cincioni", "Victor Aurelio Cincioni", "AURELIO VICTOR CINCIONI"]
+    },
+    {
+      "nombre": "Gabriel Alejandro Solari",
+      "biografia": null,
+      "variantes": ["gabriel Alejandro Solari", "gabriel alejandro solari", "Gabriel alejandro Solari", "atribuido Gabriel Alejandro Solari", "atribuido a gabriel alejendro solari"]
+    },
+    {
+      "nombre": "Martha Salotti",
+      "biografia": null,
+      "variantes": ["MARTHA SALOTTI", "martha salotti"]
+    },
+    {
+      "nombre": "Alfredo M. Ghioldi",
+      "biografia": null,
+      "variantes": ["ALFREDO M. GHIOLDI", "Alfredo M. Ghioldi. editorial kapelusz"]
+    }
+  ],
+  "instituciones": [
+    {
+      "nombre": "Banco Central de la República Argentina",
+      "variantes": [
+        "Banco Central de la Republica Argentina",
+        "Banco Central Republica Argentina",
+        "Banco central Republica Argentina",
+        "BANCO CENTRAL DE LA REPUBLICA ARGENTINA"
+      ]
+    },
+    {
+      "nombre": "Casa de Moneda de la Nación",
+      "variantes": [
+        "CASA DE MONEDA DE LA NACION",
+        "CASA DE LA MONEDA ARGENTINA",
+        "Casa de Moneda Argentina"
+      ]
+    },
+    {
+      "nombre": "Banco Central do Brasil",
+      "variantes": ["Banco do Brasil", "banco central do brasil"]
+    }
+  ],
+  "colaboraciones": {
+    "_comentario": "Estos valores del CSV se separan en múltiples autores",
+    "patrones": [
+      {
+        "patron": "Idea: Rosario Vera Peñaloza\nTaco: Karl",
+        "autores": ["Rosario Vera Peñaloza", "Karl Noisternigg"]
+      },
+      {
+        "patron": "Idea original: Rosario Vera Peñaloza\nTaco: Karl",
+        "autores": ["Rosario Vera Peñaloza", "Karl Noisternigg"]
+      },
+      {
+        "patron": "Rosario Vera Peñaloza, Karl Noisternigg, Mónica Casini",
+        "autores": ["Rosario Vera Peñaloza", "Karl Noisternigg", "Mónica Casini"]
+      },
+      {
+        "patron": "MARTHA SALOTTI    K. NOISTERNIGG",
+        "autores": ["Martha Salotti", "Karl Noisternigg"]
+      },
+      {
+        "patron": "noisternigg, ferrari",
+        "autores": ["Karl Noisternigg", "Ferrari"]
+      }
+    ]
+  },
+  "ignorar": {
+    "_comentario": "Estos valores se mapean a 'Desconocido' o se ignoran",
+    "valores": ["desconocido", "Desconocido", "desc.", "desc", "-", ""]
+  }
+}
