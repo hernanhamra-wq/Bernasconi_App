@@ -50,7 +50,7 @@
                 <p><strong>Inventario:</strong> {{ ficha.inventario|default:"—" }}</p>
                 <p><strong>Inventario anterior:</strong> {{ ficha.n_de_inventario_anterior|default:"—" }}</p>
                 <p><strong>Año:</strong> {{ ficha.anio|default:"—" }}</p>
-                <p><strong>Estado:</strong> {{ ficha.fk_estado|default:"—" }}</p>
+                <p><strong>Estado funcional:</strong> {{ ficha.fk_estado_funcional|default:"—" }}</p>
                 <p><strong>Responsable de carga:</strong> {{ ficha.fk_responsable_carga|default:"—" }}</p>
                 <p><strong>Seguimiento:</strong>
                     {% if ficha.seguimiento %} ✅ Sí {% else %} ❌ No {% endif %}

@@ -55,7 +55,7 @@
                 <td class="truncate">{{ f.inventario|default:"—" }}</td>
                 <td class="truncate">{{ f.titulo|default:"—" }}</td>
                 <td>{{ f.anio|default:"—" }}</td>
-                <td class="truncate">{{ f.fk_estado|default:"—" }}</td>
+                <td class="truncate">{{ f.fk_estado_funcional|default:"—" }}</td>
                 <td>{{ f.fecha_de_carga|date:"d/m/Y H:i" }}</td>
                 <td class="actions">
                   <a class="btn small" href="{% url 'ficha_tecnica:detalle_ficha_tecnica' f.pk %}">Ver</a>
