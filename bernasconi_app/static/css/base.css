@@ -520,6 +520,181 @@ textarea.form-control {
 .hidden { display: none; }
 
 /* ============================================================
+   FONDOS DE PANTALLA POR SECCIÓN
+   ============================================================ */
+/* Contenedor con fondo de imagen */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -1;
+}
+
+/* Overlay para legibilidad */
+.page-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(245, 247, 250, 0.85);
+  z-index: -1;
+}
+
+/* Dark mode: overlay más oscuro */
+[data-theme="dark"] .page-bg::after {
+  background: rgba(18, 18, 18, 0.88);
+}
+
+/* Fondos específicos */
+.bg-home {
+  background-image: url('/static/img/edificio.jpg');
+}
+
+.bg-fichas {
+  background-image: url('/static/img/mesa1.jpg');
+}
+
+.bg-investigacion {
+  background-image: url('/static/img/mesa6.jpg');
+}
+
+.bg-ubicaciones {
+  background-image: url('/static/img/edificio2.jpg');
+}
+
+/* ============================================================
+   ORDENAMIENTO EN TABLAS
+   ============================================================ */
+.table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 24px;
+}
+
+.table th.sortable:hover {
+  background: var(--bg-hover);
+}
+
+.table th.sortable::after {
+  content: '↕';
+  position: absolute;
+  right: 8px;
+  opacity: 0.4;
+  font-size: 0.8em;
+}
+
+.table th.sortable.asc::after {
+  content: '↑';
+  opacity: 1;
+  color: var(--color-primary);
+}
+
+.table th.sortable.desc::after {
+  content: '↓';
+  opacity: 1;
+  color: var(--color-primary);
+}
+
+/* ============================================================
+   ACCIONES EN FICHAS
+   ============================================================ */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.action-card:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.action-card .icon {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.action-card .label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ============================================================
+   SECCIONES EN DETALLE
+   ============================================================ */
+.detail-section {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+.detail-section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-item .label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.detail-item .value {
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   ESTADOS / BADGES EXPANDIDOS
+   ============================================================ */
+.badge-primary { background: var(--color-primary-light); color: var(--color-primary); }
+.badge-cuarentena { background: rgba(239, 68, 68, 0.15); color: var(--color-error); }
+.badge-transito { background: rgba(245, 158, 11, 0.15); color: var(--color-warning); }
+.badge-exhibido { background: rgba(16, 185, 129, 0.15); color: var(--color-success); }
+.badge-almacenado { background: rgba(59, 130, 246, 0.15); color: var(--color-info); }
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 768px) {
