@@ -15,10 +15,23 @@ class RegistroPlaga(models.Model):
         blank=True
     )
     fecha_registro = models.DateField()
-    conteo_larvas = models.IntegerField()
-    conteo_esqueletos = models.IntegerField()
-    conteo_incisiones = models.IntegerField()
-    tipologia_plaga = models.ForeignKey(TipoPlaga, on_delete=models.CASCADE)
+    conteo_larvas = models.IntegerField(default=0)
+    conteo_esqueletos = models.IntegerField(default=0)
+    conteo_incisiones = models.IntegerField(default=0)
+    conteo_tapones = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Conteo de tapones",
+        help_text="Orificios sellados por el insecto (indicador de actividad pasada)"
+    )
+    tipologia_plaga = models.ForeignKey(
+        TipoPlaga,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Tipo de plaga"
+    )
     observaciones = models.TextField(blank=True)
 
     usuario_registro = models.ForeignKey(
