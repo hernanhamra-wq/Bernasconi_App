@@ -1,192 +1,404 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Ficha Técnica</title>
-  <link rel="stylesheet" href="{% static 'css/ficha_tecnica.css' %}">
-</head>
-<body>
 
-<div class="background"></div>
+{% block title %}Nueva Ficha Técnica - Museo Bernasconi{% endblock %}
 
-{% if messages %}
-  <div style="margin: 12px 0;">
-    {% for message in messages %}
-      <div class="flash">{{ message }}</div>
-    {% endfor %}
+{% block extra_css %}
+<style>
+  .ficha-form-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .form-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .form-header .logo {
+    height: 60px;
+    width: auto;
+    border-radius: var(--border-radius);
+  }
+
+  .form-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .ft-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  @media (max-width: 900px) {
+    .ft-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Zona de imagen */
+  .photo-section {
+    position: sticky;
+    top: var(--spacing-lg);
+  }
+
+  .photo-box {
+    width: 100%;
+    aspect-ratio: 4/5;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius-lg);
+    background: var(--bg-hover);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .photo-box:hover {
+    border-color: var(--color-primary);
+  }
+
+  .photo-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    text-align: center;
+    padding: var(--spacing-md);
+  }
+
+  .photo-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .upload-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+  }
+
+  .upload-controls input[type="file"] {
+    flex: 1;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+  }
+
+  /* Campos del formulario */
+  .fields-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .field-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .field-row label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .field-row input,
+  .field-row select,
+  .field-row textarea {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .field-row input:focus,
+  .field-row select:focus,
+  .field-row textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+  }
+
+  .dims-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  @media (max-width: 600px) {
+    .dims-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .dims-grid .field-row input {
+    width: 100%;
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .checkbox-row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--color-primary);
+  }
+
+  .checkbox-row label {
+    margin: 0;
+  }
+
+  /* Sección de materiales */
+  .materials-section {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--bg-hover);
+    border-radius: var(--border-radius-lg);
+  }
+
+  .materials-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.1rem;
+  }
+
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--spacing-xs);
+  }
+
+  .materials-grid label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .materials-grid label:hover {
+    background: var(--bg-card);
+  }
+
+  /* Campos anchos */
+  .wide-fields {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .wide-fields textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  /* Acciones */
+  .form-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+
+  /* Errores */
+  .errorlist {
+    color: var(--color-danger);
+    font-size: 0.85rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card ficha-form-container">
+  <div class="form-header">
+    <img src="{% static 'img/logo-bernasconi.jpg' %}" class="logo" alt="Museo Bernasconi">
+    <h1>FICHA TÉCNICA</h1>
   </div>
-{% endif %}
 
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
 
-<div class="page-container">
-
-  <div class="header-bar">
-    <div class="header-left">
-      <img src="{% static 'img/logo-bernasconi.jpg' %}" class="logo" alt="Museo Bernasconi">
-    </div>
-    <div class="header-center">
-      <h1>FICHA TÉCNICA</h1>
-    </div>
-  </div>
-
-  <div class="card">
-
-    <form method="post" enctype="multipart/form-data" class="ft-form">
-      {% csrf_token %}
-      {{ form.non_field_errors }}
-
-      <!-- TOP: foto (izq) + campos (der) -->
-      <div class="ft-top">
-
-        <!-- IZQUIERDA -->
-        <div class="ft-left">
-          <div class="photo-box">
-            {% if form.instance.imagen %}
-              <img id="preview-img" src="{{ form.instance.imagen.url }}" class="photo-preview" alt="Imagen ficha">
-              <div id="preview-placeholder" class="photo-placeholder" style="display:none;">
-                <span class="photo-icon">🖼️</span>
-                Foto de Ficha Técnica<br>
-              </div>
-            {% else %}
-              <img id="preview-img" src="" class="photo-preview" alt="Previsualización" style="display:none;">
-              <div id="preview-placeholder" class="photo-placeholder">
-                <span class="photo-icon">🖼️</span>
-                Foto de Ficha Técnica<br>(Rectangular)
-              </div>
-            {% endif %}
-          </div>
-
-          <!-- Subida / quitar -->
-          <div class="upload-row">
-            <div class="upload-field">
-              <label>Imagen</label>
-              {{ form.imagen }}
+    <div class="ft-layout">
+      <!-- IZQUIERDA: Imagen -->
+      <div class="photo-section">
+        <div class="photo-box">
+          {% if form.instance.imagen %}
+            <img id="preview-img" src="{{ form.instance.imagen.url }}" class="photo-preview" alt="Imagen ficha">
+            <div id="preview-placeholder" class="photo-placeholder" style="display:none;">
+              <span class="photo-icon">&#128247;</span>
+              Foto de Ficha Técnica
             </div>
-            <button type="button" class="btn-secondary" id="clear-image-btn">Quitar</button>
-          </div>
+          {% else %}
+            <img id="preview-img" src="" class="photo-preview" alt="Previsualización" style="display:none;">
+            <div id="preview-placeholder" class="photo-placeholder">
+              <span class="photo-icon">&#128247;</span>
+              Foto de Ficha Técnica<br>(Rectangular)
+            </div>
+          {% endif %}
         </div>
 
-        <!-- DERECHA -->
-        <div class="ft-right">
-
-          <div class="line-field">
-            <label>N° de Ficha</label>
-            <div class="control">{{ form.n_de_ficha }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Inventario</label>
-            <div class="control">{{ form.inventario }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>N° Inventario Anterior</label>
-            <div class="control">{{ form.n_de_inventario_anterior }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Título</label>
-            <div class="control">{{ form.titulo }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Año</label>
-            <div class="control">{{ form.anio }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Dimensiones (texto)</label>
-            <div class="control">{{ form.dimensiones }}</div>
-          </div>
-
-          <div class="dims-grid">
-            <div class="line-field compact">
-              <label>Ancho</label>
-              <div class="control">{{ form.ancho }}</div>
-            </div>
-            <div class="line-field compact">
-              <label>Alto</label>
-              <div class="control">{{ form.alto }}</div>
-            </div>
-            <div class="line-field compact">
-              <label>Diámetro</label>
-              <div class="control">{{ form.diametro }}</div>
-            </div>
-            <div class="line-field compact">
-              <label>Profundidad</label>
-              <div class="control">{{ form.profundidad }}</div>
-            </div>
-          </div>
-
-          <div class="line-field">
-            <label>Seguimiento</label>
-            <div class="control checkbox-control">{{ form.seguimiento }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Responsable</label>
-            <div class="control">{{ form.fk_responsable_carga }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Estado funcional</label>
-            <div class="control">{{ form.fk_estado_funcional }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Taller</label>
-            <div class="control">{{ form.fk_taller }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Procedencia</label>
-            <div class="control">{{ form.fk_procedencia }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Serie (legacy)</label>
-            <div class="control">{{ form.series_legacy }}</div>
-          </div>
-
-          <div class="line-field">
-            <label>Imagen principal</label>
-            <div class="control">{{ form.fk_multimedia_principal }}</div>
-          </div>
-
-          
-          <div class="materials-block">
-            <div class="materials-title">Materiales</div>
-            <div class="materials-grid">
-              {{ form.materiales }}
-            </div>
-          </div>
-
-
+        <div class="upload-controls">
+          {{ form.imagen }}
+          <button type="button" class="btn btn-ghost" id="clear-image-btn">Quitar</button>
         </div>
       </div>
 
-      <!-- BOTTOM: a lo ancho -->
-      <div class="ft-bottom">
-        <div class="wide-field">
-          <label>Descripción</label>
-          {{ form.descripcion }}
+      <!-- DERECHA: Campos -->
+      <div class="fields-section">
+        <div class="field-row">
+          <label>N° de Ficha</label>
+          {{ form.n_de_ficha }}
         </div>
 
-        <div class="wide-field">
-          <label>Observación</label>
-          {{ form.observacion }}
+        <div class="field-row">
+          <label>Inventario</label>
+          {{ form.inventario }}
         </div>
 
-        <div class="actions">
-          <button type="submit" class="btn primary" onclick="return confirm('¿Querés guardar esta ficha técnica? Verificá que los datos estén correctos antes de continuar.');"> Guardar </button>
+        <div class="field-row">
+          <label>N° Inventario Anterior</label>
+          {{ form.n_de_inventario_anterior }}
+        </div>
 
+        <div class="field-row">
+          <label>Título</label>
+          {{ form.titulo }}
+        </div>
+
+        <div class="field-row">
+          <label>Año</label>
+          {{ form.anio }}
+        </div>
+
+        <div class="field-row">
+          <label>Dimensiones (texto)</label>
+          {{ form.dimensiones }}
+        </div>
+
+        <div class="dims-grid">
+          <div class="field-row">
+            <label>Ancho</label>
+            {{ form.ancho }}
+          </div>
+          <div class="field-row">
+            <label>Alto</label>
+            {{ form.alto }}
+          </div>
+          <div class="field-row">
+            <label>Diámetro</label>
+            {{ form.diametro }}
+          </div>
+          <div class="field-row">
+            <label>Profundidad</label>
+            {{ form.profundidad }}
+          </div>
+        </div>
+
+        <div class="checkbox-row">
+          {{ form.seguimiento }}
+          <label>Seguimiento</label>
+        </div>
+
+        <div class="field-row">
+          <label>Responsable</label>
+          {{ form.fk_responsable_carga }}
+        </div>
+
+        <div class="field-row">
+          <label>Estado funcional</label>
+          {{ form.fk_estado_funcional }}
+        </div>
+
+        <div class="field-row">
+          <label>Taller</label>
+          {{ form.fk_taller }}
+        </div>
+
+        <div class="field-row">
+          <label>Procedencia</label>
+          {{ form.fk_procedencia }}
+        </div>
+
+        <div class="field-row">
+          <label>Serie (legacy)</label>
+          {{ form.series_legacy }}
+        </div>
+
+        <div class="field-row">
+          <label>Imagen principal (multimedia)</label>
+          {{ form.fk_multimedia_principal }}
+        </div>
+
+        <!-- Materiales -->
+        <div class="materials-section">
+          <div class="materials-title">Materiales</div>
+          <div class="materials-grid">
+            {{ form.materiales }}
+          </div>
         </div>
       </div>
+    </div>
 
-    </form>
+    <!-- Campos anchos -->
+    <div class="wide-fields">
+      <div class="field-row">
+        <label>Descripción</label>
+        {{ form.descripcion }}
+      </div>
 
-  </div>
+      <div class="field-row">
+        <label>Observación</label>
+        {{ form.observacion }}
+      </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" onclick="return confirm('¿Querés guardar esta ficha técnica? Verificá que los datos estén correctos antes de continuar.');">
+        Guardar
+      </button>
+      <a href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}" class="btn btn-ghost">Cancelar</a>
+    </div>
+  </form>
 </div>
 
 <script>
@@ -223,6 +435,4 @@
   }
 })();
 </script>
-
-</body>
-</html>
+{% endblock %}

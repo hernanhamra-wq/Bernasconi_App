@@ -1,66 +1,118 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Búsqueda de Investigación</title>
-  <link rel="stylesheet" href="{% static 'css/investigacion_form.css' %}">
-</head>
 
-<body class="bg-investigacion">
+{% block title %}Búsqueda de Investigaciones - Museo Bernasconi{% endblock %}
 
-<div class="glass">
+{% block extra_css %}
+<style>
+  .search-section {
+    margin-bottom: var(--spacing-lg);
+  }
 
-  <header class="head">
-    <div class="logo-box">
-      <img src="{% static 'img/logo-bernasconi.jpg' %}">
-    </div>
-    <h1>BÚSQUEDA DE INVESTIGACIÓN</h1>
-  </header>
+  .search-form {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
 
-  <!-- Buscador -->
-  <form method="get" class="search-bar">
-    {{ form.q }}
-    <button class="btn" type="submit">Buscar</button>
-    <a class="btn ghost" href="{% url 'investigacion:buscar_investigacion' %}">Limpiar</a>
-  </form>
+  .search-form input[type="text"] {
+    flex: 1;
+    min-width: 300px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 1rem;
+  }
 
-  <!-- Resultados -->
-  {% if results %}
-    <table class="results-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Ficha</th>
-          <th>N°</th>
-          <th>Título</th>
-          <th>Año</th>
-          <th>Investigador</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for i in results %}
-        <tr>
-          <td>{{ i.investigacion_id }}</td>
-          <td>{{ i.ficha }}</td>
-          <td>{{ i.num_investigacion }}</td>
-          <td>{{ i.titulo_investigacion }}</td>
-          <td>{{ i.anio_realizacion }}</td>
-          <td>{{ i.investigador }}</td>
-          <td>
-            <a class="btn small" href="{% url 'investigacion:detalle_investigacion' i.pk %}">
-              Ver
-            </a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p style="margin-top:14px;">No hay resultados.</p>
-  {% endif %}
+  .search-form input[type="text"]:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+  }
 
+  .search-hint {
+    margin-top: var(--spacing-sm);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .search-hint strong {
+    color: var(--color-primary);
+  }
+
+  .table .actions {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Búsqueda de Investigaciones</h2>
+    <a href="{% url 'investigacion:cargar_investigacion' %}" class="btn btn-primary">+ Nueva Investigación</a>
+  </div>
+
+  <div class="search-section">
+    <form method="get" class="search-form">
+      {{ form.q }}
+      <button class="btn btn-primary" type="submit">Buscar</button>
+      <a class="btn btn-ghost" href="{% url 'investigacion:buscar_investigacion' %}">Limpiar</a>
+    </form>
+
+    {% if query %}
+      <p class="search-hint">Buscando: <strong>{{ query }}</strong></p>
+    {% else %}
+      <p class="search-hint">Busca por ficha, título, investigador, número o año...</p>
+    {% endif %}
+  </div>
 </div>
-</body>
-</html>
+
+<div class="card">
+  {% if results %}
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Ficha</th>
+            <th>N°</th>
+            <th>Título</th>
+            <th>Año</th>
+            <th>Investigador</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in results %}
+            <tr>
+              <td>{{ i.investigacion_id }}</td>
+              <td>{{ i.ficha|default:"—" }}</td>
+              <td>{{ i.num_investigacion|default:"—" }}</td>
+              <td class="truncate">{{ i.titulo_investigacion|default:"—" }}</td>
+              <td>{{ i.anio_realizacion|default:"—" }}</td>
+              <td>{{ i.investigador|default:"—" }}</td>
+              <td class="actions">
+                <a class="btn btn-sm btn-primary" href="{% url 'investigacion:detalle_investigacion' i.pk %}">Ver</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="text-center" style="padding: var(--spacing-xl);">
+      <p class="text-muted">
+        {% if query %}
+          No hay resultados para <strong>{{ query }}</strong>
+        {% else %}
+          Ingresa un término de búsqueda para encontrar investigaciones.
+        {% endif %}
+      </p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

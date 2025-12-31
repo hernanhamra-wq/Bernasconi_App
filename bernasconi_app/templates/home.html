@@ -1,43 +1,187 @@
-{% extends 'base_main.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - Bernasconi Museum{% endblock %}
+{% block title %}Inicio - Museo Bernasconi{% endblock %}
 
-{% block extra_styles %}
-<link rel="stylesheet" href="{% static 'css/styles_main.css' %}">
+{% block extra_css %}
+<style>
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .stat-icon.primary { background: var(--color-primary-light); color: var(--color-primary); }
+  .stat-icon.success { background: rgba(16, 185, 129, 0.1); color: var(--color-success); }
+  .stat-icon.warning { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
+  .stat-icon.info { background: rgba(59, 130, 246, 0.1); color: var(--color-info); }
+
+  .stat-content h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .stat-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+
+  .quick-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .action-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .action-btn span {
+    font-size: 1.25rem;
+  }
+
+  .welcome-section {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .welcome-section h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .welcome-section p {
+    color: var(--text-secondary);
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="main-container">
+<div class="welcome-section">
+  <h1>Bienvenido al Sistema de Gestión</h1>
+  <p>Museo Bernasconi - Inventario Patrimonial</p>
+</div>
 
-    <header class="main-header">
-
-        <div class="header-left">
-            <img src="{% static 'img/logo_cuadros.png' %}" class="logo-header" alt="Logo Museo Bernasconi">
-            <img src="{% static 'img/login_footer.png' %}" class="logo-text" alt="Texto Museo Bernasconi">
-        </div>
-
-        <nav class="main-nav">
-            <ul>
-                <li><a href="{% url 'home' %}">Inicio</a></li>
-                <li><a href="#">Catálogos</a></li>
-                <li><a href="#">Administración</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="{% url 'auth_logout' %}">Salir</a></li>
-            </ul>
-        </nav>
-
-    </header>
-
-    <!-- Hero con imagen de fondo -->
-    <div class="hero">
-
+<!-- Estadísticas -->
+<div class="dashboard-grid">
+  <div class="stat-card">
+    <div class="stat-icon primary">&#128196;</div>
+    <div class="stat-content">
+      <h3>7,739</h3>
+      <p>Fichas Técnicas</p>
     </div>
+  </div>
 
-    <!-- Footer pegado abajo -->
-    <footer class="footer">
-        &copy; 2025 Bernasconi Museum. Todos los derechos reservados.
-    </footer>
+  <div class="stat-card">
+    <div class="stat-icon success">&#128269;</div>
+    <div class="stat-content">
+      <h3>6</h3>
+      <p>Investigaciones</p>
+    </div>
+  </div>
 
+  <div class="stat-card">
+    <div class="stat-icon warning">&#128205;</div>
+    <div class="stat-content">
+      <h3>6,912</h3>
+      <p>Obras Ubicadas</p>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon info">&#128247;</div>
+    <div class="stat-content">
+      <h3>656</h3>
+      <p>Archivos Multimedia</p>
+    </div>
+  </div>
+</div>
+
+<!-- Acciones Rápidas -->
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Acciones Rápidas</h2>
+  </div>
+
+  <div class="quick-actions">
+    <a href="{% url 'ficha_tecnica:ficha_tecnica' %}" class="action-btn">
+      <span>&#10133;</span> Nueva Ficha Técnica
+    </a>
+
+    <a href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}" class="action-btn">
+      <span>&#128269;</span> Buscar Fichas
+    </a>
+
+    <a href="{% url 'investigacion:cargar_investigacion' %}" class="action-btn">
+      <span>&#128221;</span> Nueva Investigación
+    </a>
+
+    <a href="{% url 'ficha_tecnica:ficha_tecnica_list' %}" class="action-btn">
+      <span>&#128203;</span> Ver Listado Completo
+    </a>
+
+    <a href="{% url 'admin:index' %}" class="action-btn" target="_blank">
+      <span>&#9881;</span> Panel de Administración
+    </a>
+  </div>
+</div>
+
+<!-- Info adicional -->
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Acerca del Sistema</h2>
+  </div>
+  <p class="text-muted">
+    Sistema de gestión de inventario patrimonial desarrollado para el Museo Bernasconi.
+    Permite catalogar obras, registrar investigaciones, controlar ubicaciones y gestionar préstamos.
+  </p>
 </div>
 {% endblock %}

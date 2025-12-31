@@ -1,45 +1,137 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Detalle Investigación</title>
-  <link rel="stylesheet" href="{% static 'css/investigacion_form.css' %}">
-</head>
-<body class="bg-investigacion">
 
-  <div class="glass">
-    <header class="head">
-      <div class="logo-box">
-        <img src="{% static 'img/logo-bernasoni.jpg' %}" alt="Museo Bernasconi">
-      </div>
-      <h1>INVESTIGACIÓN GUARDADA</h1>
-    </header>
+{% block title %}Investigación: {{ inv.titulo_investigacion|default:"Detalle" }} - Museo Bernasconi{% endblock %}
 
-    {% if messages %}
-      <div style="margin-top:12px;">
-        {% for message in messages %}
-          <div class="flash">{{ message }}</div>
-        {% endfor %}
-      </div>
-    {% endif %}
+{% block extra_css %}
+<style>
+  .inv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
 
-    <div style="margin-top:14px;">
-      <p><b>ID:</b> {{ inv.investigacion_id }}</p>
-      <p><b>Ficha:</b> {{ inv.ficha }}</p>
-      <p><b>Investigador:</b> {{ inv.investigador }}</p>
-      <p><b>Número:</b> {{ inv.num_investigacion }}</p>
-      <p><b>Título:</b> {{ inv.titulo_investigacion }}</p>
-      <p><b>Detalle:</b> {{ inv.detalle_investigacion }}</p>
-      <p><b>Año:</b> {{ inv.anio_realizacion }}</p>
+  .inv-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .inv-header .id-badge {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: 4px 12px;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: var(--spacing-xs);
+    display: inline-block;
+  }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+  }
+
+  .data-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .data-label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .data-value {
+    color: var(--text-primary);
+    font-size: 1rem;
+  }
+
+  .detalle-section {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+  }
+
+  .detalle-section h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .detalle-text {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    background: var(--bg-hover);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header inv-header">
+    <div>
+      <h2>{{ inv.titulo_investigacion|default:"Sin título" }}</h2>
+      <span class="id-badge">ID #{{ inv.investigacion_id }}</span>
+    </div>
+    <a href="{% url 'investigacion:buscar_investigacion' %}" class="btn btn-ghost">Volver</a>
+  </div>
+
+  <div class="data-grid">
+    <div class="data-item">
+      <span class="data-label">Ficha asociada</span>
+      <span class="data-value">{{ inv.ficha|default:"—" }}</span>
     </div>
 
-    <div class="actions">
-      <a class="btn" style="text-decoration:none;" href="{% url 'investigacion:cargar_investigacion' %}">
-        Cargar otra investigación
-      </a>
+    <div class="data-item">
+      <span class="data-label">Investigador</span>
+      <span class="data-value">{{ inv.investigador|default:"—" }}</span>
+    </div>
+
+    <div class="data-item">
+      <span class="data-label">N° de Investigación</span>
+      <span class="data-value">{{ inv.num_investigacion|default:"—" }}</span>
+    </div>
+
+    <div class="data-item">
+      <span class="data-label">Año de realización</span>
+      <span class="data-value">{{ inv.anio_realizacion|default:"—" }}</span>
     </div>
   </div>
 
-</body>
-</html>
+  <div class="detalle-section">
+    <h3>Detalle de la Investigación</h3>
+    <div class="detalle-text">{{ inv.detalle_investigacion|default:"Sin detalle registrado." }}</div>
+  </div>
+
+  <div class="action-buttons">
+    <a class="btn btn-primary" href="{% url 'investigacion:cargar_investigacion' %}">Nueva Investigación</a>
+    <a class="btn btn-secondary" href="{% url 'investigacion:buscar_investigacion' %}">Volver a búsqueda</a>
+    {% if inv.ficha %}
+      <a class="btn btn-ghost" href="{% url 'ficha_tecnica:detalle_ficha_tecnica' inv.ficha.pk %}">Ver Ficha Asociada</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

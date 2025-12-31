@@ -1,78 +1,84 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Listado - Fichas Técnicas</title>
-  <link rel="stylesheet" href="{% static 'css/buscar_ficha_tecnica.css' %}">
-</head>
-<body>
 
-<header class="topbar">
-  <div class="topbar-left">
-    <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo">
+{% block title %}Listado de Fichas - Museo Bernasconi{% endblock %}
+
+{% block extra_css %}
+<style>
+  .thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+  }
+
+  .table .actions {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+
+  .header-actions {
+    display: flex;
+    gap: var(--spacing-md);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Listado de Fichas Técnicas</h2>
+    <div class="header-actions">
+      <a href="{% url 'ficha_tecnica:ficha_tecnica' %}" class="btn btn-primary">+ Nueva Ficha</a>
+      <a href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}" class="btn btn-secondary">Buscar</a>
+    </div>
   </div>
-  <div class="topbar-right">
-    <h1>Listado de Fichas Técnicas</h1>
-  </div>
-</header>
 
-<main class="container">
-
-  <section class="search-card" style="display:flex; gap:10px; flex-wrap:wrap;">
-    <a class="btn primary" href="{% url 'ficha_tecnica:ficha_tecnica' %}">Cargar ficha</a>
-    <a class="btn" href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}">Buscar</a>
-  </section>
-
-  <section class="results-card">
-    {% if fichas %}
-      <div class="table-wrap">
-        <table class="results-table">
-          <thead>
+  {% if fichas %}
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Imagen</th>
+            <th>Inventario</th>
+            <th>Título</th>
+            <th>Año</th>
+            <th>Estado</th>
+            <th>Fecha carga</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for f in fichas %}
             <tr>
-              <th>ID</th>
-              <th>Imagen</th>
-              <th>Inventario</th>
-              <th>Título</th>
-              <th>Año</th>
-              <th>Estado</th>
-              <th>Fecha carga</th>
-              <th>Acciones</th>
+              <td>{{ f.id }}</td>
+              <td>
+                {% if f.imagen %}
+                  <img class="thumb" src="{{ f.imagen.url }}" alt="miniatura">
+                {% else %}
+                  <span class="text-muted">—</span>
+                {% endif %}
+              </td>
+              <td class="truncate">{{ f.inventario|default:"—" }}</td>
+              <td class="truncate">{{ f.titulo|default:"—" }}</td>
+              <td>{{ f.anio|default:"—" }}</td>
+              <td class="truncate">{{ f.fk_estado_funcional|default:"—" }}</td>
+              <td>{{ f.fecha_de_carga|date:"d/m/Y H:i" }}</td>
+              <td class="actions">
+                <a class="btn btn-sm btn-primary" href="{% url 'ficha_tecnica:detalle_ficha_tecnica' f.pk %}">Ver</a>
+                <a class="btn btn-sm btn-secondary" href="{% url 'ficha_tecnica:editar_ficha_tecnica' f.pk %}">Editar</a>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {% for f in fichas %}
-              <tr>
-                <td>{{ f.id }}</td>
-                <td>
-                  {% if f.imagen %}
-                    <img class="thumb" src="{{ f.imagen.url }}" alt="miniatura">
-                  {% else %}
-                    <span class="muted">—</span>
-                  {% endif %}
-                </td>
-                <td class="truncate">{{ f.inventario|default:"—" }}</td>
-                <td class="truncate">{{ f.titulo|default:"—" }}</td>
-                <td>{{ f.anio|default:"—" }}</td>
-                <td class="truncate">{{ f.fk_estado_funcional|default:"—" }}</td>
-                <td>{{ f.fecha_de_carga|date:"d/m/Y H:i" }}</td>
-                <td class="actions">
-                  <a class="btn small" href="{% url 'ficha_tecnica:detalle_ficha_tecnica' f.pk %}">Ver</a>
-                  <a class="btn small secondary" href="{% url 'ficha_tecnica:editar_ficha_tecnica' f.pk %}">Editar</a>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    {% else %}
-      <div class="empty">
-        <p>No hay fichas cargadas todavía.</p>
-      </div>
-    {% endif %}
-  </section>
-
-</main>
-</body>
-</html>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="text-center" style="padding: var(--spacing-xl);">
+      <p class="text-muted">No hay fichas cargadas todavía.</p>
+      <a href="{% url 'ficha_tecnica:ficha_tecnica' %}" class="btn btn-primary" style="margin-top: var(--spacing-md);">Crear primera ficha</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

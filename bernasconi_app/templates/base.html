@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'img/logo_cuadros.png' %}" type="image/png">
+
+  <!-- CSS Base -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+  <!-- Estilos adicionales -->
+  {% block extra_css %}{% endblock %}
+
+  <title>{% block title %}Bernasconi App{% endblock %}</title>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <a href="{% url 'home' %}" class="navbar-brand">
+        <img src="{% static 'img/logo_cuadros.png' %}" alt="Logo">
+        <span>Museo Bernasconi</span>
+      </a>
+
+      <ul class="navbar-nav">
+        <li>
+          <a href="{% url 'home' %}" {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}>
+            Inicio
+          </a>
+        </li>
+
+        <!-- Dropdown Catálogos -->
+        <li class="nav-dropdown">
+          <a href="#">Catálogos</a>
+          <div class="nav-dropdown-menu">
+            <a href="{% url 'ficha_tecnica:ficha_tecnica_list' %}">Fichas Técnicas</a>
+            <a href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}">Buscar Fichas</a>
+            <a href="{% url 'investigacion:buscar_investigacion' %}">Investigaciones</a>
+          </div>
+        </li>
+
+        <!-- Dropdown Gestión -->
+        <li class="nav-dropdown">
+          <a href="#">Gestión</a>
+          <div class="nav-dropdown-menu">
+            <a href="{% url 'ficha_tecnica:ficha_tecnica' %}">Nueva Ficha</a>
+            <a href="{% url 'investigacion:cargar_investigacion' %}">Nueva Investigación</a>
+          </div>
+        </li>
+
+        <li>
+          <a href="{% url 'admin:index' %}" target="_blank">Admin</a>
+        </li>
+
+        <li>
+          <a href="{% url 'auth_logout' %}">Salir</a>
+        </li>
+      </ul>
+
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+        <span class="icon-sun">&#9728;</span>
+        <span class="icon-moon">&#9790;</span>
+      </button>
+    </nav>
+
+    <!-- MESSAGES -->
+    {% if messages %}
+      <div class="main-content" style="padding-bottom: 0;">
+        {% for message in messages %}
+          <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- CONTENT -->
+    <main class="main-content">
+      {% block content %}{% endblock %}
+    </main>
+
+  </div>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    (function() {
+      const toggle = document.getElementById('theme-toggle');
+      const html = document.documentElement;
+
+      // Cargar tema guardado o preferencia del sistema
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      html.setAttribute('data-theme', theme);
+
+      toggle.addEventListener('click', function() {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    })();
+  </script>
+
+  <!-- Scripts adicionales -->
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

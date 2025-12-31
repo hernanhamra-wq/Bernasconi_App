@@ -1,99 +1,291 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalle Ficha Técnica</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/buscar_ficha_tecnica.css' %}">
-</head>
-<body>
 
-<header class="topbar">
-    <div class="topbar-left">
-        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
-    </div>
-    <div class="topbar-right">
-        <h1>Detalle de Ficha Técnica</h1>
-    </div>
-</header>
+{% block title %}{{ ficha.titulo|default:"Ficha Técnica" }} - Museo Bernasconi{% endblock %}
 
-{% if messages %}
-  <div style="margin: 12px 0;">
-    {% for message in messages %}
-      <div class="flash">{{ message }}</div>
+{% block extra_css %}
+<style>
+  .ficha-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .ficha-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .ficha-header .id-badge {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: 4px 12px;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .ficha-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+  }
+
+  @media (max-width: 768px) {
+    .ficha-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ficha-image {
+    width: 100%;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+  }
+
+  .ficha-image-placeholder {
+    width: 100%;
+    height: 200px;
+    background: var(--bg-hover);
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+  }
+
+  .data-list {
+    display: grid;
+    gap: var(--spacing-sm);
+  }
+
+  .data-item {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .data-item:last-child {
+    border-bottom: none;
+  }
+
+  .data-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    min-width: 160px;
+    flex-shrink: 0;
+  }
+
+  .data-value {
+    color: var(--text-primary);
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--color-primary);
+  }
+
+  .description-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+
+  .dimensions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+  }
+
+  .dimension-item {
+    background: var(--bg-hover);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    text-align: center;
+  }
+
+  .dimension-item .label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: block;
+  }
+
+  .dimension-item .value {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .materials-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  .material-tag {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+  }
+
+  .badge-seguimiento {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .badge-seguimiento.active {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--color-success);
+  }
+
+  .badge-seguimiento.inactive {
+    background: var(--bg-hover);
+    color: var(--text-muted);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header ficha-header">
+    <div>
+      <h2>{{ ficha.titulo|default:"Sin título" }}</h2>
+      <span class="id-badge">ID #{{ ficha.id }}</span>
+    </div>
+    <div style="display: flex; gap: var(--spacing-sm);">
+      <a href="{% url 'ficha_tecnica:editar_ficha_tecnica' ficha.pk %}" class="btn btn-primary">Editar</a>
+      <a href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}" class="btn btn-ghost">Volver</a>
+    </div>
+  </div>
+
+  <div class="ficha-grid">
+    <!-- Imagen -->
+    <div>
+      {% if ficha.imagen %}
+        <img src="{{ ficha.imagen.url }}" alt="{{ ficha.titulo }}" class="ficha-image">
+      {% else %}
+        <div class="ficha-image-placeholder">Sin imagen</div>
+      {% endif %}
+    </div>
+
+    <!-- Datos principales -->
+    <div class="data-list">
+      <div class="data-item">
+        <span class="data-label">N° Ficha</span>
+        <span class="data-value">{{ ficha.n_de_ficha|default:"—" }}</span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Inventario</span>
+        <span class="data-value">{{ ficha.inventario|default:"—" }}</span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Inventario anterior</span>
+        <span class="data-value">{{ ficha.n_de_inventario_anterior|default:"—" }}</span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Año</span>
+        <span class="data-value">{{ ficha.anio|default:"—" }}</span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Estado funcional</span>
+        <span class="data-value">{{ ficha.fk_estado_funcional|default:"—" }}</span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Responsable de carga</span>
+        <span class="data-value">{{ ficha.fk_responsable_carga|default:"—" }}</span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Seguimiento</span>
+        <span class="data-value">
+          {% if ficha.seguimiento %}
+            <span class="badge-seguimiento active">Sí</span>
+          {% else %}
+            <span class="badge-seguimiento inactive">No</span>
+          {% endif %}
+        </span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Fecha de carga</span>
+        <span class="data-value">{{ ficha.fecha_de_carga|date:"d/m/Y H:i" }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Descripción -->
+  <h3 class="section-title">Descripción</h3>
+  <p class="description-text">{{ ficha.descripcion|default:"Sin descripción" }}</p>
+
+  <!-- Observaciones -->
+  <h3 class="section-title">Observaciones</h3>
+  <p class="description-text">{{ ficha.observacion|default:"Sin observaciones" }}</p>
+
+  <!-- Dimensiones -->
+  <h3 class="section-title">Dimensiones</h3>
+  {% if ficha.dimensiones %}
+    <p class="description-text" style="margin-bottom: var(--spacing-sm);">{{ ficha.dimensiones }}</p>
+  {% endif %}
+  <div class="dimensions-grid">
+    <div class="dimension-item">
+      <span class="label">Ancho</span>
+      <span class="value">{{ ficha.ancho|default:"—" }}</span>
+    </div>
+    <div class="dimension-item">
+      <span class="label">Alto</span>
+      <span class="value">{{ ficha.alto|default:"—" }}</span>
+    </div>
+    <div class="dimension-item">
+      <span class="label">Diámetro</span>
+      <span class="value">{{ ficha.diametro|default:"—" }}</span>
+    </div>
+    <div class="dimension-item">
+      <span class="label">Profundidad</span>
+      <span class="value">{{ ficha.profundidad|default:"—" }}</span>
+    </div>
+  </div>
+
+  <!-- Materiales -->
+  <h3 class="section-title">Materiales</h3>
+  <div class="materials-list">
+    {% for rel in ficha.materiales_relacion.all %}
+      <span class="material-tag">
+        {{ rel.material.nombre }}{% if rel.detalle %} ({{ rel.detalle }}){% endif %}
+      </span>
+    {% empty %}
+      <span class="text-muted">Sin materiales registrados</span>
     {% endfor %}
   </div>
-{% endif %}
 
-
-<main class="container">
-
-    <section class="results-card">
-        <h2>{{ ficha.titulo|default:"Sin título" }}</h2>
-
-        <div style="display:grid; grid-template-columns: 260px 1fr; gap:20px; margin-top:20px;">
-            
-            <!-- Imagen -->
-            <div>
-                {% if ficha.imagen %}
-                    <img src="{{ ficha.imagen.url }}" style="max-width:100%; border-radius:12px;">
-                {% else %}
-                    <p class="muted">Sin imagen</p>
-                {% endif %}
-            </div>
-
-            <!-- Datos principales -->
-            <div>
-                <p><strong>ID:</strong> {{ ficha.id }}</p>
-                <p><strong>N° Ficha:</strong> {{ ficha.n_de_ficha|default:"—" }}</p>
-                <p><strong>Inventario:</strong> {{ ficha.inventario|default:"—" }}</p>
-                <p><strong>Inventario anterior:</strong> {{ ficha.n_de_inventario_anterior|default:"—" }}</p>
-                <p><strong>Año:</strong> {{ ficha.anio|default:"—" }}</p>
-                <p><strong>Estado funcional:</strong> {{ ficha.fk_estado_funcional|default:"—" }}</p>
-                <p><strong>Responsable de carga:</strong> {{ ficha.fk_responsable_carga|default:"—" }}</p>
-                <p><strong>Seguimiento:</strong>
-                    {% if ficha.seguimiento %} ✅ Sí {% else %} ❌ No {% endif %}
-                </p>
-                <p><strong>Fecha de carga:</strong> {{ ficha.fecha_de_carga|date:"d/m/Y H:i" }}</p>
-            </div>
-        </div>
-
-        <hr>
-
-        <h3>Descripción</h3>
-        <p>{{ ficha.descripcion|default:"—" }}</p>
-
-        <h3>Observaciones</h3>
-        <p>{{ ficha.observacion|default:"—" }}</p>
-
-        <h3>Dimensiones</h3>
-        <ul>
-            <li><strong>Dimensiones (texto):</strong> {{ ficha.dimensiones|default:"—" }}</li>
-            <li><strong>Ancho:</strong> {{ ficha.ancho|default:"—" }}</li>
-            <li><strong>Alto:</strong> {{ ficha.alto|default:"—" }}</li>
-            <li><strong>Diámetro:</strong> {{ ficha.diametro|default:"—" }}</li>
-            <li><strong>Profundidad:</strong> {{ ficha.profundidad|default:"—" }}</li>
-        </ul>
-
-        <h3>Materiales</h3>
-        <p>
-            {% for rel in ficha.materiales_relacion.all %}
-                {{ rel.material.nombre }}
-                {% if rel.detalle %} ({{ rel.detalle }}){% endif %}
-                {% if not forloop.last %}, {% endif %}
-            {% empty %}
-                — 
-            {% endfor %}
-        </p>
-
-        <div style="margin-top:30px; display:flex; gap:10px;">
-            <a class="btn primary" href="{% url 'ficha_tecnica:editar_ficha_tecnica' ficha.pk %}">Editar</a>
-            <a class="btn ghost" href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}">Volver a búsqueda</a>
-            <a class="btn ghost" href="{% url 'ficha_tecnica:ficha_tecnica_list' %}">Listado</a>
-        </div>
-    </section>
-
-</main>
-</body>
-</html>
+  <!-- Acciones -->
+  <div class="action-buttons">
+    <a class="btn btn-primary" href="{% url 'ficha_tecnica:editar_ficha_tecnica' ficha.pk %}">Editar ficha</a>
+    <a class="btn btn-secondary" href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}">Volver a búsqueda</a>
+    <a class="btn btn-ghost" href="{% url 'ficha_tecnica:ficha_tecnica_list' %}">Ver listado completo</a>
+  </div>
+</div>
+{% endblock %}

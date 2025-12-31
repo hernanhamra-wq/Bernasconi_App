@@ -1,43 +1,169 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Ficha Técnica</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/buscar_ficha_tecnica.css' %}">
-</head>
-<body>
 
-<header class="topbar">
-    <div class="topbar-left">
-        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
+{% block title %}Editar: {{ ficha.titulo|default:"Ficha" }} - Museo Bernasconi{% endblock %}
+
+{% block extra_css %}
+<style>
+  .edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .edit-header .title-section h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .edit-header .id-badge {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: 4px 12px;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: var(--spacing-xs);
+    display: inline-block;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .form-group label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+  }
+
+  .form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .form-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+
+  /* Estilos para campos del form Django */
+  .form-grid p {
+    margin: 0;
+  }
+
+  .form-grid p label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .form-grid p input,
+  .form-grid p select,
+  .form-grid p textarea {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 1rem;
+  }
+
+  .form-grid p input:focus,
+  .form-grid p select:focus,
+  .form-grid p textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+  }
+
+  .form-grid .helptext {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .form-grid .errorlist {
+    color: var(--color-danger);
+    font-size: 0.85rem;
+    margin-top: 4px;
+    list-style: none;
+    padding: 0;
+  }
+
+  /* Checkbox styling */
+  .form-grid input[type="checkbox"] {
+    width: auto;
+    margin-right: var(--spacing-sm);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header edit-header">
+    <div class="title-section">
+      <h2>Editar Ficha Técnica</h2>
+      <span class="id-badge">{{ ficha.titulo|default:"Sin título" }} - ID #{{ ficha.id }}</span>
     </div>
-    <div class="topbar-right">
-        <h1>Editar Ficha Técnica</h1>
+    <a href="{% url 'ficha_tecnica:detalle_ficha_tecnica' ficha.pk %}" class="btn btn-ghost">Cancelar</a>
+  </div>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-grid">
+      {{ form.as_p }}
     </div>
-</header>
 
-<main class="container">
-
-    <section class="search-card">
-        <h2>{{ ficha.titulo|default:"Ficha sin título" }}</h2>
-        <p class="muted">ID {{ ficha.id }}</p>
-    </section>
-
-    <section class="results-card">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            {{ form.as_p }}
-
-            <div style="margin-top:20px; display:flex; gap:10px;">
-                <button type="submit" class="btn primary">Guardar cambios</button>
-                <a class="btn ghost" href="{% url 'ficha_tecnica:detalle_ficha_tecnica' ficha.pk %}">Cancelar</a>
-            </div>
-        </form>
-    </section>
-
-</main>
-</body>
-</html>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Guardar cambios</button>
+      <a class="btn btn-secondary" href="{% url 'ficha_tecnica:detalle_ficha_tecnica' ficha.pk %}">Cancelar</a>
+      <a class="btn btn-ghost" href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}">Volver a búsqueda</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
