@@ -1,10 +1,20 @@
 """
-MODELO DEPRECADO - Mantener solo por compatibilidad con datos existentes.
+MODELO DE UBICACIÓN INICIAL (SNAPSHOT LEGACY)
 
-La ubicación actual ahora se calcula dinámicamente desde RegHistorialMov
-usando FichaTecnica.ubicacion_actual()
+Este modelo almacena la ubicación inicial de cada obra migrada desde el sistema legacy.
+Representa la "foto" de dónde estaban las obras al momento de la migración (6,912 registros).
 
-Este modelo será eliminado en una versión futura.
+USO ACTUAL:
+- Almacena ubicación inicial migrada desde CSV (sector/sala/caja)
+- Se usa como punto de partida antes de que existan movimientos
+
+RELACIÓN CON RegHistorialMov:
+- RegUbicacionActual: Ubicación inicial (datos legacy)
+- RegHistorialMov: Movimientos futuros (trazabilidad)
+- FichaTecnica.ubicacion_actual(): Calcula ubicación actual desde el último movimiento,
+  o retorna None si no hay movimientos (usar este modelo como fallback)
+
+Script de migración: _08_ubicacion_inicial.py
 """
 from django.db import models
 from django.conf import settings
@@ -16,8 +26,11 @@ from apps_ubicacion.contenedor_ubicacion.models import ContenedorUbicacion
 
 class RegUbicacionActual(models.Model):
     """
-    DEPRECADO: Usar FichaTecnica.ubicacion_actual() en su lugar.
-    Este modelo se mantiene temporalmente por compatibilidad.
+    Ubicación inicial de la obra (migrada desde sistema legacy).
+
+    Para obtener ubicación actual:
+    1. Buscar último movimiento en RegHistorialMov
+    2. Si no hay movimientos, usar este registro como fallback
     """
     fk_ficha = models.ForeignKey(
         FichaTecnica,
