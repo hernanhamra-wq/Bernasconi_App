@@ -192,3 +192,61 @@ DB_PORT=3306
 #### Modelo deprecado
 - `RegUbicacionActual`: Marcado como DEPRECADO. Usar `FichaTecnica.ubicacion_actual()` en su lugar.
 - Se mantiene temporalmente por compatibilidad con datos legacy
+
+### FASE 5 - Completada (Migración de datos)
+
+#### Sistema de Migración
+- Ubicación: `bernasconi_app/migrations_scripts/migraciones/`
+- Orquestador: `run_all.py`
+- Diseño 100% idempotente con `get_or_create` y `update_or_create`
+
+#### Ejecución
+```bash
+cd bernasconi_app/migrations_scripts/migraciones
+python run_all.py
+```
+
+#### Archivos CSV requeridos (en `csv_files/`)
+| Archivo | Descripción |
+|---------|-------------|
+| `ficha técnica.csv` | Obras del museo (7,738 registros) |
+| `resumen- xilofagos.csv` | Registros de plagas (241) |
+| `investigacion.csv` | Investigaciones académicas (6) |
+
+#### Catálogos JSON (en `json_files/`)
+| Archivo | Descripción |
+|---------|-------------|
+| `usuarios_seed.json` | 25 usuarios (11 reales + 13 legacy + 1 sistema) |
+| `materiales_canonicos.json` | 253 materiales normalizados |
+| `autores_canonicos.json` | 564 autores con variantes de normalización |
+| `tipos_plaga_canonicos.json` | 8 tipos de plaga (Carcoma, Termita, etc.) |
+
+#### Scripts de migración
+| Script | Función | Registros |
+|--------|---------|-----------|
+| `_00_usuarios.py` | Usuarios seed + legacy | 25 |
+| `_01_materiales.py` | Catálogo materiales | 253 |
+| `_02_autores.py` | Catálogo autores (normalización) | 564 |
+| `_03_tipos_plaga.py` | Tipos de plaga | 8 |
+| `_04_ubicaciones.py` | Lugares y contenedores | 336 + 432 |
+| `_05_fichas.py` | Fichas técnicas | 7,739 |
+| `_06_ficha_autor.py` | Relación M2M ficha-autor | 5,374 |
+| `_07_ficha_material.py` | Relación M2M ficha-material | 13,765 |
+| `_09_xilofagos.py` | Registros de plaga | 241 |
+| `_10_investigaciones.py` | Investigaciones | 6 |
+
+#### Normalización de usuarios
+- Variantes como "E.S.", "fdl", "Jonathan Mayán" se mapean a usuarios reales
+- Abreviaturas no identificadas (JUL S, B.M, etc.) crean usuarios legacy con `(Por identificar)`
+- Fichas sin responsable en CSV se asignan a `sistema_legacy`
+
+#### Normalización de autores
+- 31 variantes de "Karl Noisternigg" normalizadas
+- Patrones "Idea: X / Taco: Y" se separan en autores individuales
+- Similaridad 0.85 para corrección de typos
+
+#### Características
+- Re-ejecutable sin duplicar datos
+- Maneja BOM en headers de CSV
+- Progreso cada 1000 registros
+- Resumen final con conteos

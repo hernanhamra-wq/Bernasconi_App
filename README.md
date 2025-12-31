@@ -178,6 +178,47 @@ SOLICITADO → EN_EVALUACION → APROBADO → EN_PREPARACION → EN_TRANSITO_IDA
 
 ---
 
+## Migración de Datos
+
+El sistema incluye scripts para migrar datos desde archivos CSV (exportados de Access) a MySQL.
+
+### Ejecución
+
+```bash
+cd bernasconi_app/migrations_scripts/migraciones
+python run_all.py
+```
+
+### Archivos Requeridos
+
+Colocar en `migrations_scripts/csv_files/`:
+- `ficha técnica.csv` — Obras del museo
+- `resumen- xilofagos.csv` — Registros de plagas
+- `investigacion.csv` — Investigaciones académicas
+
+### Volumen de Datos
+
+| Entidad | Registros |
+|---------|-----------|
+| Usuarios | 25 (11 reales + 13 legacy + 1 sistema) |
+| Fichas Técnicas | 7,739 |
+| Autores | 564 |
+| Materiales | 253 |
+| Lugares | 336 |
+| Contenedores | 432 |
+| Relaciones Ficha-Autor | 5,374 |
+| Relaciones Ficha-Material | 13,765 |
+| Registros de Plaga | 241 |
+| Investigaciones | 6 |
+
+### Características
+
+- **Idempotente:** Se puede re-ejecutar sin duplicar datos
+- **Normalización:** Autores y usuarios se mapean a variantes conocidas
+- **Usuarios legacy:** Abreviaturas no identificadas crean usuarios marcados "(Por identificar)"
+
+---
+
 ## Documentación Técnica
 
 - **CLAUDE.md** — Contexto técnico para desarrolladores
