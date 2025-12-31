@@ -12,7 +12,7 @@
 | `_05_fichas.py` | ficha_tecnica | ✅ Completado |
 | `_06_ficha_autor.py` | ficha_autor (M2M) | ✅ Completado |
 | `_07_ficha_material.py` | ficha_material (M2M) | ✅ Completado |
-| `_08_ubicacion_inicial.py` | reg_ubicacion_actual | ⏸️ Pendiente |
+| `_08_ubicacion_inicial.py` | reg_ubicacion_actual | ✅ Completado |
 | `_09_xilofagos.py` | registro_plaga | ✅ Completado |
 | `_10_investigaciones.py` | investigacion | ✅ Completado |
 | `_11_catalogo_multimedia.py` | catalogo_multimedia | ✅ Completado |
@@ -28,8 +28,7 @@
 | donacion | apps_pres/donacion | Sin datos legacy |
 | manejo_plagas | apps_plagas/manejo_plagas | Sin datos legacy |
 | seguimiento_xilofago | apps_plagas/seguimiento_xilofago | Sin datos legacy |
-| reg_ubicacion_actual | apps_ubicacion/reg_ubicacion_actual | Pendiente historial |
-| reg_historial_mov | apps_ubicacion/reg_historial_mov | Sin datos legacy |
+| reg_historial_mov | apps_ubicacion/reg_historial_mov | Sin datos legacy (solo movimientos futuros) |
 
 ---
 
@@ -183,6 +182,7 @@ Actualmente almacena URLs de Google Drive provenientes del sistema legacy.
 | ficha_tecnica | 7738 |
 | ficha_autor (M2M) | ~7000+ |
 | ficha_material (M2M) | ~10000+ |
+| reg_ubicacion_actual | 6912 |
 | registro_plaga | 241 |
 | investigacion | 6 |
 | catalogo_multimedia | 656 |

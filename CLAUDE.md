@@ -232,8 +232,10 @@ python run_all.py
 | `_05_fichas.py` | Fichas técnicas | 7,739 |
 | `_06_ficha_autor.py` | Relación M2M ficha-autor | 5,374 |
 | `_07_ficha_material.py` | Relación M2M ficha-material | 13,765 |
+| `_08_ubicacion_inicial.py` | Ubicación inicial obras | 6,912 |
 | `_09_xilofagos.py` | Registros de plaga | 241 |
 | `_10_investigaciones.py` | Investigaciones | 6 |
+| `_11_catalogo_multimedia.py` | Catálogo multimedia | 656 |
 
 #### Normalización de usuarios
 - Variantes como "E.S.", "fdl", "Jonathan Mayán" se mapean a usuarios reales

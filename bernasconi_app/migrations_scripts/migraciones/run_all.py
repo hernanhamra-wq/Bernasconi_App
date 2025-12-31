@@ -17,7 +17,7 @@ Orden de ejecución:
     05. Fichas técnicas (desde CSV)
     06. Ficha-Autor M2M
     07. Ficha-Material M2M
-    08. Ubicación inicial [pendiente - requiere historial]
+    08. Ubicación inicial (mapeo CSV → reg_ubicacion_actual)
     09. Xilófagos (RegistroPlaga)
     10. Investigaciones
     11. Catálogo Multimedia
@@ -31,7 +31,7 @@ import _04_ubicaciones
 import _05_fichas
 import _06_ficha_autor
 import _07_ficha_material
-# import _08_ubicacion_inicial  # pendiente
+import _08_ubicacion_inicial
 import _09_xilofagos
 import _10_investigaciones
 import _11_catalogo_multimedia
@@ -77,17 +77,22 @@ def main():
     _06_ficha_autor.run()
     _07_ficha_material.run()
 
-    # FASE 6: Datos secundarios
+    # FASE 6: Ubicación inicial de obras
     print("\n" + "─" * 60)
-    print("FASE 6: DATOS SECUNDARIOS")
+    print("FASE 6: UBICACIÓN INICIAL")
     print("─" * 60)
-    # _08_ubicacion_inicial.run()  # pendiente
+    _08_ubicacion_inicial.run()
+
+    # FASE 7: Datos secundarios
+    print("\n" + "─" * 60)
+    print("FASE 7: DATOS SECUNDARIOS")
+    print("─" * 60)
     _09_xilofagos.run()
     _10_investigaciones.run()
 
-    # FASE 7: Multimedia
+    # FASE 8: Multimedia
     print("\n" + "─" * 60)
-    print("FASE 7: MULTIMEDIA")
+    print("FASE 8: MULTIMEDIA")
     print("─" * 60)
     _11_catalogo_multimedia.run()
 

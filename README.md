@@ -208,8 +208,10 @@ Colocar en `migrations_scripts/csv_files/`:
 | Contenedores | 432 |
 | Relaciones Ficha-Autor | 5,374 |
 | Relaciones Ficha-Material | 13,765 |
+| Ubicaciones Iniciales | 6,912 |
 | Registros de Plaga | 241 |
 | Investigaciones | 6 |
+| Catálogo Multimedia | 656 |
 
 ### Características
 
