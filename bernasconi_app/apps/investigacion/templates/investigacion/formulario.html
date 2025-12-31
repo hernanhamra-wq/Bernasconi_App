@@ -29,63 +29,54 @@
     <form method="post" class="grid-form">
       {% csrf_token %}
 
-      <!-- ID (solo lectura / auto) -->
-      <div class="row">
-        <div class="field">
-          <label>investigacion_id</label>
-          {{ form.investigacion_id }}
-        </div>
-        
-        <div class="field inline">
-          <label>disabled: auto</label>
-          <input type="checkbox" checked disabled>
-        </div>
-      </div>
-
-
       <!-- FK ficha -->
       <div class="row">
         <div class="field">
-          <label>Ficha ID</label>
+          <label>Ficha Técnica</label>
           {{ form.ficha }}
         </div>
-       
+      </div>
+
       <!-- FK investigador -->
       <div class="row">
         <div class="field">
-          <label>Investigador ID</label>
+          <label>Investigador</label>
           {{ form.investigador }}
         </div>
-       
+      </div>
 
       <div class="row">
         <div class="field">
-          <label>Num. Investigación</label>
+          <label>N° de Investigación</label>
           {{ form.num_investigacion }}
         </div>
-        
+      </div>
 
       <div class="row">
         <div class="field">
-          <label>Título Investigación</label>
+          <label>Título de la Investigación</label>
           {{ form.titulo_investigacion }}
         </div>
-        
+      </div>
+
       <div class="row tall">
         <div class="field">
-          <label>Detalle Investigación</label>
+          <label>Detalle de la Investigación</label>
           {{ form.detalle_investigacion }}
         </div>
-       
+      </div>
 
       <div class="row">
         <div class="field">
-          <label>Año Realización</label>
+          <label>Año de Realización</label>
           {{ form.anio_realizacion }}
         </div>
-        
+      </div>
 
       <div class="actions">
+        <a href="{% url 'investigacion:buscar_investigacion' %}" class="btn" style="background: #666; margin-right: 10px;">
+          Cancelar
+        </a>
         <button class="btn" type="submit"
           onclick="return confirm('¿Querés guardar esta investigación? Revisá los datos antes de confirmar.');">
           Guardar
@@ -96,4 +87,3 @@
   </div>
 </body>
 </html>
-

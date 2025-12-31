@@ -22,10 +22,10 @@ body{
 .glass{
   width: min(1200px, 96vw);
   border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.35);   /* ⬅️ apenas color */
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(30, 40, 50, 0.85);   /* Fondo oscuro para mejor contraste */
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
   padding: 18px;
 }
 
@@ -94,10 +94,16 @@ body{
   width: 100%;
   padding: 12px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.35);
-  background: rgba(255,255,255,0.20); 
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.95);
   color: #1a1a1a;
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input:focus, .field select:focus, .field textarea:focus{
+  border-color: #14a096;
+  box-shadow: 0 0 0 3px rgba(20, 160, 150, 0.25);
 }
 
 
@@ -146,9 +152,14 @@ body{
   flex:1;
   padding: 14px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.35);
-  background: rgba(255,255,255,.25);
+  border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,0.95);
+  color: #1a1a1a;
   font-size: 1.05rem;
+}
+
+.search-input::placeholder{
+  color: #666;
 }
 
 .results-table{
