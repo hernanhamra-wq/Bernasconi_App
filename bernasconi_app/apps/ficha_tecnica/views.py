@@ -63,10 +63,11 @@ NUM_FIELDS = [
 ]
 
 FK_FIELDS = [
-    "fk_estado",
+    "fk_estado_funcional",
     "fk_responsable_carga",
-    "fk_serie",
     "fk_multimedia_principal",
+    "fk_taller",
+    "fk_procedencia",
 ]
 
 M2M_LOOKUPS = [
@@ -155,15 +156,21 @@ def build_search_q(query: str) -> Q:
     ):
         q_obj |= Q(**{lookup: query})
 
-    # FKs - estado
+    # FKs - estado funcional
     for lookup in _safe_add_related_lookups(
-        FichaTecnica, "fk_estado", ["nombre", "descripcion", "estado"]
+        FichaTecnica, "fk_estado_funcional", ["nombre", "descripcion", "estado"]
     ):
         q_obj |= Q(**{lookup: query})
 
-    # FKs - serie
+    # FKs - taller
     for lookup in _safe_add_related_lookups(
-        FichaTecnica, "fk_serie", ["nombre", "titulo", "descripcion"]
+        FichaTecnica, "fk_taller", ["nombre", "descripcion"]
+    ):
+        q_obj |= Q(**{lookup: query})
+
+    # FKs - procedencia
+    for lookup in _safe_add_related_lookups(
+        FichaTecnica, "fk_procedencia", ["nombre", "descripcion", "tipo"]
     ):
         q_obj |= Q(**{lookup: query})
 
@@ -195,7 +202,7 @@ def buscar_ficha_tecnica(request):
     form = FichaTecnicaSearchForm(request.GET or None)
     qs = (
         FichaTecnica.objects.all()
-        .select_related("fk_estado", "fk_responsable_carga", "fk_serie", "fk_multimedia_principal")
+        .select_related("fk_estado_funcional", "fk_responsable_carga", "fk_taller", "fk_multimedia_principal", "fk_procedencia")
         .prefetch_related("materiales", "materiales_relacion")
         .order_by("-fecha_de_carga", "-id")
     )
@@ -223,7 +230,7 @@ def buscar_ficha_tecnica(request):
 def detalle_ficha_tecnica(request, pk):
     ficha = get_object_or_404(
         FichaTecnica.objects
-        .select_related("fk_estado", "fk_responsable_carga", "fk_serie", "fk_multimedia_principal")
+        .select_related("fk_estado_funcional", "fk_responsable_carga", "fk_taller", "fk_multimedia_principal", "fk_procedencia")
         .prefetch_related("materiales", "materiales_relacion"),
         pk=pk
     )
