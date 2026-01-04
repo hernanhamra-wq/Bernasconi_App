@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block page_bg %}<div class="page-bg {{ page_bg_class }}"></div>{% endblock %}
+
+{% block title %}Multimedia - {{ ficha.titulo|default:ficha.inventario }}{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex justify-between align-center">
+      <div>
+        <h2>Multimedia</h2>
+        <p class="text-muted">{{ ficha.titulo|default:ficha.inventario }}</p>
+      </div>
+      <div class="btn-group">
+        <a href="{% url 'multimedia:ficha_multimedia_add' ficha_pk=ficha.pk %}" class="btn btn-primary">
+          + Agregar Archivo
+        </a>
+        <a href="{% url 'ficha_tecnica:detalle_ficha_tecnica' pk=ficha.pk %}" class="btn btn-secondary">
+          Volver a Ficha
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    {% if multimedia %}
+      <div class="multimedia-grid">
+        {% for item in multimedia %}
+          <div class="multimedia-card">
+            <div class="multimedia-preview">
+              {% if item.tipo == 'imagen' and item.archivo %}
+                <img src="{{ item.archivo.url }}" alt="{{ item.descripcion|default:'Imagen' }}">
+              {% elif item.tipo == 'video' %}
+                <div class="multimedia-icon">&#9654;</div>
+                <span>Video</span>
+              {% elif item.tipo == 'audio' %}
+                <div class="multimedia-icon">&#9835;</div>
+                <span>Audio</span>
+              {% else %}
+                <div class="multimedia-icon">&#128196;</div>
+                <span>Documento</span>
+              {% endif %}
+            </div>
+            <div class="multimedia-info">
+              <span class="badge badge-{{ item.tipo }}">{{ item.get_tipo_display }}</span>
+              <p class="multimedia-desc">{{ item.descripcion|default:"Sin descripción" }}</p>
+              <div class="multimedia-actions">
+                {% if item.archivo %}
+                  <a href="{{ item.archivo.url }}" target="_blank" class="btn btn-sm btn-secondary">
+                    Ver
+                  </a>
+                {% endif %}
+                <a href="{% url 'multimedia:ficha_multimedia_delete' ficha_pk=ficha.pk pk=item.pk %}"
+                   class="btn btn-sm btn-danger">
+                  Eliminar
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <p>Esta ficha no tiene archivos multimedia.</p>
+        <a href="{% url 'multimedia:ficha_multimedia_add' ficha_pk=ficha.pk %}" class="btn btn-primary">
+          Agregar Primer Archivo
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.multimedia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.multimedia-card {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--card-bg);
+}
+
+.multimedia-preview {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  flex-direction: column;
+}
+
+.multimedia-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.multimedia-icon {
+  font-size: 3rem;
+  opacity: 0.5;
+}
+
+.multimedia-info {
+  padding: 0.75rem;
+}
+
+.multimedia-desc {
+  font-size: 0.875rem;
+  margin: 0.5rem 0;
+  color: var(--text-muted);
+}
+
+.multimedia-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.badge-imagen { background: #3b82f6; color: white; }
+.badge-video { background: #ef4444; color: white; }
+.badge-audio { background: #8b5cf6; color: white; }
+.badge-documento { background: #6b7280; color: white; }
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+}
+
+.btn-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.d-flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.align-center { align-items: center; }
+</style>
+{% endblock %}

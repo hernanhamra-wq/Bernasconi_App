@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static crud_tags %}
+
+{% block title %}{{ page_title }} - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg {{ page_bg_class|default:'bg-fichas' }}"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">{{ page_title }}</h2>
+    <div class="flex gap-1">
+      {% if edit_url %}
+        <a href="{% url edit_url object.pk %}" class="btn btn-secondary">Editar</a>
+      {% endif %}
+      <a href="{% url list_url %}" class="btn btn-ghost">Volver</a>
+    </div>
+  </div>
+
+  <!-- Información principal -->
+  <div class="detail-section" style="border-top: none; padding-top: 0;">
+    <div class="detail-grid">
+      {% for field in fields %}
+        <div class="detail-item" {% if field.full_width %}style="grid-column: 1 / -1;"{% endif %}>
+          <span class="label">{{ field.label }}</span>
+          <span class="value">
+            {% if field.is_badge %}
+              <span class="badge badge-{{ field.badge_class|default:'primary' }}">
+                {{ object|get_attr:field.field|default:"Sin especificar" }}
+              </span>
+            {% elif field.is_link and field.link_url %}
+              <a href="{% url field.link_url object|get_attr:field.link_pk %}">
+                {{ object|get_attr:field.field }}
+              </a>
+            {% else %}
+              {{ object|get_attr:field.field|default:"Sin especificar" }}
+            {% endif %}
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Secciones adicionales (relaciones) -->
+  {% for section in sections %}
+  <div class="detail-section">
+    <h3>{{ section.title }} ({{ section.items|length }})</h3>
+
+    {% if section.items %}
+    <div class="table-container" style="max-height: 400px;">
+      <table class="table">
+        <thead>
+          <tr>
+            {% for col in section.columns %}
+              <th>{{ col.label }}</th>
+            {% endfor %}
+            {% if section.action_url %}
+              <th>Acciones</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in section.items %}
+          <tr>
+            {% for col in section.columns %}
+              <td {% if col.truncate %}class="truncate"{% endif %}>
+                {{ item|get_attr:col.field|default:"-" }}
+              </td>
+            {% endfor %}
+            {% if section.action_url %}
+              <td>
+                <a href="{% url section.action_url item.pk %}" class="btn btn-sm btn-ghost">{{ section.action_label|default:"Ver" }}</a>
+              </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if section.show_more_text %}
+      <p class="text-muted mt-1">{{ section.show_more_text }}</p>
+    {% endif %}
+    {% else %}
+      <p class="text-muted">{{ section.empty_text|default:"No hay registros." }}</p>
+    {% endif %}
+
+    {% if section.add_url %}
+    <div class="mt-2">
+      <a href="{% url section.add_url %}{% if section.add_params %}?{{ section.add_params }}{% endif %}" class="btn btn-secondary">+ {{ section.add_label }}</a>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

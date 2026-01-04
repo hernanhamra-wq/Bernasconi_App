@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block page_bg %}<div class="page-bg {{ page_bg_class }}"></div>{% endblock %}
+
+{% block title %}Eliminar Multimedia{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 500px; margin: 0 auto;">
+  <div class="card-header">
+    <h2>Eliminar Archivo</h2>
+  </div>
+
+  <div class="card-body">
+    <div class="confirm-delete">
+      <p>¿Estás seguro de eliminar este archivo multimedia?</p>
+
+      <div class="delete-info">
+        <dl>
+          <dt>Tipo:</dt>
+          <dd>{{ multimedia.get_tipo_display }}</dd>
+
+          <dt>Descripción:</dt>
+          <dd>{{ multimedia.descripcion|default:"Sin descripción" }}</dd>
+
+          <dt>Ficha:</dt>
+          <dd>{{ ficha.titulo|default:ficha.inventario }}</dd>
+        </dl>
+      </div>
+
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+          <a href="{% url 'multimedia:ficha_multimedia_list' ficha_pk=ficha.pk %}" class="btn btn-secondary">
+            Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+.confirm-delete {
+  text-align: center;
+}
+
+.delete-info {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.delete-info dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.delete-info dt {
+  font-weight: 600;
+}
+
+.delete-info dd {
+  margin: 0;
+  color: var(--text-muted);
+}
+</style>
+{% endblock %}

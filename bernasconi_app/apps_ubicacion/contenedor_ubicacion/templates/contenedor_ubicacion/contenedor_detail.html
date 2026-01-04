@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ contenedor.nombre_contenedor }} - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-ubicaciones"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">{{ contenedor.nombre_contenedor }}</h2>
+    <div class="flex gap-1">
+      <a href="{% url 'contenedor:contenedor_edit' contenedor.pk %}" class="btn btn-secondary">Editar</a>
+      <a href="{% url 'contenedor:contenedor_list' %}" class="btn btn-ghost">Volver</a>
+    </div>
+  </div>
+
+  <!-- Información -->
+  <div class="detail-section" style="border-top: none; padding-top: 0;">
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="label">Lugar</span>
+        <span class="value">
+          <a href="{% url 'ubicacion_lugar:lugar_detail' contenedor.fk_lugar_general.pk %}">
+            {{ contenedor.fk_lugar_general.nombre_lugar }}
+          </a>
+        </span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Tipo</span>
+        <span class="value">{{ contenedor.get_tipo_contenedor_display }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Estado</span>
+        <span class="value">
+          <span class="badge badge-{% if contenedor.estado == 'DISPONIBLE' %}success{% elif contenedor.estado == 'LLENO' %}error{% else %}warning{% endif %}">
+            {{ contenedor.get_estado_display }}
+          </span>
+        </span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Modo</span>
+        <span class="value">{{ contenedor.get_modo_almacenamiento_display }}</span>
+      </div>
+      {% if contenedor.fk_padre %}
+      <div class="detail-item">
+        <span class="label">Contenedor Padre</span>
+        <span class="value">
+          <a href="{% url 'contenedor:contenedor_detail' contenedor.fk_padre.pk %}">
+            {{ contenedor.fk_padre.nombre_contenedor }}
+          </a>
+        </span>
+      </div>
+      {% endif %}
+      <div class="detail-item">
+        <span class="label">Ruta Completa</span>
+        <span class="value">{{ contenedor.fk_lugar_general.nombre_lugar }} > {{ contenedor.ruta_completa }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Capacidad -->
+  <div class="detail-section">
+    <h3>Capacidad</h3>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="label">Obras Actuales</span>
+        <span class="value">{{ obras_actuales }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Capacidad Máxima</span>
+        <span class="value">{{ contenedor.capacidad_maxima|default:"Sin límite" }}</span>
+      </div>
+      {% if porcentaje is not None %}
+      <div class="detail-item">
+        <span class="label">Ocupación</span>
+        <span class="value">
+          <span class="badge badge-{% if porcentaje >= 90 %}error{% elif porcentaje >= 70 %}warning{% else %}success{% endif %}">
+            {{ porcentaje }}%
+          </span>
+        </span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Subcontenedores -->
+  {% if subcontenedores %}
+  <div class="detail-section">
+    <h3>Subcontenedores ({{ subcontenedores.count }})</h3>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sub in subcontenedores %}
+          <tr>
+            <td>
+              <a href="{% url 'contenedor:contenedor_detail' sub.pk %}">{{ sub.nombre_contenedor }}</a>
+            </td>
+            <td>{{ sub.get_tipo_contenedor_display }}</td>
+            <td>
+              <span class="badge badge-{% if sub.estado == 'DISPONIBLE' %}success{% else %}warning{% endif %}">
+                {{ sub.get_estado_display }}
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Observaciones -->
+  {% if contenedor.observacion %}
+  <div class="detail-section">
+    <h3>Observaciones</h3>
+    <p>{{ contenedor.observacion }}</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

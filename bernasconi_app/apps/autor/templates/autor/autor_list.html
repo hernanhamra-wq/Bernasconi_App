@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Autores - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-fichas"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Autores</h2>
+    <a href="{% url 'autor:autor_create' %}" class="btn btn-primary">+ Nuevo Autor</a>
+  </div>
+
+  <!-- Buscador -->
+  <form method="get" class="flex gap-2 mb-2">
+    <input
+      type="text"
+      name="q"
+      value="{{ query }}"
+      placeholder="Buscar por nombre o biografía..."
+      class="form-control"
+      style="max-width: 400px;"
+    >
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+    {% if query %}
+      <a href="{% url 'autor:autor_list' %}" class="btn btn-ghost">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <p class="text-muted mb-2">{{ total }} autor{{ total|pluralize:"es" }} encontrado{{ total|pluralize:"s" }}</p>
+
+  <!-- Tabla -->
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Biografía</th>
+          <th>Fichas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for autor in autores %}
+        <tr>
+          <td>{{ autor.id }}</td>
+          <td>
+            <a href="{% url 'autor:autor_detail' autor.pk %}">
+              <strong>{{ autor.nombre }}</strong>
+            </a>
+          </td>
+          <td class="truncate">{{ autor.biografia|default:"-"|truncatewords:15 }}</td>
+          <td>
+            {% if autor.num_fichas > 0 %}
+              <span class="badge badge-info">{{ autor.num_fichas }}</span>
+            {% else %}
+              <span class="text-muted">0</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="flex gap-1">
+              <a href="{% url 'autor:autor_edit' autor.pk %}" class="btn btn-sm btn-secondary">Editar</a>
+              <a href="{% url 'autor:autor_delete' autor.pk %}" class="btn btn-sm btn-ghost">Eliminar</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center text-muted">
+            {% if query %}
+              No se encontraron autores con "{{ query }}"
+            {% else %}
+              No hay autores registrados
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  {% if autores.has_other_pages %}
+  <div class="pagination">
+    {% if autores.has_previous %}
+      <a href="?page={{ autores.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" class="btn btn-sm btn-secondary">Anterior</a>
+    {% endif %}
+
+    <span class="text-muted">
+      Página {{ autores.number }} de {{ autores.paginator.num_pages }}
+    </span>
+
+    {% if autores.has_next %}
+      <a href="?page={{ autores.next_page_number }}{% if query %}&q={{ query }}{% endif %}" class="btn btn-sm btn-secondary">Siguiente</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

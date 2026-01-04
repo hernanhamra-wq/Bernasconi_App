@@ -42,27 +42,60 @@
           </a>
         </li>
 
-        <!-- Dropdown Catálogos -->
+        <!-- Dropdown Catálogo -->
         <li class="nav-dropdown">
-          <a href="#">Catálogos</a>
+          <a href="#">Catálogo</a>
           <div class="nav-dropdown-menu">
             <a href="{% url 'ficha_tecnica:ficha_tecnica_list' %}">Fichas Técnicas</a>
-            <a href="{% url 'ficha_tecnica:buscar_ficha_tecnica' %}">Buscar Fichas</a>
+            <a href="{% url 'autor:autor_list' %}">Autores</a>
+            <a href="{% url 'material:material_list' %}">Materiales</a>
+            <hr class="dropdown-divider">
+            <a href="{% url 'multimedia:multimedia_list' %}">Multimedia</a>
+          </div>
+        </li>
+
+        <!-- Dropdown Ubicaciones -->
+        <li class="nav-dropdown">
+          <a href="#">Ubicaciones</a>
+          <div class="nav-dropdown-menu">
+            <a href="{% url 'ubicacion:ubicacion_list' %}">Lugares</a>
+            <a href="{% url 'contenedor:contenedor_list' %}">Contenedores</a>
+            <a href="{% url 'movimiento:movimiento_list' %}">Movimientos</a>
+            <hr class="dropdown-divider">
+            <a href="{% url 'estado_obra:estado_obra_list' %}">Situaciones</a>
+          </div>
+        </li>
+
+        <!-- Dropdown Préstamos -->
+        <li class="nav-dropdown">
+          <a href="#">Préstamos</a>
+          <div class="nav-dropdown-menu">
+            <a href="{% url 'prestamo:prestamo_list' %}">Préstamos</a>
+            <a href="{% url 'donacion:donacion_list' %}">Donaciones</a>
+            <hr class="dropdown-divider">
+            <a href="{% url 'institucion:institucion_list' %}">Instituciones</a>
+          </div>
+        </li>
+
+        <!-- Dropdown Conservación -->
+        <li class="nav-dropdown">
+          <a href="#">Conservación</a>
+          <div class="nav-dropdown-menu">
+            <a href="{% url 'intervencion:intervencion_list' %}">Intervenciones</a>
+            <a href="{% url 'registro_plaga:registro_plaga_list' %}">Registro de Plagas</a>
+            <a href="{% url 'seguimiento_xilofago:seguimiento_xilofago_list' %}">Seguimiento Xilófagos</a>
+            <hr class="dropdown-divider">
             <a href="{% url 'investigacion:buscar_investigacion' %}">Investigaciones</a>
           </div>
         </li>
 
-        <!-- Dropdown Gestión -->
+        <!-- Dropdown Configuración -->
         <li class="nav-dropdown">
-          <a href="#">Gestión</a>
+          <a href="#">Config</a>
           <div class="nav-dropdown-menu">
-            <a href="{% url 'ficha_tecnica:ficha_tecnica' %}">Nueva Ficha</a>
-            <a href="{% url 'investigacion:cargar_investigacion' %}">Nueva Investigación</a>
+            <a href="{% url 'usuario:usuario_list' %}">Usuarios</a>
+            <a href="{% url 'core:auditoria' %}">Auditoría</a>
           </div>
-        </li>
-
-        <li>
-          <a href="{% url 'admin:index' %}" target="_blank">Admin</a>
         </li>
 
         <li>

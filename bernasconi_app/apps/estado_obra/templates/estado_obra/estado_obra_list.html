@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Estados de Obra - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-fichas"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Estados de Obra</h2>
+    <a href="{% url 'estado_obra:estado_obra_create' %}" class="btn btn-primary">+ Nuevo Estado</a>
+  </div>
+
+  <!-- Buscador -->
+  <form method="get" class="flex gap-2 mb-2">
+    <input
+      type="text"
+      name="q"
+      value="{{ query }}"
+      placeholder="Buscar estado..."
+      class="form-control"
+      style="max-width: 300px;"
+    >
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+    {% if query %}
+      <a href="{% url 'estado_obra:estado_obra_list' %}" class="btn btn-ghost">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <p class="text-muted mb-2">{{ total }} estado{{ total|pluralize:"s" }}</p>
+
+  <!-- Tabla -->
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Estado</th>
+          <th>Fichas</th>
+          <th>Movimientos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for estado in estados %}
+        <tr>
+          <td>{{ estado.id }}</td>
+          <td><strong>{{ estado.nombre_estado }}</strong></td>
+          <td>
+            {% if estado.num_fichas > 0 %}
+              <span class="badge badge-info">{{ estado.num_fichas }}</span>
+            {% else %}
+              <span class="text-muted">0</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if estado.num_movimientos > 0 %}
+              <span class="badge badge-primary">{{ estado.num_movimientos }}</span>
+            {% else %}
+              <span class="text-muted">0</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="flex gap-1">
+              <a href="{% url 'estado_obra:estado_obra_edit' estado.pk %}" class="btn btn-sm btn-secondary">Editar</a>
+              <a href="{% url 'estado_obra:estado_obra_delete' estado.pk %}" class="btn btn-sm btn-ghost">Eliminar</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center text-muted">
+            {% if query %}
+              No se encontraron estados con "{{ query }}"
+            {% else %}
+              No hay estados registrados
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

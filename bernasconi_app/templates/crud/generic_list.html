@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static crud_tags %}
+
+{% block title %}{{ page_title|default:model_verbose_plural }} - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg {{ page_bg_class|default:'bg-fichas' }}"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">{{ page_title|default:model_verbose_plural }}</h2>
+    {% if create_url %}
+      <a href="{% url create_url %}" class="btn btn-primary">+ Nuevo {{ model_verbose }}</a>
+    {% endif %}
+  </div>
+
+  <!-- Buscador y Filtros -->
+  <form method="get" class="flex gap-2 mb-2" style="flex-wrap: wrap;">
+    {% if show_search %}
+    <input
+      type="text"
+      name="q"
+      value="{{ query }}"
+      placeholder="{{ search_placeholder|default:'Buscar...' }}"
+      class="form-control"
+      style="max-width: 300px;"
+    >
+    {% endif %}
+
+    {% for filter in filters %}
+    <select name="{{ filter.name }}" class="form-control" style="max-width: 180px;">
+      <option value="">-- {{ filter.label }} --</option>
+      {% for value, label in filter.choices %}
+        <option value="{{ value }}" {% if filter.current == value %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-secondary">{% if filters %}Filtrar{% else %}Buscar{% endif %}</button>
+    {% if query or has_filters %}
+      <a href="{% url list_url %}" class="btn btn-ghost">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <p class="text-muted mb-2">{{ total }} {{ model_verbose|lower }}{{ total|pluralize:"es" }}</p>
+
+  <!-- Tabla -->
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          {% for col in columns %}
+            <th>{{ col.label }}</th>
+          {% endfor %}
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          {% for col in columns %}
+            <td {% if col.truncate %}class="truncate"{% endif %}>
+              {% if col.is_link and detail_url %}
+                <a href="{% url detail_url item.pk %}">
+                  <strong>{{ item|get_attr:col.field }}</strong>
+                </a>
+              {% elif col.is_badge %}
+                <span class="badge badge-{{ col.badge_class|default:'info' }}">
+                  {{ item|get_attr:col.field }}
+                </span>
+              {% elif col.is_count %}
+                {% with count=item|get_attr:col.field %}
+                  {% if count > 0 %}
+                    <span class="badge badge-info">{{ count }}</span>
+                  {% else %}
+                    <span class="text-muted">0</span>
+                  {% endif %}
+                {% endwith %}
+              {% else %}
+                {{ item|get_attr:col.field|default:"-" }}
+              {% endif %}
+            </td>
+          {% endfor %}
+          <td>
+            <div class="flex gap-1">
+              {% if edit_url %}
+                <a href="{% url edit_url item.pk %}" class="btn btn-sm btn-secondary">Editar</a>
+              {% endif %}
+              {% if delete_url %}
+                <a href="{% url delete_url item.pk %}" class="btn btn-sm btn-ghost">Eliminar</a>
+              {% endif %}
+              {% for action in extra_actions %}
+                <a href="{% url action.url item.pk %}" class="btn btn-sm {{ action.class|default:'btn-ghost' }}">{{ action.label }}</a>
+              {% endfor %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="{{ columns|length|add:1 }}" class="text-center text-muted">
+            {% if query or has_filters %}
+              No se encontraron {{ model_verbose_plural|lower }} con los filtros aplicados
+            {% else %}
+              No hay {{ model_verbose_plural|lower }} registrados
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  {% if items.has_other_pages %}
+  <div class="pagination">
+    {% if items.has_previous %}
+      <a href="?page={{ items.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" class="btn btn-sm btn-secondary">Anterior</a>
+    {% endif %}
+
+    <span class="text-muted">
+      Página {{ items.number }} de {{ items.paginator.num_pages }}
+    </span>
+
+    {% if items.has_next %}
+      <a href="?page={{ items.next_page_number }}{% if query %}&q={{ query }}{% endif %}" class="btn btn-sm btn-secondary">Siguiente</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

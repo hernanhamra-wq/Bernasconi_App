@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Eliminar {{ contenedor.nombre_contenedor }} - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-ubicaciones"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 500px;">
+  <div class="card-header">
+    <h2 class="card-title">Eliminar Contenedor</h2>
+  </div>
+
+  {% if total_usos > 0 %}
+    <div class="alert alert-warning">
+      <strong>No se puede eliminar</strong><br>
+      El contenedor "{{ contenedor.nombre_contenedor }}" está en uso:
+      <ul style="margin: 8px 0 0 20px;">
+        {% if num_subcontenedores > 0 %}<li>{{ num_subcontenedores }} subcontenedor{{ num_subcontenedores|pluralize:"es" }}</li>{% endif %}
+        {% if num_obras > 0 %}<li>{{ num_obras }} obra{{ num_obras|pluralize:"s" }} almacenada{{ num_obras|pluralize:"s" }}</li>{% endif %}
+      </ul>
+    </div>
+    <a href="{% url 'contenedor:contenedor_list' %}" class="btn btn-secondary">Volver</a>
+  {% else %}
+    <p class="mb-2">
+      ¿Está seguro que desea eliminar el contenedor <strong>"{{ contenedor.nombre_contenedor }}"</strong>?
+    </p>
+    <p class="text-muted mb-3">Esta acción no se puede deshacer.</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="flex gap-2">
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'contenedor:contenedor_list' %}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  {% endif %}
+</div>
+{% endblock %}

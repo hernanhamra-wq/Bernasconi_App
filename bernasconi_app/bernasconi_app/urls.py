@@ -43,7 +43,34 @@ urlpatterns = [
     # 👇 INCLUIR LA APP DE FICHA TÉCNICA (esto habilita /ficha-tecnica/)
     path('ficha/', include('apps.ficha_tecnica.urls')),
 
-    # Root al final, así no “tapa” otras rutas
+    # Catálogos
+    path('autores/', include('apps.autor.urls')),
+    path('materiales/', include('apps.material.urls')),
+    path('estados/', include('apps.estado_obra.urls')),
+    path('multimedia/', include('apps.catalogo_multimedia.urls')),
+
+    # Ubicaciones
+    path('lugares/', include('apps_ubicacion.ubicacion_lugar.urls')),
+    path('contenedores/', include('apps_ubicacion.contenedor_ubicacion.urls')),
+    path('movimientos/', include('apps_ubicacion.reg_historial_mov.urls')),
+
+    # Préstamos y donaciones
+    path('instituciones/', include('apps_pres.institucion.urls')),
+    path('prestamos/', include('apps_pres.prestamo.urls')),
+    path('donaciones/', include('apps_pres.donacion.urls')),
+
+    # Conservación
+    path('intervenciones/', include('apps.intervencion.urls')),
+
+    # Plagas
+    path('registro-plagas/', include('apps_plagas.registro_plaga.urls')),
+    path('seguimiento-xilofagos/', include('apps_plagas.seguimiento_xilofago.urls')),
+
+    # Configuración
+    path('usuarios/', include('apps.usuarios.urls')),
+    path('config/', include('apps.core.urls')),
+
+    # Root al final, así no "tapa" otras rutas
     path('', lambda request: redirect('auth_login'), name='root'),
 ]
 

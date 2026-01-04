@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-ubicaciones"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 600px;">
+  <div class="card-header">
+    <h2 class="card-title">{{ titulo }}</h2>
+  </div>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="id_nombre_lugar" class="form-label">Nombre del Lugar *</label>
+      {{ form.nombre_lugar }}
+      {% if form.nombre_lugar.errors %}
+        <p class="text-muted" style="color: var(--color-error);">{{ form.nombre_lugar.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="id_tipo_lugar" class="form-label">Tipo de Lugar *</label>
+      {{ form.tipo_lugar }}
+      {% if form.tipo_lugar.errors %}
+        <p class="text-muted" style="color: var(--color-error);">{{ form.tipo_lugar.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <div class="form-check">
+        {{ form.permite_contenedores }}
+        <label for="id_permite_contenedores" class="form-label" style="display: inline; margin-left: 8px;">
+          Permite contenedores
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="id_observacion" class="form-label">Observaciones</label>
+      {{ form.observacion }}
+    </div>
+
+    <div class="flex gap-2 mt-3">
+      <button type="submit" class="btn btn-primary">
+        {% if is_edit %}Guardar Cambios{% else %}Crear Lugar{% endif %}
+      </button>
+      <a href="{% url 'ubicacion_lugar:lugar_list' %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

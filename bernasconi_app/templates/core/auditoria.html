@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Auditoría - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-config"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Registro de Auditoría</h2>
+    <span class="badge badge-info">{{ total }} cambios</span>
+  </div>
+
+  <!-- Filtros -->
+  <form method="get" class="flex gap-2 mb-2" style="flex-wrap: wrap; align-items: flex-end;">
+    <div>
+      <label class="form-label">Módulo</label>
+      <select name="modelo" class="form-control" style="max-width: 180px;">
+        <option value="">-- Todos --</option>
+        {% for app_label, model_name, display_name in modelos %}
+          <option value="{{ app_label }}" {% if filtros.modelo == app_label %}selected{% endif %}>
+            {{ display_name }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="form-label">Usuario</label>
+      <select name="usuario" class="form-control" style="max-width: 180px;">
+        <option value="">-- Todos --</option>
+        {% for u in usuarios %}
+          <option value="{{ u.id }}" {% if filtros.usuario == u.id|stringformat:"i" %}selected{% endif %}>
+            {{ u.username }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="form-label">Desde</label>
+      <input type="date" name="desde" value="{{ filtros.desde }}" class="form-control" style="max-width: 150px;">
+    </div>
+
+    <div>
+      <label class="form-label">Hasta</label>
+      <input type="date" name="hasta" value="{{ filtros.hasta }}" class="form-control" style="max-width: 150px;">
+    </div>
+
+    <button type="submit" class="btn btn-secondary">Filtrar</button>
+    {% if filtros.modelo or filtros.usuario or filtros.desde or filtros.hasta %}
+      <a href="{% url 'core:auditoria' %}" class="btn btn-ghost">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <!-- Tabla -->
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Módulo</th>
+          <th>Registro</th>
+          <th>Creado</th>
+          <th>Modificado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in registros %}
+        <tr>
+          <td>
+            <span class="badge badge-info">{{ r.modelo }}</span>
+          </td>
+          <td class="truncate" style="max-width: 300px;">
+            {{ r.objeto }}
+          </td>
+          <td>
+            <div>{{ r.created_at|date:"d/m/Y H:i" }}</div>
+            <small class="text-muted">{{ r.created_by|default:"Sistema" }}</small>
+          </td>
+          <td>
+            <div>{{ r.updated_at|date:"d/m/Y H:i" }}</div>
+            <small class="text-muted">{{ r.updated_by|default:"Sistema" }}</small>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="text-center text-muted">
+            No se encontraron registros con los filtros aplicados.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  {% if registros.has_other_pages %}
+  <div class="pagination">
+    {% if registros.has_previous %}
+      <a href="?page={{ registros.previous_page_number }}{% if filtros.modelo %}&modelo={{ filtros.modelo }}{% endif %}{% if filtros.usuario %}&usuario={{ filtros.usuario }}{% endif %}{% if filtros.desde %}&desde={{ filtros.desde }}{% endif %}{% if filtros.hasta %}&hasta={{ filtros.hasta }}{% endif %}" class="btn btn-sm btn-secondary">Anterior</a>
+    {% endif %}
+
+    <span class="text-muted">
+      Página {{ registros.number }} de {{ registros.paginator.num_pages }}
+    </span>
+
+    {% if registros.has_next %}
+      <a href="?page={{ registros.next_page_number }}{% if filtros.modelo %}&modelo={{ filtros.modelo }}{% endif %}{% if filtros.usuario %}&usuario={{ filtros.usuario }}{% endif %}{% if filtros.desde %}&desde={{ filtros.desde }}{% endif %}{% if filtros.hasta %}&hasta={{ filtros.hasta }}{% endif %}" class="btn btn-sm btn-secondary">Siguiente</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <p class="text-muted mt-2" style="font-size: 0.85rem;">
+    Los registros de auditoría muestran quién creó y modificó cada elemento del sistema.
+    Esta información se captura automáticamente.
+  </p>
+</div>
+{% endblock %}

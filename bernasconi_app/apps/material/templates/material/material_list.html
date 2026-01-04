@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Materiales - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-fichas"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Materiales</h2>
+    <a href="{% url 'material:material_create' %}" class="btn btn-primary">+ Nuevo Material</a>
+  </div>
+
+  <!-- Buscador -->
+  <form method="get" class="flex gap-2 mb-2">
+    <input
+      type="text"
+      name="q"
+      value="{{ query }}"
+      placeholder="Buscar por nombre, tipo o descripción..."
+      class="form-control"
+      style="max-width: 400px;"
+    >
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+    {% if query %}
+      <a href="{% url 'material:material_list' %}" class="btn btn-ghost">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <p class="text-muted mb-2">{{ total }} material{{ total|pluralize:"es" }} encontrado{{ total|pluralize:"s" }}</p>
+
+  <!-- Tabla -->
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Fichas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for material in materiales %}
+        <tr>
+          <td>{{ material.id }}</td>
+          <td>
+            <a href="{% url 'material:material_detail' material.pk %}">
+              <strong>{{ material.nombre }}</strong>
+            </a>
+          </td>
+          <td>{{ material.tipo|default:"-" }}</td>
+          <td class="truncate">{{ material.descripcion|default:"-"|truncatewords:10 }}</td>
+          <td>
+            {% if material.num_fichas > 0 %}
+              <span class="badge badge-info">{{ material.num_fichas }}</span>
+            {% else %}
+              <span class="text-muted">0</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="flex gap-1">
+              <a href="{% url 'material:material_edit' material.pk %}" class="btn btn-sm btn-secondary">Editar</a>
+              <a href="{% url 'material:material_delete' material.pk %}" class="btn btn-sm btn-ghost">Eliminar</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="text-center text-muted">
+            {% if query %}
+              No se encontraron materiales con "{{ query }}"
+            {% else %}
+              No hay materiales registrados
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  {% if materiales.has_other_pages %}
+  <div class="pagination">
+    {% if materiales.has_previous %}
+      <a href="?page={{ materiales.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" class="btn btn-sm btn-secondary">Anterior</a>
+    {% endif %}
+
+    <span class="text-muted">
+      Página {{ materiales.number }} de {{ materiales.paginator.num_pages }}
+    </span>
+
+    {% if materiales.has_next %}
+      <a href="?page={{ materiales.next_page_number }}{% if query %}&q={{ query }}{% endif %}" class="btn btn-sm btn-secondary">Siguiente</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

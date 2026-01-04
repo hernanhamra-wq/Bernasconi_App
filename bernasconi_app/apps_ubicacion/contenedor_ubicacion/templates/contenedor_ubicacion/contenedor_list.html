@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contenedores - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-ubicaciones"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Contenedores</h2>
+    <a href="{% url 'contenedor:contenedor_create' %}" class="btn btn-primary">+ Nuevo Contenedor</a>
+  </div>
+
+  <!-- Filtros -->
+  <form method="get" class="flex gap-2 mb-2" style="flex-wrap: wrap;">
+    <input
+      type="text"
+      name="q"
+      value="{{ query }}"
+      placeholder="Buscar contenedor..."
+      class="form-control"
+      style="max-width: 200px;"
+    >
+    <select name="lugar" class="form-control" style="max-width: 180px;">
+      <option value="">-- Lugar --</option>
+      {% for l in lugares %}
+        <option value="{{ l.id }}" {% if lugar_id == l.id|stringformat:"s" %}selected{% endif %}>{{ l.nombre_lugar }}</option>
+      {% endfor %}
+    </select>
+    <select name="tipo" class="form-control" style="max-width: 150px;">
+      <option value="">-- Tipo --</option>
+      {% for value, label in tipos_contenedor %}
+        <option value="{{ value }}" {% if tipo == value %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <select name="estado" class="form-control" style="max-width: 150px;">
+      <option value="">-- Estado --</option>
+      {% for value, label in estados_contenedor %}
+        <option value="{{ value }}" {% if estado == value %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-secondary">Filtrar</button>
+    {% if query or lugar_id or tipo or estado %}
+      <a href="{% url 'contenedor:contenedor_list' %}" class="btn btn-ghost">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <p class="text-muted mb-2">{{ total }} contenedor{{ total|pluralize:"es" }}</p>
+
+  <!-- Tabla -->
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Lugar</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+          <th>Capacidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cont in contenedores %}
+        <tr>
+          <td>
+            <a href="{% url 'contenedor:contenedor_detail' cont.pk %}">
+              <strong>{{ cont.nombre_contenedor }}</strong>
+            </a>
+            {% if cont.fk_padre %}
+              <br><small class="text-muted">en {{ cont.fk_padre.nombre_contenedor }}</small>
+            {% endif %}
+          </td>
+          <td>{{ cont.fk_lugar_general.nombre_lugar }}</td>
+          <td>{{ cont.get_tipo_contenedor_display }}</td>
+          <td>
+            <span class="badge badge-{% if cont.estado == 'DISPONIBLE' %}success{% elif cont.estado == 'LLENO' %}error{% elif cont.estado == 'BAJA' %}error{% else %}warning{% endif %}">
+              {{ cont.get_estado_display }}
+            </span>
+          </td>
+          <td>
+            {% if cont.capacidad_maxima %}
+              {{ cont.obras_actuales }}/{{ cont.capacidad_maxima }}
+            {% else %}
+              <span class="text-muted">-</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="flex gap-1">
+              <a href="{% url 'contenedor:contenedor_edit' cont.pk %}" class="btn btn-sm btn-secondary">Editar</a>
+              <a href="{% url 'contenedor:contenedor_delete' cont.pk %}" class="btn btn-sm btn-ghost">Eliminar</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="text-center text-muted">
+            {% if query or lugar_id or tipo or estado %}
+              No se encontraron contenedores con los filtros aplicados
+            {% else %}
+              No hay contenedores registrados
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

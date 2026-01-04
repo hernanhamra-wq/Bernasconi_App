@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block page_bg %}<div class="page-bg {{ page_bg_class }}"></div>{% endblock %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+  <div class="card-header">
+    <h2>{{ page_title }}</h2>
+    <p class="text-muted">Ficha: {{ ficha.titulo|default:ficha.inventario }}</p>
+  </div>
+
+  <div class="card-body">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}" class="form-label">
+            {{ field.label }}
+            {% if field.field.required %}<span class="required">*</span>{% endif %}
+          </label>
+          {{ field }}
+          {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+          {% if field.errors %}
+            <div class="form-errors">
+              {% for error in field.errors %}
+                <span class="error">{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Subir Archivo</button>
+        <a href="{% url 'multimedia:ficha_multimedia_list' ficha_pk=ficha.pk %}" class="btn btn-secondary">
+          Cancelar
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

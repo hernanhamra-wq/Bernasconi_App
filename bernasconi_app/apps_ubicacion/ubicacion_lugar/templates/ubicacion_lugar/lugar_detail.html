@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ lugar.nombre_lugar }} - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-ubicaciones"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">{{ lugar.nombre_lugar }}</h2>
+    <div class="flex gap-1">
+      <a href="{% url 'ubicacion_lugar:lugar_edit' lugar.pk %}" class="btn btn-secondary">Editar</a>
+      <a href="{% url 'ubicacion_lugar:lugar_list' %}" class="btn btn-ghost">Volver</a>
+    </div>
+  </div>
+
+  <!-- Información del lugar -->
+  <div class="detail-section" style="border-top: none; padding-top: 0;">
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="label">Tipo</span>
+        <span class="value">
+          <span class="badge badge-primary">{{ lugar.get_tipo_lugar_display }}</span>
+        </span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Permite Contenedores</span>
+        <span class="value">
+          {% if lugar.permite_contenedores %}
+            <span class="badge badge-success">Sí</span>
+          {% else %}
+            <span class="badge badge-warning">No</span>
+          {% endif %}
+        </span>
+      </div>
+      <div class="detail-item" style="grid-column: 1 / -1;">
+        <span class="label">Observaciones</span>
+        <span class="value">{{ lugar.observacion|default:"Sin observaciones" }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedores -->
+  {% if lugar.permite_contenedores %}
+  <div class="detail-section">
+    <h3>Contenedores ({{ total_contenedores }})</h3>
+
+    {% if contenedores %}
+    <div class="table-container" style="max-height: 400px;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Capacidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cont in contenedores %}
+          <tr>
+            <td><strong>{{ cont.nombre_contenedor }}</strong></td>
+            <td>{{ cont.get_tipo_contenedor_display }}</td>
+            <td>
+              <span class="badge badge-{% if cont.estado == 'DISPONIBLE' %}success{% elif cont.estado == 'LLENO' %}error{% else %}warning{% endif %}">
+                {{ cont.get_estado_display }}
+              </span>
+            </td>
+            <td>
+              {% if cont.capacidad_maxima %}
+                {{ cont.obras_actuales }}/{{ cont.capacidad_maxima }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p class="text-muted">No hay contenedores en este lugar.</p>
+    {% endif %}
+
+    <div class="mt-2">
+      <a href="{% url 'contenedor:contenedor_create' %}?lugar={{ lugar.pk }}" class="btn btn-secondary">+ Agregar Contenedor</a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

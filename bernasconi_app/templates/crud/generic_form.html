@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg {{ page_bg_class|default:'bg-fichas' }}"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: {{ form_max_width|default:'600px' }};">
+  <div class="card-header">
+    <h2 class="card-title">{{ page_title }}</h2>
+  </div>
+
+  <form method="post" novalidate {% if form_enctype %}enctype="{{ form_enctype }}"{% endif %}>
+    {% csrf_token %}
+
+    {% if form_layout == 'grid' %}
+    <div class="detail-grid">
+    {% endif %}
+
+    {% for field in form %}
+      {% if field.is_hidden %}
+        {{ field }}
+      {% else %}
+        <div class="form-group" {% if form_layout == 'grid' and field.name in grid_full_width %}style="grid-column: 1 / -1;"{% endif %}>
+          <label for="{{ field.id_for_label }}" class="form-label">
+            {{ field.label }}{% if field.field.required %} *{% endif %}
+          </label>
+          {{ field }}
+          {% if field.help_text %}
+            <small class="text-muted">{{ field.help_text }}</small>
+          {% endif %}
+          {% if field.errors %}
+            <p style="color: var(--color-error); font-size: 0.85rem;">{{ field.errors.0 }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {% if form_layout == 'grid' %}
+    </div>
+    {% endif %}
+
+    <div class="flex gap-2 mt-3">
+      <button type="submit" class="btn btn-primary">
+        {{ submit_label|default:"Guardar" }}
+      </button>
+      <a href="{% url cancel_url %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

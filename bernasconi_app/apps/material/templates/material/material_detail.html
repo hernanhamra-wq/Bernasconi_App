@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ material.nombre }} - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-fichas"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">{{ material.nombre }}</h2>
+    <div class="flex gap-1">
+      <a href="{% url 'material:material_edit' material.pk %}" class="btn btn-secondary">Editar</a>
+      <a href="{% url 'material:material_list' %}" class="btn btn-ghost">Volver</a>
+    </div>
+  </div>
+
+  <!-- Información del material -->
+  <div class="detail-section" style="border-top: none; padding-top: 0;">
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="label">ID</span>
+        <span class="value">{{ material.id }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Nombre</span>
+        <span class="value">{{ material.nombre }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Tipo</span>
+        <span class="value">{{ material.tipo|default:"Sin especificar" }}</span>
+      </div>
+      <div class="detail-item" style="grid-column: 1 / -1;">
+        <span class="label">Descripción</span>
+        <span class="value">{{ material.descripcion|default:"Sin descripción" }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fichas asociadas -->
+  <div class="detail-section">
+    <h3>Fichas Asociadas ({{ total_fichas }})</h3>
+
+    {% if fichas %}
+    <div class="table-container" style="max-height: 400px;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID Ficha</th>
+            <th>Título</th>
+            <th>Detalle</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for fm in fichas %}
+          <tr>
+            <td>{{ fm.ficha.id }}</td>
+            <td class="truncate">{{ fm.ficha.titulo|default:"Sin título" }}</td>
+            <td>{{ fm.detalle|default:"-" }}</td>
+            <td>
+              <a href="{% url 'ficha_tecnica:editar_ficha_tecnica' fm.ficha.pk %}" class="btn btn-sm btn-ghost">Ver Ficha</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if total_fichas > 20 %}
+      <p class="text-muted mt-1">Mostrando las últimas 20 fichas de {{ total_fichas }} total.</p>
+    {% endif %}
+    {% else %}
+      <p class="text-muted">Este material no tiene fichas asociadas.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

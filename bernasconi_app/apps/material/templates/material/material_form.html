@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }} - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-fichas"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 600px;">
+  <div class="card-header">
+    <h2 class="card-title">{{ titulo }}</h2>
+  </div>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="id_nombre" class="form-label">Nombre *</label>
+      {{ form.nombre }}
+      {% if form.nombre.errors %}
+        <p class="text-muted" style="color: var(--color-error);">{{ form.nombre.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="id_tipo" class="form-label">Tipo</label>
+      {{ form.tipo }}
+      {% if form.tipo.errors %}
+        <p class="text-muted" style="color: var(--color-error);">{{ form.tipo.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="id_descripcion" class="form-label">Descripción</label>
+      {{ form.descripcion }}
+      {% if form.descripcion.errors %}
+        <p class="text-muted" style="color: var(--color-error);">{{ form.descripcion.errors.0 }}</p>
+      {% endif %}
+    </div>
+
+    <div class="flex gap-2 mt-3">
+      <button type="submit" class="btn btn-primary">
+        {% if is_edit %}Guardar Cambios{% else %}Crear Material{% endif %}
+      </button>
+      <a href="{% url 'material:material_list' %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

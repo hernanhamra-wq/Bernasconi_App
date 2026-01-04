@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lugares - Museo Bernasconi{% endblock %}
+
+{% block page_bg %}
+<div class="page-bg bg-ubicaciones"></div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Lugares</h2>
+    <a href="{% url 'ubicacion_lugar:lugar_create' %}" class="btn btn-primary">+ Nuevo Lugar</a>
+  </div>
+
+  <!-- Filtros -->
+  <form method="get" class="flex gap-2 mb-2" style="flex-wrap: wrap;">
+    <input
+      type="text"
+      name="q"
+      value="{{ query }}"
+      placeholder="Buscar lugar..."
+      class="form-control"
+      style="max-width: 250px;"
+    >
+    <select name="tipo" class="form-control" style="max-width: 200px;">
+      <option value="">-- Todos los tipos --</option>
+      {% for value, label in tipos_lugar %}
+        <option value="{{ value }}" {% if tipo == value %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-secondary">Filtrar</button>
+    {% if query or tipo %}
+      <a href="{% url 'ubicacion_lugar:lugar_list' %}" class="btn btn-ghost">Limpiar</a>
+    {% endif %}
+  </form>
+
+  <p class="text-muted mb-2">{{ total }} lugar{{ total|pluralize:"es" }}</p>
+
+  <!-- Tabla -->
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Contenedores</th>
+          <th>Contenedores?</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for lugar in lugares %}
+        <tr>
+          <td>
+            <a href="{% url 'ubicacion_lugar:lugar_detail' lugar.pk %}">
+              <strong>{{ lugar.nombre_lugar }}</strong>
+            </a>
+          </td>
+          <td>
+            <span class="badge badge-primary">{{ lugar.get_tipo_lugar_display }}</span>
+          </td>
+          <td>
+            {% if lugar.num_contenedores > 0 %}
+              <span class="badge badge-info">{{ lugar.num_contenedores }}</span>
+            {% else %}
+              <span class="text-muted">0</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if lugar.permite_contenedores %}
+              <span class="badge badge-success">Sí</span>
+            {% else %}
+              <span class="text-muted">No</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="flex gap-1">
+              <a href="{% url 'ubicacion_lugar:lugar_edit' lugar.pk %}" class="btn btn-sm btn-secondary">Editar</a>
+              <a href="{% url 'ubicacion_lugar:lugar_delete' lugar.pk %}" class="btn btn-sm btn-ghost">Eliminar</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center text-muted">
+            {% if query or tipo %}
+              No se encontraron lugares con los filtros aplicados
+            {% else %}
+              No hay lugares registrados
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
